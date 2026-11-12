@@ -565,6 +565,34 @@
       *, *::before, *::after { animation: none !important; transition: none !important; }
       .js .reveal { opacity: 1; transform: none; }
     }
+
+    /* =========================================================
+       PAINEL DO ADMIN
+       ========================================================= */
+    .admin { position: fixed; inset: 0; z-index: 300; background: rgba(0, 0, 0, .88); overflow-y: auto; padding: 20px 12px 40px; }
+    .admin-caixa { max-width: 860px; margin: 0 auto; background: var(--card); border: 1px solid var(--borda); border-radius: 22px; padding: 20px 16px; }
+    @media (min-width: 640px) { .admin-caixa { padding: 30px; } }
+    .admin-topo { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 10px; }
+    .admin-topo h2 { font-family: var(--fonte-script); font-weight: 400; color: var(--ouro); font-size: 1.8rem; }
+    .admin-fechar { flex: none; width: 44px; height: 44px; border-radius: 50%; border: 1px solid #444; background: none; font-size: 1.6rem; line-height: 1; cursor: pointer; }
+    .admin-fechar:hover { border-color: var(--ouro); color: var(--ouro); }
+    .admin-login { display: grid; gap: 14px; max-width: 380px; }
+    .admin-secao { border: 1px solid var(--borda); border-radius: 14px; margin-top: 12px; background: var(--card-2); }
+    .admin-secao summary { cursor: pointer; padding: 14px 16px; font-weight: 600; list-style: none; display: flex; justify-content: space-between; }
+    .admin-secao summary::-webkit-details-marker { display: none; }
+    .admin-secao summary::after { content: '+'; color: var(--ouro); font-weight: 700; }
+    .admin-secao[open] summary::after { content: '–'; }
+    .admin-corpo { padding: 4px 16px 18px; }
+    .admin-linha { display: grid; gap: 10px; padding: 14px 0; border-bottom: 1px dashed #3a3a3a; }
+    .campos.tres { display: grid; gap: 12px; }
+    @media (min-width: 640px) { .campos.tres { grid-template-columns: 2fr 1fr 1fr auto; align-items: end; } }
+    .admin-remover { justify-self: start; }
+    .admin-dias { display: flex; flex-wrap: wrap; gap: 8px; }
+    .admin-dias label, .admin-check { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border: 1px solid #3d3d3d; border-radius: 999px; font-size: .85rem; cursor: pointer; justify-self: start; }
+    .admin-dias input, .admin-check input { accent-color: var(--ouro); width: 16px; height: 16px; }
+    .admin input[type="time"] { color-scheme: dark; }
+    .admin-acoes { position: sticky; bottom: -40px; margin-top: 18px; padding: 12px 0; background: var(--card); }
+    .erro.admin-ok { color: #6ff0a6; }
   </style>
 </head>
 
@@ -973,13 +1001,18 @@
     <p class="copy">© <span id="ano">2026</span> Restaurante Pinheiro. Todos os direitos reservados.</p>
   </footer>
 
+  <!-- ===================== PAINEL DO ADMIN (5 toques no logo) ===================== -->
+  <div class="admin" id="admin" hidden role="dialog" aria-modal="true" aria-labelledby="admin-titulo">
+    <div class="admin-caixa" id="admin-caixa"></div>
+  </div>
+
   <!-- ===================== BOTÃO FLUTUANTE WHATSAPP ===================== -->
   <a class="wa-flutuante" id="wa-flutuante" href="#" target="_blank" rel="noopener" aria-label="Falar com o restaurante pelo WhatsApp">
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.66 15l-1.3 4.76a.5.5 0 0 0 .61.61L7.4 21.1A10 10 0 1 0 12 2Zm5.2 13.9c-.22.62-1.27 1.19-1.76 1.23-.47.05-.91.22-3.07-.64-2.6-1.03-4.24-3.7-4.37-3.87-.13-.17-1.04-1.39-1.04-2.65s.66-1.88.9-2.14c.23-.26.5-.32.67-.32h.48c.16 0 .37-.06.58.44.22.52.74 1.79.8 1.92.07.13.11.28.02.45-.09.17-.13.28-.26.43l-.39.45c-.13.13-.26.27-.11.53.15.26.67 1.1 1.43 1.78.98.88 1.81 1.15 2.07 1.28.26.13.41.11.56-.07.15-.17.65-.75.82-1.01.17-.26.35-.22.58-.13.24.09 1.5.71 1.76.84.26.13.43.19.5.3.06.11.06.63-.16 1.25Z"/></svg>
   </a>
 
   <script>
-  (function () {
+  (async function () {
     'use strict';
 
     /* ==========================================================
@@ -1103,6 +1136,23 @@
       }
     };
     /* ==================== FIM DA CONFIGURAÇÃO ==================== */
+
+    /* ---------- Dados salvos pelo painel do admin (Cloudflare) ----------
+       Ao abrir, o site busca a configuração salva pelo admin.
+       Se a internet falhar, usa os valores escritos acima como reserva. */
+    const API_URL = 'https://restaurante-pinheiro-api.marcony-123456.workers.dev';
+    async function carregarConfigRemota() {
+      try {
+        const controle = new AbortController();
+        const espera = setTimeout(() => controle.abort(), 4000);
+        const resposta = await fetch(API_URL + '/config', { signal: controle.signal, cache: 'no-store' });
+        clearTimeout(espera);
+        if (!resposta.ok) return;
+        const remoto = await resposta.json();
+        Object.keys(remoto).forEach((chave) => { CONFIG[chave] = remoto[chave]; });
+      } catch (e) { /* sem conexão: segue com os valores daqui */ }
+    }
+    await carregarConfigRemota();
 
 
     /* ==========================================================
@@ -2021,12 +2071,318 @@
     }
 
     /* ==========================================================
+       PAINEL DO ADMIN
+       Abre com 5 toques seguidos no logo do topo (ou com #admin no fim do endereço).
+       A senha é conferida pela API e fica só na memória: some ao recarregar a página.
+       ========================================================== */
+    const NOMES_SEMANA = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
+    let senhaAdmin = '';
+    let rascunho = null; // cópia do CONFIG que o admin está editando
+
+    const copia = (obj) => JSON.parse(JSON.stringify(obj));
+    const obter = (obj, caminho) => caminho.split('.').reduce((o, p) => (o == null ? o : o[p]), obj);
+    // Grava um valor em "a.b.0.c" (undefined apaga o campo)
+    function definir(obj, caminho, valor) {
+      const partes = caminho.split('.');
+      let atual = obj;
+      partes.slice(0, -1).forEach((p) => {
+        if (atual[p] == null) atual[p] = {};
+        atual = atual[p];
+      });
+      const ultima = partes[partes.length - 1];
+      if (valor === undefined) delete atual[ultima];
+      else atual[ultima] = valor;
+    }
+
+    /* ---------- Peças do formulário ---------- */
+    function campoAdmin(rotulo, caminho, valor, opts = {}) {
+      const id = 'adm-' + caminho.replace(/\./g, '-');
+      const tipo = opts.tipo || 'texto';
+      const attrs = ' id="' + id + '" data-caminho="' + caminho + '" data-tipo="' + tipo + '"';
+      let mostrar = valor == null ? '' : valor;
+      if ((tipo === 'numero' || tipo === 'numero-opcional') && mostrar !== '') mostrar = String(mostrar).replace('.', ',');
+      const entrada = tipo === 'linhas'
+        ? '<textarea' + attrs + ' rows="' + (opts.linhas || 6) + '">' + esc((valor || []).join('\n')) + '</textarea>'
+        : '<input' + attrs + ' type="' + (opts.html || 'text') + '"' + (opts.modo ? ' inputmode="' + opts.modo + '"' : '') + ' value="' + esc(mostrar) + '">';
+      return '<div class="campo' + (opts.inteiro ? ' inteiro' : '') + '"><label for="' + id + '">' + rotulo + '</label>' + entrada +
+        (opts.dica ? '<small class="nota">' + opts.dica + '</small>' : '') + '</div>';
+    }
+    const diasAdmin = (caminho, selecionados, dias, vazioRemove) =>
+      '<div class="admin-dias">' + dias.map((d) =>
+        '<label><input type="checkbox" data-caminho="' + caminho + '" data-tipo="lista-num" data-valor="' + d + '"' +
+        (vazioRemove ? ' data-vazio="remover"' : '') + ((selecionados || []).includes(d) ? ' checked' : '') + '> ' +
+        NOMES_SEMANA[d].slice(0, 3) + '</label>').join('') + '</div>';
+    const checkAdmin = (rotulo, caminho, marcado, valor = 'true') =>
+      '<label class="admin-check"><input type="checkbox" data-caminho="' + caminho + '" data-tipo="marcar" data-valor="' + valor + '"' +
+      (marcado ? ' checked' : '') + '> ' + rotulo + '</label>';
+    const botaoAdmin = (texto, acao, lista, i) =>
+      '<button type="button" class="' + (acao === 'remover' ? 'btn-editar admin-remover' : 'btn btn-secundario btn-pequeno') +
+      '" data-admin="' + acao + '" data-lista="' + lista + '"' + (i != null ? ' data-i="' + i + '"' : '') + '>' + texto + '</button>';
+    const secaoAdmin = (titulo, corpo, aberta) =>
+      '<details class="admin-secao"' + (aberta ? ' open' : '') + '><summary>' + titulo + '</summary><div class="admin-corpo">' + corpo + '</div></details>';
+
+    /* ---------- Formulário completo ---------- */
+    function editorAdmin() {
+      const r = rascunho;
+      const m = r.montador;
+
+      const contato = '<div class="campos duas">' +
+        campoAdmin('WhatsApp do restaurante', 'contato.whatsapp', r.contato.whatsapp, { modo: 'numeric', dica: 'Só números: 55 + DDD + número. Ex.: 5581999999999' }) +
+        campoAdmin('Instagram (@)', 'contato.instagramUsuario', r.contato.instagramUsuario) +
+        campoAdmin('Link do Instagram', 'contato.instagramUrl', r.contato.instagramUrl, { inteiro: true }) +
+        campoAdmin('Mensagem do botão verde do WhatsApp', 'contato.mensagemPadrao', r.contato.mensagemPadrao, { inteiro: true }) +
+        campoAdmin('Foto principal (link da imagem)', 'imagens.hero', (r.imagens || {}).hero, { inteiro: true, dica: 'Deixe vazio para mostrar o bloco decorativo.' }) +
+        '</div>';
+
+      const horario = '<span class="grupo-titulo">Dias abertos</span>' + diasAdmin('horario.dias', r.horario.dias, [0, 1, 2, 3, 4, 5, 6], false) +
+        '<div class="campos duas" style="margin-top:14px">' +
+        campoAdmin('Abre às', 'horario.abertura', r.horario.abertura, { html: 'time' }) +
+        campoAdmin('Fecha às', 'horario.fechamento', r.horario.fechamento, { html: 'time' }) +
+        campoAdmin('Texto do horário no site', 'horario.texto', r.horario.texto, { inteiro: true, dica: 'Ex.: Segunda a sexta, das 11h às 15h' }) +
+        '</div>';
+
+      const precos = '<div class="campos duas">' +
+        campoAdmin('Taxa de entrega (R$)', 'montador.taxaEntrega', m.taxaEntrega, { tipo: 'numero', modo: 'decimal' }) +
+        campoAdmin('Máximo de misturas por marmita', 'montador.maxMisturas', m.maxMisturas, { tipo: 'numero', modo: 'numeric' }) +
+        '</div><span class="grupo-titulo">Tamanhos e preços</span>' +
+        m.tamanhos.map((t, i) => {
+          const base = 'montador.tamanhos.' + i;
+          return '<div class="admin-linha"><div class="campos duas">' +
+            campoAdmin('Nome', base + '.nome', t.nome) +
+            campoAdmin('Preço (R$)', base + '.preco', t.preco, { tipo: 'numero', modo: 'decimal' }) +
+            campoAdmin('Descrição', base + '.descricao', t.descricao, { inteiro: true }) + '</div>' +
+            checkAdmin('Para comer no restaurante (sem entrega)', base + '.local', t.local) +
+            botaoAdmin('Remover tamanho', 'remover', 'montador.tamanhos', i) + '</div>';
+        }).join('') + botaoAdmin('+ Adicionar tamanho', 'adicionar', 'montador.tamanhos');
+
+      const extras = m.extras.map((ex, i) => {
+        const base = 'montador.extras.' + i;
+        if (ex.sabores) {
+          return '<div class="admin-linha"><div class="campos duas">' +
+            campoAdmin('Nome', base + '.nome', ex.nome) +
+            campoAdmin('Sabores (um por linha)', base + '.sabores', ex.sabores, { tipo: 'linhas', linhas: 5 }) + '</div>' +
+            '<span class="grupo-titulo">Tamanhos do ' + esc(ex.nome.toLowerCase()) + '</span>' +
+            (ex.tamanhos || []).map((t, j) => '<div class="campos tres">' +
+              campoAdmin('Tamanho', base + '.tamanhos.' + j + '.nome', t.nome) +
+              campoAdmin('ml', base + '.tamanhos.' + j + '.ml', t.ml, { tipo: 'numero-opcional', modo: 'numeric' }) +
+              campoAdmin('Preço (R$)', base + '.tamanhos.' + j + '.preco', t.preco, { tipo: 'numero', modo: 'decimal' }) +
+              botaoAdmin('Remover', 'remover', base + '.tamanhos', j) + '</div>').join('') +
+            botaoAdmin('+ Adicionar tamanho', 'adicionar', base + '.tamanhos') + '</div>';
+        }
+        return '<div class="admin-linha"><div class="campos tres">' +
+          campoAdmin('Item', base + '.nome', ex.nome) +
+          campoAdmin('ml (opcional)', base + '.ml', ex.ml, { tipo: 'numero-opcional', modo: 'numeric' }) +
+          campoAdmin('Preço (R$)', base + '.preco', ex.preco, { tipo: 'numero', modo: 'decimal' }) +
+          botaoAdmin('Remover', 'remover', 'montador.extras', i) + '</div></div>';
+      }).join('') + botaoAdmin('+ Adicionar item', 'adicionar', 'montador.extras');
+
+      const cardapio = '<div class="campos duas">' + DIAS_UTEIS.map((d) =>
+        campoAdmin(CONFIG.diasNomes[d] + ' (uma mistura por linha)', 'cardapio.' + d, r.cardapio[d], { tipo: 'linhas', linhas: 11 })
+      ).join('') + '</div>';
+
+      const listaAcomp = (chave, comFeijao) => r[chave].map((a, i) => {
+        const base = chave + '.' + i;
+        return '<div class="admin-linha"><div class="campos duas">' + campoAdmin('Nome', base + '.nome', a.nome) + '</div>' +
+          '<small class="nota">Só em alguns dias? Marque os dias. Sem marcar = todo dia.</small>' +
+          diasAdmin(base + '.dias', a.dias, DIAS_UTEIS, true) +
+          (comFeijao ? checkAdmin('É feijão (o cliente escolhe só 1)', base + '.grupo', a.grupo === 'feijao', 'feijao') : '') +
+          botaoAdmin('Remover', 'remover', chave, i) + '</div>';
+      }).join('') + botaoAdmin('+ Adicionar', 'adicionar', chave);
+      const acomp = '<span class="grupo-titulo">Acompanhamentos</span>' + listaAcomp('acompanhamentos', true) +
+        '<span class="grupo-titulo">Opções especiais</span>' + listaAcomp('especiais', false) +
+        '<div class="campos" style="margin-top:18px">' +
+        campoAdmin('Verduras e legumes (uma por linha)', 'verduras', r.verduras, { tipo: 'linhas', linhas: 9 }) + '</div>';
+
+      return secaoAdmin('Contato e foto', contato, true) +
+        secaoAdmin('Horário de funcionamento', horario) +
+        secaoAdmin('Preços das marmitas e entrega', precos) +
+        secaoAdmin('Bebidas e extras', extras) +
+        secaoAdmin('Cardápio da semana', cardapio) +
+        secaoAdmin('Acompanhamentos e verduras', acomp);
+    }
+
+    // Lê tudo o que está no formulário para o rascunho
+    function lerFormulario() {
+      const listas = {};
+      $$('#admin [data-caminho]').forEach((el) => {
+        const caminho = el.dataset.caminho;
+        const tipo = el.dataset.tipo;
+        if (tipo === 'lista-num') {
+          if (!listas[caminho]) listas[caminho] = { valores: [], remover: el.dataset.vazio === 'remover' };
+          if (el.checked) listas[caminho].valores.push(Number(el.dataset.valor));
+          return;
+        }
+        let v;
+        if (tipo === 'numero') { const n = paraNumero(el.value); v = isNaN(n) ? 0 : n; }
+        else if (tipo === 'numero-opcional') { const n = paraNumero(el.value); v = !el.value.trim() || isNaN(n) ? undefined : n; }
+        else if (tipo === 'linhas') v = el.value.split('\n').map((s) => s.trim()).filter(Boolean);
+        else if (tipo === 'marcar') v = el.checked ? (el.dataset.valor === 'true' ? true : el.dataset.valor) : undefined;
+        else v = el.value.trim();
+        definir(rascunho, caminho, v);
+      });
+      Object.keys(listas).forEach((c) => {
+        const { valores, remover } = listas[c];
+        definir(rascunho, c, valores.length || !remover ? valores : undefined);
+      });
+    }
+
+    function validarRascunho() {
+      const r = rascunho;
+      const zap = String(r.contato.whatsapp || '').replace(/\D/g, '');
+      if (zap.length < 12 || zap.length > 13) return 'WhatsApp inválido: use 55 + DDD + número (12 ou 13 dígitos).';
+      r.contato.whatsapp = zap;
+      if (!/^\d{2}:\d{2}$/.test(r.horario.abertura) || !/^\d{2}:\d{2}$/.test(r.horario.fechamento)) return 'Informe os horários de abertura e fechamento.';
+      r.montador.maxMisturas = Math.round(r.montador.maxMisturas);
+      if (r.montador.maxMisturas < 1) return 'O máximo de misturas precisa ser 1 ou mais.';
+      if (!r.montador.tamanhos.length) return 'Cadastre pelo menos um tamanho de marmita.';
+      if (r.montador.tamanhos.some((t) => !t.nome)) return 'Todo tamanho de marmita precisa de um nome.';
+      if (DIAS_UTEIS.some((d) => !(r.cardapio[d] || []).length)) return 'Cada dia do cardápio precisa de pelo menos uma mistura.';
+      return '';
+    }
+
+    function novoItem(lista) {
+      const id = Date.now().toString(36);
+      if (lista === 'montador.tamanhos') return { id: 't' + id, nome: 'Novo tamanho', descricao: '', preco: 0 };
+      if (lista === 'montador.extras') return { id: 'x' + id, nome: 'Novo item', preco: 0 };
+      if (/^montador\.extras\.\d+\.tamanhos$/.test(lista)) return { id: 's' + id, nome: 'Novo tamanho', ml: 500, preco: 0 };
+      return { nome: 'Novo item' };
+    }
+
+    function msgAdmin(texto, ok) {
+      const el = $('#admin-msg');
+      if (!el) return;
+      el.textContent = texto;
+      el.classList.toggle('admin-ok', !!ok);
+    }
+
+    function renderAdmin() {
+      const topo = '<div class="admin-topo"><h2 id="admin-titulo">Painel do restaurante</h2>' +
+        '<button type="button" class="admin-fechar" data-admin="fechar" aria-label="Fechar painel">×</button></div>';
+      if (!senhaAdmin) {
+        $('#admin-caixa').innerHTML = topo +
+          '<form id="admin-login" class="admin-login">' +
+          '<div class="campo"><label for="admin-senha">Senha do admin</label>' +
+          '<input id="admin-senha" type="password" autocomplete="current-password" required></div>' +
+          '<button type="submit" class="btn btn-primario">Entrar</button>' +
+          '<p class="erro" id="admin-msg" role="alert"></p></form>';
+        $('#admin-senha').focus();
+        return;
+      }
+      $('#admin-caixa').innerHTML = topo +
+        '<p class="passo-dica">Altere o que precisar e toque em <strong>Salvar alterações</strong>. Os clientes veem a mudança ao abrir o site.</p>' +
+        '<div id="admin-editor">' + editorAdmin() + '</div>' +
+        '<div class="admin-acoes"><p class="erro" id="admin-msg" role="alert"></p><div class="mont-nav">' +
+        '<button type="button" class="btn btn-secundario" data-admin="sair">Sair</button>' +
+        '<button type="button" class="btn btn-primario" data-admin="salvar">Salvar alterações</button></div></div>';
+    }
+    // Redesenha só o formulário (ao adicionar/remover itens) sem fechar as seções abertas
+    function redesenharEditor() {
+      const abertas = $$('#admin-editor details').map((d) => d.open);
+      $('#admin-editor').innerHTML = editorAdmin();
+      $$('#admin-editor details').forEach((d, i) => { d.open = !!abertas[i]; });
+    }
+
+    async function entrarAdmin(senha) {
+      msgAdmin('Conferindo a senha…');
+      try {
+        const resposta = await fetch(API_URL + '/verificar', { headers: { Authorization: 'Bearer ' + senha } });
+        if (resposta.ok) {
+          senhaAdmin = senha;
+          rascunho = copia(CONFIG);
+          renderAdmin();
+          return;
+        }
+        const dados = await resposta.json().catch(() => ({}));
+        msgAdmin(dados.erro || 'Não foi possível entrar.');
+      } catch (e) {
+        msgAdmin('Sem conexão com o servidor. Tente de novo.');
+      }
+    }
+
+    async function salvarAdmin(botao) {
+      lerFormulario();
+      const erro = validarRascunho();
+      if (erro) { msgAdmin(erro); return; }
+      botao.disabled = true;
+      msgAdmin('Salvando…');
+      try {
+        const resposta = await fetch(API_URL + '/config', {
+          method: 'PUT',
+          headers: { Authorization: 'Bearer ' + senhaAdmin, 'Content-Type': 'application/json' },
+          body: JSON.stringify(rascunho)
+        });
+        if (resposta.status === 401) {
+          senhaAdmin = '';
+          renderAdmin();
+          msgAdmin('A senha mudou ou expirou. Entre de novo; suas alterações continuam aqui.');
+          return;
+        }
+        if (!resposta.ok) {
+          const dados = await resposta.json().catch(() => ({}));
+          msgAdmin('Não foi possível salvar: ' + (dados.erro || 'erro ' + resposta.status));
+          return;
+        }
+        msgAdmin('Alterações salvas! Atualizando o site…', true);
+        setTimeout(() => window.location.reload(), 1200);
+      } catch (e) {
+        msgAdmin('Sem conexão com o servidor. Tente de novo.');
+      } finally {
+        botao.disabled = false;
+      }
+    }
+
+    function configurarAdmin() {
+      const painel = $('#admin');
+      const abrir = () => { painel.hidden = false; document.body.style.overflow = 'hidden'; renderAdmin(); };
+      const fechar = () => {
+        if (senhaAdmin && $('#admin-editor')) lerFormulario(); // guarda o que foi digitado
+        painel.hidden = true;
+        document.body.style.overflow = '';
+        if (window.location.hash === '#admin') history.replaceState(null, '', window.location.pathname + window.location.search);
+      };
+
+      // 5 toques seguidos no logo do topo abrem o painel
+      let toques = 0;
+      let zerar;
+      $('#header .logo').addEventListener('click', () => {
+        toques += 1;
+        clearTimeout(zerar);
+        zerar = setTimeout(() => { toques = 0; }, 2500);
+        if (toques >= 5) { toques = 0; abrir(); }
+      });
+      if (window.location.hash === '#admin') abrir();
+
+      painel.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (e.target.id === 'admin-login') entrarAdmin($('#admin-senha').value);
+      });
+      painel.addEventListener('click', (e) => {
+        const b = e.target.closest('[data-admin]');
+        if (!b) return;
+        const acao = b.dataset.admin;
+        if (acao === 'fechar') fechar();
+        else if (acao === 'sair') { senhaAdmin = ''; rascunho = null; fechar(); }
+        else if (acao === 'salvar') salvarAdmin(b);
+        else if (acao === 'adicionar' || acao === 'remover') {
+          lerFormulario();
+          const lista = obter(rascunho, b.dataset.lista);
+          if (!Array.isArray(lista)) return;
+          if (acao === 'adicionar') lista.push(novoItem(b.dataset.lista));
+          else lista.splice(Number(b.dataset.i), 1);
+          redesenharEditor();
+        }
+      });
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !painel.hidden) fechar(); });
+    }
+
+    /* ==========================================================
        INICIALIZAÇÃO
        ========================================================== */
     preencherDados();
     configurarMontador();
     montarCardapio(HOJE);
     configurarMenu();
+    configurarAdmin();
     configurarAnimacoes();
     atualizarStatus();
     setInterval(atualizarStatus, 60 * 1000);

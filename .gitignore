@@ -1,0 +1,3 @@
+# Arquivos temporários da Cloudflare (Wrangler)
+.wrangler/
+node_modules/

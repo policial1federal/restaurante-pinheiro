@@ -1,6 +1,7 @@
 // Configuração da Cloudflare para a API do Restaurante Pinheiro
 {
   "name": "restaurante-pinheiro-api",
+  "main": "src/index.js",
   "compatibility_date": "2026-10-01",
   "d1_databases": [
     {
