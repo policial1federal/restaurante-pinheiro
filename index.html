@@ -1,0 +1,2057 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- ===================== SEO BÁSICO ===================== -->
+  <title>Restaurante Pinheiro | Monte seu almoço – Comida caseira no Ipsep, Recife</title>
+  <meta name="description" content="Restaurante Pinheiro no Ipsep, Recife – PE. Comida caseira todo dia. Monte sua marmita escolhendo mistura, acompanhamentos e verduras e peça pelo WhatsApp. Retirada ou entrega.">
+  <meta name="theme-color" content="#111111">
+
+  <!-- Open Graph (aparência do link ao compartilhar no WhatsApp/Facebook) -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="Restaurante Pinheiro">
+  <meta property="og:title" content="Restaurante Pinheiro – O seu almoço, do seu jeito!">
+  <meta property="og:description" content="Comida caseira todo dia. Monte sua marmita e peça pelo WhatsApp. Rua Abdias Cabral de Moura, 14 – Ipsep, Recife – PE.">
+  <!-- Troque pela URL completa de uma foto do prato (depois de publicar o site) -->
+  <meta property="og:image" content="[COLOCAR URL COMPLETA DA FOTO]">
+
+  <!-- Ícone da aba (chapéu de chef) -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23111'/%3E%3Cg fill='%23F5B800'%3E%3Ccircle cx='21' cy='26' r='10'/%3E%3Ccircle cx='32' cy='19' r='12'/%3E%3Ccircle cx='43' cy='26' r='10'/%3E%3Crect x='17' y='28' width='30' height='16'/%3E%3Crect x='15' y='46' width='34' height='7' rx='2'/%3E%3C/g%3E%3C/svg%3E">
+
+  <!-- Fontes do Google: Kaushan Script (títulos) e Poppins (textos) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Dados estruturados schema.org.
+       ATENÇÃO: ao mudar telefone/horário no CONFIG do script, atualize aqui também. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Restaurant",
+    "name": "Restaurante Pinheiro",
+    "slogan": "Comida caseira todo dia",
+    "description": "Comida caseira todo dia. O seu almoço, do seu jeito! Marmitas com retirada e entrega.",
+    "servesCuisine": ["Brasileira", "Comida caseira", "Nordestina"],
+    "acceptsReservations": false,
+    "hasMenu": "#cardapio",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Rua Abdias Cabral de Moura, 14 - Ipsep",
+      "addressLocality": "Recife",
+      "addressRegion": "PE",
+      "addressCountry": "BR"
+    },
+    "telephone": "[NÚMERO COM DDI+DDD]",
+    "openingHoursSpecification": [{
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      "opens": "11:00",
+      "closes": "15:00"
+    }],
+    "sameAs": ["https://www.instagram.com/COLOCAR_INSTAGRAM/"]
+  }
+  </script>
+
+  <!-- Marca que o JavaScript está ativo (usado nas animações; sem JS o conteúdo aparece normalmente) -->
+  <script>document.documentElement.classList.add('js');</script>
+
+  <style>
+    /* =========================================================
+       VARIÁVEIS (identidade visual)
+       ========================================================= */
+    :root {
+      --fundo: #111111;
+      --fundo-alt: #161616;
+      --card: #1c1c1c;
+      --card-2: #242424;
+      --borda: #2e2e2e;
+      --ouro: #F5B800;
+      --ouro-claro: #ffcb2e;
+      --texto: #ffffff;
+      --texto-suave: #d4d4d4;
+      --vermelho: #ff8a8d;
+      --verde-wa: #25D366;
+      --raio: 18px;
+      --altura-header: 72px;
+      --fonte-script: 'Kaushan Script', cursive;
+    }
+
+    /* =========================================================
+       BASE
+       ========================================================= */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    [hidden] { display: none !important; }
+    html { scroll-behavior: smooth; scroll-padding-top: calc(var(--altura-header) + 12px); }
+    body {
+      font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      background: var(--fundo);
+      color: var(--texto);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: var(--ouro); }
+    ul, ol { list-style: none; }
+    button, input, textarea, select { font: inherit; color: inherit; }
+    :focus-visible { outline: 3px solid var(--texto); outline-offset: 3px; border-radius: 6px; }
+
+    .container { width: min(1120px, calc(100% - 32px)); margin-inline: auto; }
+
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+    }
+    .pular {
+      position: absolute; left: -9999px; top: 12px; z-index: 200;
+      background: var(--ouro); color: #111; padding: 10px 16px; border-radius: 8px; font-weight: 600;
+    }
+    .pular:focus { left: 12px; }
+
+    /* =========================================================
+       TÍTULOS COM PINCELADA
+       ========================================================= */
+    .eyebrow {
+      display: inline-block; color: var(--ouro); font-weight: 600;
+      font-size: .8rem; letter-spacing: .18em; text-transform: uppercase;
+    }
+    .titulo-script {
+      font-family: var(--fonte-script); font-weight: 400;
+      font-size: clamp(2.1rem, 7.5vw, 3.2rem); line-height: 1.25;
+      position: relative; display: inline-block; z-index: 0; padding: 0 .25em;
+    }
+    /* Pincelada amarela atrás do título */
+    .titulo-script::before {
+      content: ""; position: absolute; z-index: -1;
+      left: -.1em; right: -.1em; bottom: .14em; height: .5em;
+      background: var(--ouro); opacity: .4;
+      border-radius: 45% 55% 40% 60% / 70% 40% 60% 30%;
+      transform: rotate(-2deg) skewX(-12deg);
+    }
+    .secao-cab { text-align: center; margin-bottom: 36px; }
+    .secao-cab .titulo-script { margin-top: 6px; }
+    .secao-cab p.sub { color: var(--texto-suave); max-width: 56ch; margin: 12px auto 0; }
+
+    /* =========================================================
+       BOTÕES
+       ========================================================= */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      min-height: 50px; padding: 12px 24px;
+      border-radius: 999px; border: 2px solid var(--ouro);
+      font-size: 1rem; font-weight: 600; text-decoration: none; text-align: center;
+      cursor: pointer;
+      transition: transform .2s ease, background .2s ease, color .2s ease, box-shadow .2s ease, opacity .2s;
+    }
+    .btn svg { width: 22px; height: 22px; flex: none; }
+    .btn-primario { background: var(--ouro); color: #111; }
+    .btn-primario:hover { background: var(--ouro-claro); transform: translateY(-2px); box-shadow: 0 10px 24px rgba(245, 184, 0, .25); }
+    .btn-secundario { background: transparent; color: var(--ouro); }
+    .btn-secundario:hover { background: var(--ouro); color: #111; }
+    .btn-wa { background: var(--verde-wa); border-color: var(--verde-wa); color: #0b0b0b; }
+    .btn-wa:hover { filter: brightness(1.08); transform: translateY(-2px); }
+    .btn-pequeno { min-height: 42px; padding: 8px 18px; font-size: .9rem; }
+
+    /* =========================================================
+       STATUS ABERTO / FECHADO
+       ========================================================= */
+    .status {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: .85rem; font-weight: 600;
+      padding: 6px 14px; border-radius: 999px;
+      background: #1f1f1f; border: 1px solid #333;
+    }
+    .status::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: #777; }
+    .status.aberto { color: #6ff0a6; }
+    .status.aberto::before { background: #3ddc84; box-shadow: 0 0 0 4px rgba(61, 220, 132, .2); }
+    .status.fechado { color: var(--vermelho); }
+    .status.fechado::before { background: #e5484d; }
+
+    /* =========================================================
+       HEADER FIXO + MENU
+       ========================================================= */
+    .header {
+      position: fixed; inset: 0 0 auto 0; z-index: 100;
+      background: rgba(17, 17, 17, .92);
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid transparent;
+      transition: border-color .3s, box-shadow .3s;
+    }
+    .header.rolado { border-color: var(--borda); box-shadow: 0 6px 24px rgba(0, 0, 0, .45); }
+    .cabecalho { display: flex; align-items: center; justify-content: space-between; gap: 10px; height: var(--altura-header); }
+
+    .logo { display: flex; align-items: center; gap: 8px; color: var(--texto); text-decoration: none; flex: none; }
+    .logo svg { width: 38px; height: 38px; color: var(--ouro); flex: none; }
+    .logo-nome { font-family: var(--fonte-script); font-size: 1.35rem; line-height: 1; }
+    .logo-nome small { display: block; font-family: 'Poppins', sans-serif; font-size: .58rem; letter-spacing: .2em; text-transform: uppercase; color: var(--ouro); margin-bottom: 3px; }
+
+    .header-acoes { display: flex; align-items: center; gap: 4px; }
+    .btn-header { min-height: 40px; padding: 7px 14px; font-size: .8rem; white-space: nowrap; }
+
+    /* Menu no celular */
+    .nav {
+      display: none; position: absolute; top: var(--altura-header); left: 0; right: 0;
+      flex-direction: column; background: #141414; border-bottom: 1px solid var(--borda);
+      padding: 6px 16px 18px;
+    }
+    .nav.aberto { display: flex; }
+    .nav a { color: var(--texto); text-decoration: none; font-weight: 500; padding: 14px 6px; border-bottom: 1px solid var(--borda); }
+    .nav a:hover { color: var(--ouro); }
+
+    .menu-toggle {
+      width: 46px; height: 46px; background: none; border: 0; cursor: pointer;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+    }
+    .menu-toggle span { display: block; width: 24px; height: 2px; background: var(--texto); border-radius: 2px; transition: transform .3s, opacity .3s; }
+    .menu-toggle.ativo span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .menu-toggle.ativo span:nth-child(2) { opacity: 0; }
+    .menu-toggle.ativo span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+    @media (min-width: 980px) {
+      .menu-toggle { display: none; }
+      .nav, .nav.aberto { display: flex; position: static; flex-direction: row; gap: 26px; background: none; border: 0; padding: 0; }
+      .nav a { padding: 6px 0; border: 0; position: relative; }
+      .nav a::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--ouro); transform: scaleX(0); transition: transform .25s; }
+      .nav a:hover::after { transform: scaleX(1); }
+      .btn-header { padding: 9px 20px; font-size: .9rem; }
+    }
+
+    /* =========================================================
+       HERO
+       ========================================================= */
+    .hero {
+      min-height: 100vh; min-height: 100svh; display: flex; align-items: center;
+      padding: calc(var(--altura-header) + 40px) 0 64px;
+      background:
+        radial-gradient(circle at 85% 15%, rgba(245, 184, 0, .18), transparent 45%),
+        radial-gradient(circle at 5% 90%, rgba(245, 184, 0, .08), transparent 40%),
+        var(--fundo);
+    }
+    .hero-grid { display: grid; gap: 44px; align-items: center; }
+    .hero h1 {
+      font-family: var(--fonte-script); font-weight: 400;
+      font-size: clamp(2.8rem, 12vw, 5.2rem); line-height: 1.1; color: var(--ouro);
+      margin: 10px 0 14px; text-shadow: 0 4px 30px rgba(245, 184, 0, .2);
+    }
+    .hero .lead { font-size: clamp(1.25rem, 4.6vw, 1.7rem); font-weight: 600; }
+    .hero .frase { color: var(--texto-suave); margin-top: 6px; font-size: 1.05rem; }
+    .status-linha { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 22px; }
+    .horario-txt { color: var(--texto-suave); font-size: .92rem; }
+    .hero-acoes { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+    .hero-acoes .btn { flex: 1 1 220px; }
+
+    .hero-imagem { position: relative; }
+    .hero-imagem img, .hero-imagem .placeholder {
+      width: 100%; aspect-ratio: 4 / 3; object-fit: cover;
+      border-radius: 26px; border: 3px solid var(--ouro);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, .65);
+    }
+    .hero-imagem .selo {
+      position: absolute; left: -6px; bottom: -18px;
+      background: var(--ouro); color: #111; font-family: var(--fonte-script); font-size: 1.1rem;
+      padding: 8px 20px; border-radius: 999px; transform: rotate(-4deg);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, .5);
+    }
+    .hero-imagem .placeholder {
+      display: none; place-items: center; text-align: center; padding: 24px;
+      background: linear-gradient(135deg, #2b2410, #141414 70%);
+      color: var(--ouro); font-family: var(--fonte-script); font-size: 1.7rem;
+    }
+    .hero-imagem.sem-imagem img { display: none; }
+    .hero-imagem.sem-imagem .placeholder { display: grid; }
+    @media (min-width: 980px) {
+      .hero-grid { grid-template-columns: 1.05fr 1fr; gap: 56px; }
+      .hero-acoes .btn { flex: 0 0 auto; }
+    }
+
+    /* =========================================================
+       SEÇÕES
+       ========================================================= */
+    .secao { padding: 80px 0; }
+    .secao-alt { background: var(--fundo-alt); }
+
+    /* ---------- Cardápio: abas ---------- */
+    .abas { display: flex; gap: 10px; overflow-x: auto; scrollbar-width: none; padding: 14px 4px 6px; margin: 0 -4px; }
+    .abas::-webkit-scrollbar { display: none; }
+    @media (min-width: 700px) { .abas { justify-content: center; } }
+    .aba {
+      position: relative; flex: 0 0 auto; min-height: 46px; padding: 10px 22px;
+      background: var(--card); border: 1px solid #353535; border-radius: 999px;
+      font-size: .95rem; font-weight: 600; cursor: pointer;
+      transition: background .2s, color .2s, border-color .2s;
+    }
+    .aba:hover { border-color: var(--ouro); }
+    .aba[aria-selected="true"] { background: var(--ouro); color: #111; border-color: var(--ouro); }
+    .selo-hoje {
+      position: absolute; top: -11px; right: -6px; background: #e5484d; color: #fff;
+      font-size: .62rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+      padding: 2px 8px; border-radius: 999px; box-shadow: 0 4px 10px rgba(0, 0, 0, .4);
+    }
+    .painel { margin-top: 22px; padding: 26px 20px; background: var(--card); border: 1px solid var(--borda); border-radius: var(--raio); }
+    .painel-titulo { font-family: var(--fonte-script); font-weight: 400; color: var(--ouro); font-size: 1.7rem; margin-bottom: 18px; }
+    .painel-acoes { margin-top: 22px; display: flex; justify-content: center; }
+    @media (min-width: 640px) { .painel { padding: 34px; } }
+
+    .aviso-fds {
+      text-align: center; margin-bottom: 18px; padding: 22px 18px;
+      border: 2px dashed var(--ouro); border-radius: var(--raio); background: rgba(245, 184, 0, .07);
+    }
+    .aviso-fds strong { display: block; font-family: var(--fonte-script); font-weight: 400; font-size: 1.9rem; color: var(--ouro); }
+    .aviso-fds p { color: var(--texto-suave); }
+
+    /* ---------- Listas com check amarelo ---------- */
+    .lista-itens { display: grid; gap: 10px 20px; grid-template-columns: 1fr; }
+    @media (min-width: 640px) { .lista-itens { grid-template-columns: 1fr 1fr; } }
+    .lista-itens li { display: flex; align-items: center; gap: 12px; padding: 12px 14px; background: var(--card-2); border-radius: 12px; font-weight: 500; }
+    .check { flex: 0 0 24px; height: 24px; border-radius: 50%; background: var(--ouro); position: relative; }
+    .check::after {
+      content: ""; position: absolute; left: 8.5px; top: 4.5px; width: 6px; height: 11px;
+      border: solid #111; border-width: 0 2.6px 2.6px 0; transform: rotate(45deg);
+    }
+
+    /* =========================================================
+       MONTADOR DE ALMOÇO
+       ========================================================= */
+    .montador {
+      max-width: 880px; margin: 0 auto; padding: 20px 16px 24px;
+      background: var(--card); border: 1px solid var(--borda); border-radius: 26px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, .45);
+    }
+    @media (min-width: 640px) { .montador { padding: 32px; } }
+
+    .mont-topo { display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; margin-bottom: 12px; }
+    .mont-info span { display: block; font-size: .8rem; color: var(--texto-suave); }
+    .mont-info strong { font-size: 1.15rem; }
+    .mont-total { text-align: right; font-size: .8rem; color: var(--texto-suave); white-space: nowrap; }
+    .mont-total strong { display: block; color: var(--ouro); font-size: 1.3rem; line-height: 1.2; }
+
+    /* Barra de progresso */
+    .progresso { height: 8px; background: #2c2c2c; border-radius: 999px; overflow: hidden; }
+    .progresso-barra { height: 100%; width: 12.5%; background: linear-gradient(90deg, #c99400, var(--ouro)); border-radius: 999px; transition: width .4s ease; }
+
+    /* Bolinhas das etapas */
+    .etapas { display: flex; justify-content: space-between; gap: 2px; margin: 14px 0 22px; }
+    .etapas li { display: flex; flex-direction: column; align-items: center; flex: 1; min-width: 0; }
+    .etapas button {
+      width: 32px; height: 32px; border-radius: 50%; border: 2px solid #3d3d3d;
+      background: transparent; color: var(--texto-suave); font-size: .8rem; font-weight: 600; cursor: pointer;
+      transition: background .2s, border-color .2s, color .2s;
+    }
+    .etapas button.feito { border-color: var(--ouro); color: var(--ouro); }
+    .etapas button.atual { background: var(--ouro); border-color: var(--ouro); color: #111; }
+    .etapas button:disabled { cursor: not-allowed; opacity: .45; }
+    .etapa-nome { display: none; }
+    @media (min-width: 760px) {
+      .etapa-nome { display: block; font-size: .68rem; color: var(--texto-suave); margin-top: 5px; text-align: center; }
+    }
+
+    .aviso-mini {
+      padding: 12px 14px; border-radius: 12px; margin-bottom: 18px; font-size: .88rem;
+      background: rgba(229, 72, 77, .1); border: 1px solid rgba(229, 72, 77, .45); color: #ffc2c3;
+    }
+
+    .passo-titulo { font-family: var(--fonte-script); font-weight: 400; font-size: 1.75rem; color: var(--ouro); line-height: 1.3; outline: none; }
+    .passo-dica { color: var(--texto-suave); font-size: .93rem; margin: 4px 0 18px; }
+    .grupo-titulo { display: block; font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ouro); margin: 24px 0 10px; font-weight: 600; }
+    .grupo-titulo:first-child { margin-top: 0; }
+    .obrig { color: var(--ouro); }
+
+    /* Cartões de opção (rádio e checkbox) */
+    .opcoes { display: grid; gap: 10px; grid-template-columns: 1fr; }
+    @media (min-width: 640px) { .opcoes { grid-template-columns: 1fr 1fr; } }
+    .opcoes.linha { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
+    .opcao { position: relative; display: block; cursor: pointer; }
+    .opcao input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+    .opcao-corpo {
+      display: flex; align-items: center; gap: 12px; min-height: 56px; height: 100%;
+      padding: 12px 14px; border: 2px solid #343434; border-radius: 14px; background: var(--card-2);
+      transition: border-color .2s, background .2s, opacity .2s;
+    }
+    .opcao:hover .opcao-corpo { border-color: #7a6419; }
+    .opcao input:checked + .opcao-corpo { border-color: var(--ouro); background: rgba(245, 184, 0, .1); }
+    .opcao input:focus-visible + .opcao-corpo { outline: 3px solid #fff; outline-offset: 2px; }
+    .opcao input:disabled + .opcao-corpo { opacity: .45; }
+    .opcao.desabilitada { cursor: not-allowed; }
+    .marcador { flex: 0 0 24px; height: 24px; border-radius: 50%; border: 2px solid #6a6a6a; position: relative; transition: background .2s, border-color .2s; }
+    .marcador.quadrado { border-radius: 7px; }
+    .opcao input:checked + .opcao-corpo .marcador { background: var(--ouro); border-color: var(--ouro); }
+    .opcao input:checked + .opcao-corpo .marcador::after {
+      content: ""; position: absolute; left: 6.5px; top: 2.5px; width: 6px; height: 11px;
+      border: solid #111; border-width: 0 2.6px 2.6px 0; transform: rotate(45deg);
+    }
+    .opcao-texto { flex: 1; display: flex; flex-direction: column; line-height: 1.3; min-width: 0; }
+    .opcao-texto strong { font-weight: 600; }
+    .opcao-texto small { color: var(--texto-suave); font-size: .8rem; margin-top: 2px; }
+    .opcao .preco { color: var(--ouro); font-weight: 700; white-space: nowrap; }
+    .tag {
+      display: inline-block; align-self: flex-start; margin-top: 5px;
+      font-size: .72rem; font-weight: 600; padding: 2px 9px; border-radius: 999px;
+      background: #333; color: var(--ouro);
+    }
+
+    /* Chips (dia do pedido) */
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip { position: relative; cursor: pointer; }
+    .chip input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+    .chip span {
+      display: inline-flex; align-items: center; gap: 6px; min-height: 42px; padding: 8px 16px;
+      border-radius: 999px; border: 1px solid #3d3d3d; background: var(--card-2);
+      font-weight: 600; font-size: .88rem; transition: background .2s, color .2s;
+    }
+    .chip span em { font-style: normal; font-size: .65rem; text-transform: uppercase; background: #e5484d; color: #fff; padding: 1px 6px; border-radius: 999px; }
+    .chip input:checked + span { background: var(--ouro); color: #111; border-color: var(--ouro); }
+    .chip input:focus-visible + span { outline: 3px solid #fff; outline-offset: 2px; }
+
+    .contador { font-size: .88rem; color: var(--texto-suave); margin: -2px 0 12px; }
+    .contador.cheio { color: var(--ouro); font-weight: 600; }
+    .nota { font-size: .86rem; color: var(--texto-suave); margin-top: 10px; }
+
+    /* Controle de quantidade (+ / –) */
+    .stepper { display: inline-flex; align-items: center; gap: 4px; padding: 4px; background: #161616; border: 1px solid #3d3d3d; border-radius: 999px; flex: none; }
+    .stepper button {
+      width: 38px; height: 38px; border-radius: 50%; border: 0; background: #2e2e2e;
+      font-size: 1.25rem; font-weight: 700; line-height: 1; cursor: pointer; transition: background .2s, color .2s;
+    }
+    .stepper button:hover { background: var(--ouro); color: #111; }
+    .stepper output { min-width: 28px; text-align: center; font-weight: 700; }
+    .qtd-linha {
+      display: flex; justify-content: space-between; align-items: center; gap: 12px;
+      margin-top: 18px; padding: 12px 14px; border-radius: 14px; background: var(--card-2);
+    }
+
+    /* Extras */
+    .extras { display: grid; gap: 10px; }
+    @media (min-width: 640px) { .extras { grid-template-columns: 1fr 1fr; } }
+    .extras .grupo-titulo { grid-column: 1 / -1; margin: 10px 0 0; }
+    .extra {
+      display: flex; justify-content: space-between; align-items: center; gap: 12px;
+      padding: 10px 12px 10px 14px; border: 2px solid #343434; border-radius: 14px; background: var(--card-2);
+      transition: border-color .2s;
+    }
+    .extra.ativo { border-color: var(--ouro); }
+    .extra-info { display: flex; flex-direction: column; line-height: 1.3; min-width: 0; }
+    .extra-info .preco { color: var(--ouro); font-size: .88rem; font-weight: 600; }
+    .extra-medida { color: var(--texto-suave); font-size: .8rem; }
+    /* Cartão de sabor de suco (Copo / Jarra) */
+    .extra-sabor { flex-direction: column; align-items: stretch; gap: 0; padding: 12px 14px; }
+    .extra-sabor-nome { font-weight: 600; margin-bottom: 4px; }
+    .extra-linha { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 8px 0 2px; border-top: 1px solid #343434; margin-top: 6px; }
+    .extra-linha .extra-info span:first-child { font-size: .9rem; color: var(--texto-suave); }
+    /* Bloco de suco natural */
+    #op-suco { grid-column: 1 / -1; }
+    .suco-add { margin-top: 4px; }
+    .picker { margin-top: 14px; padding: 16px; border: 1px dashed var(--ouro); border-radius: 14px; background: rgba(245, 184, 0, .05); }
+    .picker-titulo { font-weight: 600; margin-bottom: 10px; }
+    #picker-tamanho { margin-top: 14px; }
+    .picker .btn { margin-top: 14px; }
+    .chip-btn {
+      min-height: 42px; padding: 8px 16px; border-radius: 999px;
+      border: 1px solid #3d3d3d; background: var(--card-2); font-weight: 600; font-size: .9rem; cursor: pointer;
+      transition: background .2s, color .2s, border-color .2s;
+    }
+    .chip-btn:hover { border-color: var(--ouro); color: var(--ouro); }
+    .suco-lista { margin-top: 14px; display: grid; gap: 10px; }
+
+    /* Formulário */
+    .campos { display: grid; gap: 14px; }
+    @media (min-width: 640px) { .campos.duas { grid-template-columns: 1fr 1fr; } }
+    .campo { display: flex; flex-direction: column; gap: 6px; }
+    .campo.inteiro { grid-column: 1 / -1; }
+    .campo label { font-size: .88rem; font-weight: 500; }
+    .campo input, .campo textarea {
+      width: 100%; min-height: 50px; padding: 12px 14px;
+      background: #151515; border: 2px solid #3d3d3d; border-radius: 12px; font-size: 1rem;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .campo textarea { min-height: 120px; resize: vertical; }
+    .campo input::placeholder, .campo textarea::placeholder { color: #8a8a8a; }
+    .campo input:focus, .campo textarea:focus { outline: none; border-color: var(--ouro); box-shadow: 0 0 0 3px rgba(245, 184, 0, .25); }
+    .campo input[aria-invalid="true"] { border-color: #e5484d; }
+    fieldset.bloco { border: 0; margin-top: 4px; }
+    .sub-bloco { margin-top: 16px; padding: 16px; border-left: 3px solid var(--ouro); background: rgba(245, 184, 0, .05); border-radius: 0 14px 14px 0; }
+    .nota-destaque { margin-top: 20px; padding: 14px 16px; border-radius: 14px; background: rgba(245, 184, 0, .1); border: 1px solid rgba(245, 184, 0, .4); }
+    .waze-linha { margin-top: 12px; }
+    .lembrar { display: flex; align-items: center; gap: 10px; margin-top: 22px; font-size: .9rem; color: var(--texto-suave); cursor: pointer; }
+    .lembrar input { width: 20px; height: 20px; accent-color: var(--ouro); }
+
+    /* Sugestões de observação */
+    .sugestoes { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+    .sugestoes button {
+      background: transparent; border: 1px dashed #5a5a5a; color: var(--texto-suave);
+      border-radius: 999px; padding: 6px 14px; font-size: .84rem; cursor: pointer; min-height: 36px;
+    }
+    .sugestoes button:hover { border-color: var(--ouro); color: var(--ouro); }
+
+    .acoes-verduras { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 14px; }
+
+    /* Revisão */
+    .revisao-bloco { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; padding: 14px 0; border-bottom: 1px solid #2f2f2f; }
+    .revisao-bloco h4 { font-size: .76rem; text-transform: uppercase; letter-spacing: .12em; color: var(--ouro); margin-bottom: 4px; }
+    .revisao-bloco p, .revisao-bloco li { color: var(--texto-suave); font-size: .93rem; }
+    .revisao-bloco strong { color: var(--texto); font-weight: 600; }
+    .btn-editar {
+      flex: none; min-height: 36px; padding: 5px 14px; border-radius: 999px;
+      background: none; border: 1px solid #4a4a4a; font-size: .8rem; font-weight: 500; cursor: pointer;
+    }
+    .btn-editar:hover { border-color: var(--ouro); color: var(--ouro); }
+    .totais { margin-top: 18px; padding: 16px; border-radius: 14px; background: var(--card-2); }
+    .totais div { display: flex; justify-content: space-between; padding: 3px 0; color: var(--texto-suave); }
+    .totais .total { margin-top: 8px; padding-top: 10px; border-top: 1px solid #3d3d3d; color: var(--texto); font-weight: 700; font-size: 1.2rem; }
+    .totais .total span:last-child { color: var(--ouro); }
+    .sucesso { margin-top: 18px; padding: 18px; text-align: center; border: 2px solid var(--verde-wa); border-radius: 16px; background: rgba(37, 211, 102, .08); }
+    .sucesso p { margin-bottom: 12px; }
+
+    .erro { color: var(--vermelho); font-weight: 500; font-size: .92rem; min-height: 1.5em; margin-top: 16px; }
+    .mont-nav { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
+    .mont-nav .btn { flex: 1 1 150px; }
+
+    /* =========================================================
+       LOCALIZAÇÃO
+       ========================================================= */
+    .card { background: var(--card); border: 1px solid var(--borda); border-radius: var(--raio); }
+    .loc-grid { display: grid; gap: 22px; }
+    @media (min-width: 980px) { .loc-grid { grid-template-columns: 1fr 1.4fr; } }
+    .loc-info { display: flex; flex-direction: column; gap: 14px; padding: 28px; }
+    .loc-info h3 { font-family: var(--fonte-script); font-weight: 400; color: var(--ouro); font-size: 1.7rem; }
+    .loc-info p { color: var(--texto-suave); }
+    .loc-info .btn { align-self: flex-start; margin-top: 6px; }
+    .mapa { position: relative; min-height: 340px; border-radius: var(--raio); overflow: hidden; border: 2px solid var(--ouro); background: var(--card); }
+    .mapa iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+    /* =========================================================
+       RODAPÉ
+       ========================================================= */
+    .rodape { background: #0a0a0a; border-top: 3px solid var(--ouro); padding: 60px 0 26px; }
+    .rodape-grid { display: grid; gap: 34px; }
+    @media (min-width: 820px) { .rodape-grid { grid-template-columns: 1.3fr 1fr 1fr 1fr; } }
+    .rodape h3 { color: var(--ouro); font-size: .9rem; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 12px; }
+    .rodape p { color: var(--texto-suave); margin-bottom: 8px; }
+    .rodape .frase-script { font-family: var(--fonte-script); color: var(--ouro); font-size: 1.2rem; margin-top: 12px; }
+    .link-social { display: inline-flex; align-items: center; gap: 8px; color: var(--texto); text-decoration: none; font-weight: 500; margin-top: 14px; }
+    .link-social:hover { color: var(--ouro); }
+    .link-social svg { width: 22px; height: 22px; color: var(--ouro); }
+    .copy { text-align: center; margin-top: 44px; padding-top: 22px; border-top: 1px solid #222; color: #a8a8a8; font-size: .85rem; }
+
+    /* =========================================================
+       BOTÃO FLUTUANTE DO WHATSAPP
+       ========================================================= */
+    .wa-flutuante {
+      position: fixed; right: 18px; bottom: 18px; z-index: 95;
+      width: 62px; height: 62px; border-radius: 50%; display: grid; place-items: center;
+      background: var(--verde-wa); color: #fff; box-shadow: 0 10px 28px rgba(0, 0, 0, .55);
+      animation: pulso 2.6s infinite; transition: transform .25s, opacity .25s;
+    }
+    .wa-flutuante:hover { transform: scale(1.08); }
+    .wa-flutuante svg { width: 34px; height: 34px; }
+    /* Some enquanto o cliente usa o montador (para não cobrir os botões) */
+    .wa-flutuante.oculto { opacity: 0; transform: scale(.6); pointer-events: none; }
+    @keyframes pulso {
+      0%   { box-shadow: 0 0 0 0 rgba(37, 211, 102, .55), 0 10px 28px rgba(0, 0, 0, .55); }
+      70%  { box-shadow: 0 0 0 16px rgba(37, 211, 102, 0), 0 10px 28px rgba(0, 0, 0, .55); }
+      100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0), 0 10px 28px rgba(0, 0, 0, .55); }
+    }
+
+    /* =========================================================
+       ANIMAÇÕES AO ROLAR
+       ========================================================= */
+    .js .reveal { opacity: 0; transform: translateY(26px); transition: opacity .7s ease, transform .7s ease; }
+    .js .reveal.visivel { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      .js .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="pular" href="#montador">Pular para o montador de almoço</a>
+
+  <!-- ===================== HEADER ===================== -->
+  <header class="header" id="header">
+    <div class="container cabecalho">
+      <a href="#inicio" class="logo" aria-label="Restaurante Pinheiro – voltar ao início">
+        <svg viewBox="0 0 64 64" fill="currentColor" aria-hidden="true">
+          <circle cx="21" cy="26" r="10"/><circle cx="32" cy="19" r="12"/><circle cx="43" cy="26" r="10"/>
+          <rect x="17" y="28" width="30" height="16"/><rect x="15" y="46" width="34" height="7" rx="2"/>
+        </svg>
+        <span class="logo-nome"><small>Restaurante</small>Pinheiro</span>
+      </a>
+
+      <nav id="menu" class="nav" aria-label="Menu principal">
+        <a href="#inicio">Início</a>
+        <a href="#cardapio">Cardápio</a>
+        <a href="#montador">Monte seu almoço</a>
+        <a href="#localizacao">Localização</a>
+        <a href="#contato">Contato</a>
+      </nav>
+
+      <div class="header-acoes">
+        <a class="btn btn-primario btn-header" href="#montador">Monte seu almoço</a>
+        <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-controls="menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ===================== HERO ===================== -->
+    <section id="inicio" class="hero">
+      <div class="container hero-grid">
+        <div class="hero-texto">
+          <span class="eyebrow reveal">Comida caseira todo dia</span>
+          <h1 class="reveal">Restaurante Pinheiro</h1>
+          <p class="lead reveal">O seu almoço, do seu jeito!</p>
+          <p class="frase reveal">Sabor, qualidade e muito carinho!</p>
+
+          <div class="status-linha reveal">
+            <span class="status" data-status role="status">Verificando…</span>
+            <span class="horario-txt" data-horario></span>
+          </div>
+
+          <div class="hero-acoes reveal">
+            <a class="btn btn-primario" href="#montador">Monte seu almoço</a>
+            <a class="btn btn-secundario" href="#cardapio">Ver cardápio de hoje</a>
+          </div>
+        </div>
+
+        <figure class="hero-imagem reveal" id="hero-figura">
+          <img id="hero-img" alt="Prato feito brasileiro com frango grelhado, arroz e feijão" width="1200" height="900" fetchpriority="high">
+          <div class="placeholder" aria-hidden="true">Comida caseira<br>feita com carinho</div>
+          <span class="selo" aria-hidden="true">Feito na hora!</span>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ===================== CARDÁPIO SEMANAL ===================== -->
+    <section id="cardapio" class="secao secao-alt" aria-labelledby="titulo-cardapio">
+      <div class="container">
+        <header class="secao-cab reveal">
+          <span class="eyebrow">Almoço semanal</span><br>
+          <h2 class="titulo-script" id="titulo-cardapio">Cardápio da Semana</h2>
+          <p class="sub">As misturas de cada dia. O dia de hoje já vem selecionado.</p>
+        </header>
+
+        <div class="aviso-fds reveal" id="aviso-fds" hidden>
+          <strong>Voltamos na segunda!</strong>
+          <p>Enquanto isso, você já pode montar o seu pedido para segunda-feira.</p>
+        </div>
+
+        <div class="abas reveal" id="abas" role="tablist" aria-label="Dias da semana"></div>
+        <div id="paineis"></div>
+      </div>
+    </section>
+
+    <!-- ===================== MONTADOR DE ALMOÇO ===================== -->
+    <section id="montador" class="secao" aria-labelledby="titulo-montador">
+      <div class="container">
+        <header class="secao-cab reveal">
+          <span class="eyebrow">Passo a passo</span><br>
+          <h2 class="titulo-script" id="titulo-montador">Monte seu Almoço</h2>
+          <p class="sub">Escolha tudo do seu jeito. No final, o pedido vai prontinho para o nosso WhatsApp.</p>
+        </header>
+
+        <div class="montador" id="montador-app">
+          <div class="mont-topo">
+            <div class="mont-info">
+              <span id="passo-rotulo">Passo 1 de 8</span>
+              <strong id="passo-nome">Tamanho</strong>
+            </div>
+            <div class="mont-total" aria-live="polite">Total<strong id="total-parcial">R$ 0,00</strong></div>
+          </div>
+          <div class="progresso" id="progresso" role="progressbar" aria-label="Progresso do pedido" aria-valuemin="1" aria-valuemax="8" aria-valuenow="1">
+            <div class="progresso-barra" id="progresso-barra"></div>
+          </div>
+          <ol class="etapas" id="etapas" aria-label="Etapas do pedido"></ol>
+
+          <p class="aviso-mini" id="aviso-fechado" hidden>
+            Estamos fechados agora. Você pode montar o pedido normalmente: respondemos assim que abrirmos.
+          </p>
+
+          <form id="form-pedido" novalidate>
+            <!-- PASSO 1 – TAMANHO -->
+            <div class="passo" data-passo="1">
+              <h3 class="passo-titulo" tabindex="-1">Escolha o tamanho</h3>
+              <p class="passo-dica">Marmita para levar ou prato para comer aqui no restaurante.</p>
+              <div class="opcoes" id="op-tamanhos" role="radiogroup" aria-label="Tamanho"></div>
+              <div class="qtd-linha">
+                <span id="qtd-rotulo">Quantas marmitas?</span>
+                <div class="stepper" role="group" aria-labelledby="qtd-rotulo">
+                  <button type="button" data-qtd="-1" aria-label="Diminuir quantidade">−</button>
+                  <output id="qtd-valor" aria-live="polite">1</output>
+                  <button type="button" data-qtd="1" aria-label="Aumentar quantidade">+</button>
+                </div>
+              </div>
+              <p class="nota">Pedindo várias marmitas diferentes? Monte uma, envie e depois faça outra.</p>
+            </div>
+
+            <!-- PASSO 2 – MISTURA -->
+            <div class="passo" data-passo="2" hidden>
+              <h3 class="passo-titulo" tabindex="-1">Escolha a mistura</h3>
+              <p class="passo-dica" id="dica-misturas"></p>
+              <span class="grupo-titulo" id="rotulo-dias">Pedido para</span>
+              <div class="chips" id="op-dias" role="radiogroup" aria-labelledby="rotulo-dias"></div>
+              <p class="nota" id="nota-dia"></p>
+              <span class="grupo-titulo">Misturas de <span id="nome-dia-mistura"></span></span>
+              <p class="contador" id="contador-misturas" aria-live="polite"></p>
+              <div class="opcoes" id="op-misturas"></div>
+            </div>
+
+            <!-- PASSO 3 – ACOMPANHAMENTOS -->
+            <div class="passo" data-passo="3" hidden>
+              <h3 class="passo-titulo" tabindex="-1">Acompanhamentos</h3>
+              <p class="passo-dica">Escolha 1 tipo de feijão e marque os outros acompanhamentos que quiser. O que não tem no dia aparece desativado.</p>
+              <div id="op-acomp"></div>
+              <span class="grupo-titulo">Opções especiais</span>
+              <div class="opcoes" id="op-especiais"></div>
+            </div>
+
+            <!-- PASSO 4 – VERDURAS -->
+            <div class="passo" data-passo="4" hidden>
+              <h3 class="passo-titulo" tabindex="-1">Verduras e legumes</h3>
+              <p class="passo-dica">Marque o que vai na salada.</p>
+              <div class="acoes-verduras">
+                <button type="button" class="btn btn-secundario btn-pequeno" id="btn-todas-verduras">Todas as verduras</button>
+              </div>
+              <div class="opcoes" id="op-verduras"></div>
+            </div>
+
+            <!-- PASSO 5 – EXTRAS -->
+            <div class="passo" data-passo="5" hidden>
+              <h3 class="passo-titulo" tabindex="-1">Bebidas e extras</h3>
+              <p class="passo-dica">Opcional. Para o suco, toque em “Adicionar suco” e escolha o sabor e o tamanho. Use + e – para ajustar a quantidade.</p>
+              <div class="extras" id="op-extras"></div>
+            </div>
+
+            <!-- PASSO 6 – OBSERVAÇÕES -->
+            <div class="passo" data-passo="6" hidden>
+              <h3 class="passo-titulo" tabindex="-1">Observações</h3>
+              <p class="passo-dica">Algum pedido especial? Escreva aqui (opcional).</p>
+              <div class="campo">
+                <label for="obs">Observações do pedido</label>
+                <textarea id="obs" maxlength="400" placeholder="Ex.: sem cebola, feijão separado, pouco arroz…"></textarea>
+                <small class="nota">Fica salva neste aparelho para os próximos pedidos (se “Lembrar meus dados” estiver marcado).</small>
+              </div>
+              <div class="sugestoes" aria-label="Sugestões rápidas">
+                <button type="button" data-sugestao="Sem cebola">+ Sem cebola</button>
+                <button type="button" data-sugestao="Feijão separado">+ Feijão separado</button>
+                <button type="button" data-sugestao="Pouco arroz">+ Pouco arroz</button>
+                <button type="button" data-sugestao="Salada separada">+ Salada separada</button>
+                <button type="button" data-sugestao="Carne bem passada">+ Carne bem passada</button>
+              </div>
+            </div>
+
+            <!-- PASSO 7 – DADOS E ENTREGA -->
+            <div class="passo" data-passo="7" hidden>
+              <h3 class="passo-titulo" tabindex="-1">Seus dados e entrega</h3>
+              <p class="passo-dica">Campos com <span class="obrig">*</span> são obrigatórios.</p>
+
+              <div class="campos duas">
+                <div class="campo">
+                  <label for="c-nome">Nome completo <span class="obrig">*</span></label>
+                  <input id="c-nome" name="nome" data-cliente type="text" autocomplete="name" required>
+                </div>
+                <div class="campo">
+                  <label for="c-telefone">Telefone / WhatsApp <span class="obrig">*</span></label>
+                  <input id="c-telefone" name="telefone" data-cliente type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="(81) 99999-9999" maxlength="15" required>
+                </div>
+              </div>
+
+              <p class="nota-destaque" id="bloco-local" hidden>
+                Você escolheu <strong>prato no local</strong>: é só vir ao restaurante que a gente prepara para você.
+              </p>
+
+              <fieldset class="bloco" id="bloco-tipo-entrega">
+                <legend class="grupo-titulo">Como quer receber? <span class="obrig">*</span></legend>
+                <div class="opcoes linha">
+                  <label class="opcao">
+                    <input type="radio" name="entrega" value="retirada" data-cliente>
+                    <span class="opcao-corpo"><span class="marcador" aria-hidden="true"></span>
+                      <span class="opcao-texto"><strong>Retirada</strong><small>No restaurante, sem taxa</small></span></span>
+                  </label>
+                  <label class="opcao">
+                    <input type="radio" name="entrega" value="entrega" data-cliente>
+                    <span class="opcao-corpo"><span class="marcador" aria-hidden="true"></span>
+                      <span class="opcao-texto"><strong>Entrega</strong><small id="txt-taxa"></small></span></span>
+                  </label>
+                </div>
+              </fieldset>
+
+              <div class="sub-bloco" id="bloco-endereco" hidden>
+                <div class="campos duas" id="campos-endereco">
+                  <div class="campo">
+                    <label for="c-cep">CEP <span class="obrig">*</span></label>
+                    <input id="c-cep" name="cep" data-cliente type="text" inputmode="numeric" autocomplete="postal-code" placeholder="00000-000" maxlength="9">
+                    <small class="nota" id="txt-cep" aria-live="polite">Digite o CEP e o endereço é preenchido.</small>
+                  </div>
+                  <div class="campo inteiro">
+                    <label for="c-rua">Rua <span class="obrig">*</span></label>
+                    <input id="c-rua" name="rua" data-cliente type="text" autocomplete="address-line1">
+                  </div>
+                  <div class="campo">
+                    <label for="c-numero">Número <span class="obrig">*</span></label>
+                    <input id="c-numero" name="numero" data-cliente type="text" inputmode="numeric">
+                  </div>
+                  <div class="campo">
+                    <label for="c-bairro">Bairro <span class="obrig">*</span></label>
+                    <input id="c-bairro" name="bairro" data-cliente type="text" autocomplete="address-level3">
+                  </div>
+                  <div class="campo">
+                    <label for="c-complemento">Complemento</label>
+                    <input id="c-complemento" name="complemento" data-cliente type="text" placeholder="Apto, bloco, casa…" autocomplete="address-line2">
+                  </div>
+                  <div class="campo">
+                    <label for="c-referencia">Ponto de referência</label>
+                    <input id="c-referencia" name="referencia" data-cliente type="text" placeholder="Perto de…">
+                  </div>
+                </div>
+
+                <fieldset class="bloco">
+                  <legend class="grupo-titulo">É para empresa?</legend>
+                  <div class="opcoes linha">
+                    <label class="opcao">
+                      <input type="radio" name="empresa" value="nao" data-cliente>
+                      <span class="opcao-corpo"><span class="marcador" aria-hidden="true"></span><span class="opcao-texto"><strong>Não</strong></span></span>
+                    </label>
+                    <label class="opcao">
+                      <input type="radio" name="empresa" value="sim" data-cliente>
+                      <span class="opcao-corpo"><span class="marcador" aria-hidden="true"></span><span class="opcao-texto"><strong>Sim</strong></span></span>
+                    </label>
+                  </div>
+                </fieldset>
+
+                <div class="campos duas" id="bloco-empresa" hidden style="margin-top:14px">
+                  <p class="nota" style="grid-column: 1 / -1">Preencha pelo menos o <strong>setor</strong> ou o <strong>andar</strong>.</p>
+                  <div class="campo inteiro">
+                    <label for="c-empresaNome">Nome da empresa <span class="obrig">*</span></label>
+                    <input id="c-empresaNome" name="empresaNome" data-cliente type="text" autocomplete="organization">
+                  </div>
+                  <div class="campo">
+                    <label for="c-setor">Setor <span class="obrig">*</span></label>
+                    <input id="c-setor" name="setor" data-cliente type="text">
+                  </div>
+                  <div class="campo">
+                    <label for="c-andar">Andar <span class="obrig">*</span></label>
+                    <input id="c-andar" name="andar" data-cliente type="text">
+                  </div>
+                  <div class="campo">
+                    <label for="c-sala">Sala</label>
+                    <input id="c-sala" name="sala" data-cliente type="text">
+                  </div>
+                  <div class="campo">
+                    <label for="c-recebedor">Nome de quem recebe</label>
+                    <input id="c-recebedor" name="recebedor" data-cliente type="text">
+                  </div>
+                  <div class="campo inteiro">
+                    <label for="c-portaria">Portaria / recepção</label>
+                    <input id="c-portaria" name="portaria" data-cliente type="text" placeholder="Ex.: deixar na recepção do térreo">
+                  </div>
+                </div>
+              </div>
+
+              <fieldset class="bloco" style="margin-top:8px">
+                <legend class="grupo-titulo">Forma de pagamento <span class="obrig">*</span></legend>
+                <div class="opcoes linha">
+                  <label class="opcao">
+                    <input type="radio" name="pagamento" value="pix" data-cliente>
+                    <span class="opcao-corpo"><span class="marcador" aria-hidden="true"></span><span class="opcao-texto"><strong>Pix</strong></span></span>
+                  </label>
+                  <label class="opcao">
+                    <input type="radio" name="pagamento" value="cartao" data-cliente>
+                    <span class="opcao-corpo"><span class="marcador" aria-hidden="true"></span><span class="opcao-texto"><strong>Cartão</strong><small>Débito ou crédito</small></span></span>
+                  </label>
+                  <label class="opcao">
+                    <input type="radio" name="pagamento" value="dinheiro" data-cliente>
+                    <span class="opcao-corpo"><span class="marcador" aria-hidden="true"></span><span class="opcao-texto"><strong>Dinheiro</strong></span></span>
+                  </label>
+                </div>
+              </fieldset>
+
+              <div class="campo" id="bloco-troco" hidden style="margin-top:14px">
+                <label for="c-troco">Troco para quanto?</label>
+                <input id="c-troco" name="troco" data-cliente type="text" inputmode="decimal" placeholder="Ex.: 50 (deixe vazio se não precisar)">
+              </div>
+
+              <label class="lembrar">
+                <input type="checkbox" id="lembrar" checked>
+                Lembrar meus dados neste aparelho para o próximo pedido
+              </label>
+            </div>
+
+            <!-- PASSO 8 – REVISÃO -->
+            <div class="passo" data-passo="8" hidden>
+              <h3 class="passo-titulo" tabindex="-1">Revise seu pedido</h3>
+              <p class="passo-dica">Confira tudo. Se precisar mudar algo, toque em “Editar”.</p>
+              <div id="revisao"></div>
+              <div class="sucesso" id="pedido-enviado" hidden role="status">
+                <p id="txt-sucesso"><strong>Prontinho!</strong> Seu pedido foi aberto no WhatsApp. É só tocar em <strong>enviar</strong> lá.</p>
+                <textarea id="txt-pedido" readonly rows="9" aria-label="Texto do pedido" style="width:100%;margin:12px 0;padding:12px;border-radius:12px;background:#151515;border:2px solid #3d3d3d;color:#fff;font:inherit;font-size:.9rem;text-align:left"></textarea>
+                <div class="mont-nav" style="justify-content:center">
+                  <a class="btn btn-wa btn-pequeno" id="link-whatsapp" href="#" target="_blank" rel="noopener">Abrir no WhatsApp</a>
+                  <button type="button" class="btn btn-secundario btn-pequeno" id="btn-copiar">Copiar pedido</button>
+                </div>
+                <button type="button" class="btn btn-secundario btn-pequeno" id="btn-novo">Fazer outro pedido</button>
+              </div>
+            </div>
+          </form>
+
+          <p class="erro" id="erro-passo" role="alert"></p>
+
+          <div class="mont-nav">
+            <button type="button" class="btn btn-secundario" id="btn-voltar">Voltar</button>
+            <button type="button" class="btn btn-primario" id="btn-avancar">Continuar</button>
+            <button type="button" class="btn btn-wa" id="btn-enviar" hidden>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.66 15l-1.3 4.76a.5.5 0 0 0 .61.61L7.4 21.1A10 10 0 1 0 12 2Zm5.2 13.9c-.22.62-1.27 1.19-1.76 1.23-.47.05-.91.22-3.07-.64-2.6-1.03-4.24-3.7-4.37-3.87-.13-.17-1.04-1.39-1.04-2.65s.66-1.88.9-2.14c.23-.26.5-.32.67-.32h.48c.16 0 .37-.06.58.44.22.52.74 1.79.8 1.92.07.13.11.28.02.45-.09.17-.13.28-.26.43l-.39.45c-.13.13-.26.27-.11.53.15.26.67 1.1 1.43 1.78.98.88 1.81 1.15 2.07 1.28.26.13.41.11.56-.07.15-.17.65-.75.82-1.01.17-.26.35-.22.58-.13.24.09 1.5.71 1.76.84.26.13.43.19.5.3.06.11.06.63-.16 1.25Z"/></svg>
+              Enviar pedido pelo WhatsApp
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== LOCALIZAÇÃO ===================== -->
+    <section id="localizacao" class="secao secao-alt" aria-labelledby="titulo-local">
+      <div class="container">
+        <header class="secao-cab reveal">
+          <span class="eyebrow">Venha nos visitar</span><br>
+          <h2 class="titulo-script" id="titulo-local">Localização</h2>
+        </header>
+        <div class="loc-grid">
+          <div class="card loc-info reveal">
+            <h3>Onde estamos</h3>
+            <p><strong>Rua Abdias Cabral de Moura, 14</strong><br>Ipsep, Recife – PE</p>
+            <p data-horario></p>
+            <p><span class="status" data-status>Verificando…</span></p>
+            <a class="btn btn-primario" href="#" data-maps target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z"/></svg>
+              Como chegar
+            </a>
+            <a class="btn btn-secundario" href="#" data-waze target="_blank" rel="noopener">Abrir no Waze</a>
+          </div>
+          <div class="mapa reveal">
+            <iframe id="mapa" title="Mapa com a localização do Restaurante Pinheiro no Ipsep, Recife" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===================== RODAPÉ / CONTATO ===================== -->
+  <footer id="contato" class="rodape" aria-labelledby="titulo-contato">
+    <div class="container rodape-grid">
+      <div>
+        <a href="#inicio" class="logo" aria-label="Restaurante Pinheiro – voltar ao início">
+          <svg viewBox="0 0 64 64" fill="currentColor" aria-hidden="true">
+            <circle cx="21" cy="26" r="10"/><circle cx="32" cy="19" r="12"/><circle cx="43" cy="26" r="10"/>
+            <rect x="17" y="28" width="30" height="16"/><rect x="15" y="46" width="34" height="7" rx="2"/>
+          </svg>
+          <span class="logo-nome"><small>Restaurante</small>Pinheiro</span>
+        </a>
+        <p class="frase-script">Sabor, qualidade e muito carinho!</p>
+      </div>
+      <div>
+        <h3 id="titulo-contato">Contato</h3>
+        <a class="btn btn-primario btn-pequeno" href="#" data-wa-padrao target="_blank" rel="noopener">WhatsApp</a><br>
+        <a class="link-social" href="#" data-instagram target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+          <span data-instagram-user></span>
+        </a>
+      </div>
+      <div>
+        <h3>Horário</h3>
+        <p data-horario></p>
+        <p><span class="status" data-status>Verificando…</span></p>
+      </div>
+      <div>
+        <h3>Endereço</h3>
+        <p>Rua Abdias Cabral de Moura, 14<br>Ipsep, Recife – PE</p>
+      </div>
+    </div>
+    <p class="copy">© <span id="ano">2026</span> Restaurante Pinheiro. Todos os direitos reservados.</p>
+  </footer>
+
+  <!-- ===================== BOTÃO FLUTUANTE WHATSAPP ===================== -->
+  <a class="wa-flutuante" id="wa-flutuante" href="#" target="_blank" rel="noopener" aria-label="Falar com o restaurante pelo WhatsApp">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.66 15l-1.3 4.76a.5.5 0 0 0 .61.61L7.4 21.1A10 10 0 1 0 12 2Zm5.2 13.9c-.22.62-1.27 1.19-1.76 1.23-.47.05-.91.22-3.07-.64-2.6-1.03-4.24-3.7-4.37-3.87-.13-.17-1.04-1.39-1.04-2.65s.66-1.88.9-2.14c.23-.26.5-.32.67-.32h.48c.16 0 .37-.06.58.44.22.52.74 1.79.8 1.92.07.13.11.28.02.45-.09.17-.13.28-.26.43l-.39.45c-.13.13-.26.27-.11.53.15.26.67 1.1 1.43 1.78.98.88 1.81 1.15 2.07 1.28.26.13.41.11.56-.07.15-.17.65-.75.82-1.01.17-.26.35-.22.58-.13.24.09 1.5.71 1.76.84.26.13.43.19.5.3.06.11.06.63-.16 1.25Z"/></svg>
+  </a>
+
+  <script>
+  (function () {
+    'use strict';
+
+    /* ==========================================================
+       CONFIGURAÇÃO — EDITE TUDO AQUI 👇
+       Cardápio, preços, telefone, horário, taxa de entrega…
+       O resto do site se atualiza sozinho.
+       ========================================================== */
+    const CONFIG = {
+      contato: {
+        // WhatsApp: só números, com 55 (Brasil) + DDD + número. Ex.: '5581999999999'
+        whatsapp: '5581993405406', // número de teste (troque pelo número do restaurante ao publicar)
+        mensagemPadrao: 'Olá! Gostaria de saber o cardápio de hoje.',
+        instagramUsuario: '@COLOCAR_INSTAGRAM',                     // [@]
+        instagramUrl: 'https://www.instagram.com/COLOCAR_INSTAGRAM/' // [@] no link
+      },
+
+      horario: {
+        // Dias abertos: 0=domingo, 1=segunda … 5=sexta, 6=sábado
+        dias: [1, 2, 3, 4, 5],
+        abertura: '11:00',   // [HORÁRIO] formato 24h
+        fechamento: '15:00', // [HORÁRIO] formato 24h
+        texto: 'Segunda a sexta, das 11h às 15h' // texto exibido no site
+      },
+
+      endereco: {
+        mapsLink: 'https://www.google.com/maps/search/?api=1&query=Rua+Abdias+Cabral+de+Moura+14+Ipsep+Recife+PE',
+        mapsEmbed: 'https://www.google.com/maps?q=Rua+Abdias+Cabral+de+Moura,+14+-+Ipsep,+Recife+-+PE&output=embed',
+        wazeLink: 'https://waze.com/ul?q=Rua%20Abdias%20Cabral%20de%20Moura%2C%2014%20Ipsep%20Recife%20PE&navigate=yes'
+      },
+
+      imagens: {
+        // Cole a URL de uma foto (Unsplash ou a foto real do prato).
+        // Ex.: 'https://images.unsplash.com/photo-XXXXXXXX?w=1200&q=80'
+        // Vazio = mostra um bloco decorativo no lugar.
+        hero: ''
+      },
+
+      // 1 = segunda … 5 = sexta
+      diasNomes: { 1: 'Segunda', 2: 'Terça', 3: 'Quarta', 4: 'Quinta', 5: 'Sexta' },
+
+      // ---------- CARDÁPIO DA SEMANA: misturas de cada dia (atualize toda semana) ----------
+      cardapio: {
+        1: [ // Segunda
+          'Galinha assada', 'Galinha guisada', 'Bisteca suína', 'Guisado', 'Bife ao molho',
+          'Bife assado', 'Fígado', 'Panqueca de frango', 'Toscana de frango', 'Frango crocante',
+          'Frango à parmegiana'
+        ],
+        2: [ // Terça
+          'Galinha assada', 'Guisado de boi', 'Frango crocante', 'Calabresa acebolada', 'Galinha guisada',
+          'Bife ao molho', 'Frango à parmegiana', 'Bife assado', 'Toscana de frango', 'Strogonoff de frango'
+        ],
+        3: [ // Quarta
+          'Galinha assada', 'Galinha guisada', 'Bisteca suína', 'Guisado de boi', 'Bife ao molho',
+          'Bife assado', 'Frango crocante', 'Toscana de frango', 'Frango à parmegiana',
+          'Lombo suíno ao molho madeira', 'Fricassê de frango'
+        ],
+        4: [ // Quinta
+          'Galinha assada', 'Galinha guisada', 'Guisado de boi', 'Bife ao molho', 'Bife assado',
+          'Frango crocante', 'Toscana de frango', 'Frango à parmegiana', 'Galinha ao molho de mostarda',
+          'Charque frita'
+        ],
+        5: [ // Sexta
+          'Galinha assada', 'Galinha guisada', 'Guisado de boi', 'Bife ao molho', 'Bife assado',
+          'Frango crocante', 'Toscana de frango', 'Frango à parmegiana', 'Galinha cabidela', 'Almôndega'
+        ]
+      },
+
+      // Acompanhamentos ("dias" = só nesses dias; sem "dias" = todo dia)
+      // "grupo" = itens em que o cliente só pode escolher UM (veja gruposEscolhaUnica no montador)
+      acompanhamentos: [
+        { nome: 'Feijão mulato', grupo: 'feijao' },
+        { nome: 'Feijão Macassar', grupo: 'feijao' },
+        { nome: 'Feijão tropeiro', grupo: 'feijao' },
+        { nome: 'Feijão preto', grupo: 'feijao', dias: [3, 5] },
+        { nome: 'Arroz carioca' },
+        { nome: 'Arroz branco' },
+        { nome: 'Macarrão' },
+        { nome: 'Farofa de cuscuz' }
+      ],
+      especiais: [
+        { nome: 'Pirão', dias: [2, 4] },
+        { nome: 'Purê' },
+        { nome: 'Legumes', dias: [2, 4] }
+      ],
+      verduras: [
+        'Tomate', 'Cebola', 'Alface', 'Pimentão', 'Pepino',
+        'Beterraba cozida', 'Vinagrete Picadinho', 'Repolho refogado'
+      ],
+
+      // ---------- MONTADOR (preços de EXEMPLO — ajuste) ----------
+      montador: {
+        maxMisturas: 2,     // quantas misturas o cliente pode escolher
+        taxaEntrega: 5.00,  // taxa de entrega em reais
+        // Grupos de acompanhamento com escolha única (só 1 opção).
+        // Para o arroz também ser único: adicione grupo: 'arroz' nos arrozes e arroz: 'Arroz' aqui.
+        gruposEscolhaUnica: { feijao: 'Feijão' },
+        tamanhos: [
+          { id: 'p', nome: 'Marmita P', descricao: 'Para quem come pouco', preco: 15.00 },
+          { id: 'm', nome: 'Marmita M', descricao: 'A mais pedida', preco: 18.00 },
+          { id: 'g', nome: 'Marmita G', descricao: 'Para matar a fome de verdade', preco: 22.00 },
+          { id: 'local', nome: 'Prato no local', descricao: 'Para comer aqui no restaurante', preco: 20.00, local: true }
+        ],
+        // Extras: "sabores" + "tamanhos" = um cartão por sabor, com um +/– para cada tamanho.
+        // "ml" é opcional e aparece ao lado do nome (ex.: 350 ml).
+        extras: [
+          {
+            id: 'suco', nome: 'Suco natural',
+            sabores: ['Laranja', 'Acerola', 'Maracujá', 'Goiaba', 'Caju'],
+            tamanhos: [
+              { id: 'copo', nome: 'Copo', ml: 300, preco: 6.00 },
+              { id: 'jarra', nome: 'Jarra', ml: 1000, preco: 15.00 }
+            ]
+          },
+          { id: 'refri', nome: 'Refrigerante lata', ml: 350, preco: 5.00 },
+          { id: 'guarana-lata', nome: 'Guaraná lata', ml: 350, preco: 5.00 },
+          { id: 'guarana-2l', nome: 'Guaraná 2L', preco: 10.00 },
+          { id: 'agua', nome: 'Água mineral', ml: 500, preco: 3.00 },
+          { id: 'sobremesa', nome: 'Sobremesa', preco: 5.00 },
+          { id: 'talher', nome: 'Talher descartável', preco: 0.50 }
+        ]
+      }
+    };
+    /* ==================== FIM DA CONFIGURAÇÃO ==================== */
+
+
+    /* ==========================================================
+       FUNÇÕES AUXILIARES
+       ========================================================== */
+    const $ = (sel, ctx = document) => ctx.querySelector(sel);
+    const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
+    const DIAS_UTEIS = [1, 2, 3, 4, 5];
+    const M = CONFIG.montador;
+    const moeda = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' });
+    const brl = (v) => moeda.format(v);
+    const reduzMovimento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Evita que textos digitados quebrem o HTML
+    const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) =>
+      ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+    const linkWhatsApp = (mensagem) =>
+      'https://wa.me/' + CONFIG.contato.whatsapp + '?text=' + encodeURIComponent(mensagem);
+
+    const nomesDosDias = (dias) => dias.map((d) => CONFIG.diasNomes[d]).join(' e ');
+    const disponivel = (item, dia) => !item.dias || item.dias.includes(dia);
+    const emMinutos = (hhmm) => { const [h, m] = hhmm.split(':').map(Number); return h * 60 + m; };
+    const slug = (s) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-');
+    const alternar = (lista, valor, ligado) => {
+      const i = lista.indexOf(valor);
+      if (ligado && i === -1) lista.push(valor);
+      if (!ligado && i > -1) lista.splice(i, 1);
+    };
+    // Mantém a ordem do cardápio (e não a ordem dos cliques)
+    const naOrdem = (referencia, escolhidos) => referencia.filter((x) => escolhidos.includes(x));
+
+    // "50" / "50,00" / "R$ 1.000,50" -> número
+    function paraNumero(texto) {
+      let t = String(texto).replace(/[^\d,.]/g, '');
+      if (t.includes(',')) t = t.replace(/\./g, '').replace(',', '.');
+      return parseFloat(t);
+    }
+
+    // (81) 99999-9999 / (81) 3333-3333
+    function mascaraTelefone(valor) {
+      const d = valor.replace(/\D/g, '').slice(0, 11);
+      if (d.length === 0) return '';
+      if (d.length <= 2) return '(' + d;
+      if (d.length <= 6) return '(' + d.slice(0, 2) + ') ' + d.slice(2);
+      if (d.length <= 10) return '(' + d.slice(0, 2) + ') ' + d.slice(2, 6) + '-' + d.slice(6);
+      return '(' + d.slice(0, 2) + ') ' + d.slice(2, 7) + '-' + d.slice(7);
+    }
+
+    /* ==========================================================
+       ABERTO AGORA / FECHADO
+       ========================================================== */
+    function estaAberto(agora = new Date()) {
+      if (!CONFIG.horario.dias.includes(agora.getDay())) return false;
+      const min = agora.getHours() * 60 + agora.getMinutes();
+      return min >= emMinutos(CONFIG.horario.abertura) && min < emMinutos(CONFIG.horario.fechamento);
+    }
+    function atualizarStatus() {
+      const aberto = estaAberto();
+      $$('[data-status]').forEach((el) => {
+        el.textContent = aberto ? 'Aberto agora' : 'Fechado agora';
+        el.classList.toggle('aberto', aberto);
+        el.classList.toggle('fechado', !aberto);
+      });
+      $('#aviso-fechado').hidden = aberto;
+    }
+
+    /* ==========================================================
+       CARDÁPIO DA SEMANA (abas)
+       ========================================================== */
+    function centralizarAba() {
+      const aba = $('.aba[aria-selected="true"]');
+      if (!aba) return;
+      const faixa = aba.parentElement;
+      faixa.scrollLeft = aba.offsetLeft - faixa.offsetLeft - (faixa.clientWidth - aba.offsetWidth) / 2;
+    }
+    window.addEventListener('load', centralizarAba);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(centralizarAba);
+
+    function selecionarAba(dia, focar) {
+      $$('.aba').forEach((aba) => {
+        const ativa = aba.dataset.dia === String(dia);
+        aba.setAttribute('aria-selected', String(ativa));
+        aba.tabIndex = ativa ? 0 : -1;
+        if (ativa && focar) aba.focus();
+      });
+      $$('.painel').forEach((p) => { p.hidden = p.dataset.dia !== String(dia); });
+      centralizarAba();
+    }
+
+    function montarCardapio(diaHoje) {
+      const ehDiaUtil = DIAS_UTEIS.includes(diaHoje);
+      $('#aviso-fds').hidden = ehDiaUtil;
+
+      DIAS_UTEIS.forEach((dia) => {
+        const nome = CONFIG.diasNomes[dia];
+
+        const aba = document.createElement('button');
+        aba.type = 'button';
+        aba.className = 'aba';
+        aba.id = 'aba-' + dia;
+        aba.dataset.dia = dia;
+        aba.setAttribute('role', 'tab');
+        aba.setAttribute('aria-controls', 'painel-' + dia);
+        aba.textContent = nome;
+        if (dia === diaHoje) {
+          const selo = document.createElement('span');
+          selo.className = 'selo-hoje';
+          selo.textContent = 'Hoje';
+          aba.append(' ', selo);
+        }
+        aba.addEventListener('click', () => selecionarAba(dia));
+        aba.addEventListener('keydown', (e) => {
+          const i = DIAS_UTEIS.indexOf(dia);
+          let prox = null;
+          if (e.key === 'ArrowRight') prox = DIAS_UTEIS[(i + 1) % 5];
+          if (e.key === 'ArrowLeft') prox = DIAS_UTEIS[(i + 4) % 5];
+          if (e.key === 'Home') prox = 1;
+          if (e.key === 'End') prox = 5;
+          if (prox !== null) { e.preventDefault(); selecionarAba(prox, true); }
+        });
+        $('#abas').appendChild(aba);
+
+        const painel = document.createElement('div');
+        painel.className = 'painel';
+        painel.id = 'painel-' + dia;
+        painel.dataset.dia = dia;
+        painel.setAttribute('role', 'tabpanel');
+        painel.setAttribute('aria-labelledby', 'aba-' + dia);
+        painel.tabIndex = 0;
+        painel.innerHTML =
+          '<h3 class="painel-titulo">' + nome + (dia === diaHoje ? ' – hoje' : '') + '</h3>' +
+          '<ul class="lista-itens">' +
+          CONFIG.cardapio[dia].map((item) =>
+            '<li><span class="check" aria-hidden="true"></span><span>' + esc(item) + '</span></li>').join('') +
+          '</ul>' +
+          '<div class="painel-acoes"><button type="button" class="btn btn-primario btn-pequeno" data-montar-dia="' + dia + '">' +
+          'Montar meu almoço de ' + nome.toLowerCase() + '</button></div>';
+        $('#paineis').appendChild(painel);
+      });
+
+      // Botão "Montar meu almoço de X": já escolhe o dia no montador
+      $('#paineis').addEventListener('click', (e) => {
+        const botao = e.target.closest('[data-montar-dia]');
+        if (!botao) return;
+        mudarDia(Number(botao.dataset.montarDia));
+        $('#montador').scrollIntoView({ behavior: reduzMovimento ? 'auto' : 'smooth' });
+      });
+
+      selecionarAba(ehDiaUtil ? diaHoje : 1);
+    }
+
+    /* ==========================================================
+       MONTADOR DE ALMOÇO
+       ========================================================== */
+    const PASSOS = ['Tamanho', 'Mistura', 'Acompanhamentos', 'Verduras', 'Extras', 'Observações', 'Seus dados', 'Revisão'];
+    const HOJE = new Date().getDay();
+    const DIA_PADRAO = DIAS_UTEIS.includes(HOJE) ? HOJE : 1; // fim de semana -> segunda
+
+    // Extras com sabores viram uma linha por sabor e tamanho (ex.: Laranja – Jarra 1.000 ml)
+    const textoMl = (ml) => (ml ? ml.toLocaleString('pt-BR') + ' ml' : '');
+    const EXTRAS = [];
+    M.extras.forEach((ex) => {
+      if (ex.sabores) {
+        const tamanhos = ex.tamanhos || [{ id: 'un', nome: '', preco: ex.preco }];
+        ex.sabores.forEach((s) => tamanhos.forEach((t) => {
+          const medida = [t.nome, textoMl(t.ml)].filter(Boolean).join(' ');
+          EXTRAS.push({
+            id: ex.id + '-' + slug(s) + '-' + t.id,
+            // Nome curto: "Suco de laranja (Jarra 1.000 ml)". O "Suco de" fica fixo aqui.
+            nome: 'Suco de ' + s.toLowerCase() + (medida ? ' (' + medida + ')' : ''),
+            sabor: s, curto: 'Suco de ' + s.toLowerCase(), medida: medida, preco: t.preco, grupo: ex.nome
+          });
+        }));
+      } else {
+        EXTRAS.push(Object.assign({}, ex, {
+          medida: textoMl(ex.ml),
+          nome: ex.nome + (ex.ml ? ' (' + textoMl(ex.ml) + ')' : ''),
+          curto: ex.nome
+        }));
+      }
+    });
+
+    const novoPedido = () => ({
+      passo: 1, maxPasso: 1, editando: false, enviado: false,
+      dia: DIA_PADRAO, tamanho: null, quantidade: 1,
+      misturas: [], acompanhamentos: [], verduras: [], extras: {}, obs: ''
+    });
+    let pedido = novoPedido();
+
+    // Dados do cliente (lembrados neste aparelho, se ele quiser)
+    const CHAVE_CLIENTE = 'pinheiro-cliente-v1';
+    let cliente = carregarCliente();
+    function carregarCliente() {
+      try { return Object.assign({ empresa: 'nao' }, JSON.parse(localStorage.getItem(CHAVE_CLIENTE)) || {}); }
+      catch (e) { return { empresa: 'nao' }; }
+    }
+    // Observações: ficam salvas neste aparelho para os próximos pedidos
+    const CHAVE_OBS = 'pinheiro-obs-v1';
+    function carregarObs() {
+      try { return localStorage.getItem(CHAVE_OBS) || ''; }
+      catch (e) { return ''; }
+    }
+    function salvarObs() {
+      try {
+        const texto = (pedido.obs || '').trim();
+        if (!$('#lembrar').checked || !texto) localStorage.removeItem(CHAVE_OBS);
+        else localStorage.setItem(CHAVE_OBS, texto);
+      } catch (e) { /* navegador sem armazenamento: segue sem lembrar */ }
+    }
+
+    function salvarCliente() {
+      try {
+        if (!$('#lembrar').checked) { localStorage.removeItem(CHAVE_CLIENTE); return; }
+        const copia = Object.assign({}, cliente);
+        delete copia.troco; // o troco muda a cada pedido
+        localStorage.setItem(CHAVE_CLIENTE, JSON.stringify(copia));
+      } catch (e) { /* navegador sem armazenamento: segue sem lembrar */ }
+    }
+
+    const tamanhoAtual = () => M.tamanhos.find((t) => t.id === pedido.tamanho) || null;
+    function tipoEntrega() {
+      const t = tamanhoAtual();
+      if (t && t.local) return 'local';
+      return cliente.entrega || '';
+    }
+
+    // Endereço para o Waze: "Rua X, 10, Bairro, Recife - PE" (vazio se o cliente ainda não preencheu)
+    function enderecoCompleto() {
+      const c = cliente;
+      const rua = [c.rua, c.numero].filter((v) => v && String(v).trim()).join(', ');
+      const partes = [rua, c.bairro].filter((v) => v && String(v).trim());
+      return partes.length ? partes.concat('Recife - PE').join(', ') : '';
+    }
+    const linkWaze = (endereco) => 'https://waze.com/ul?q=' + encodeURIComponent(endereco) + '&navigate=yes';
+
+    function calcular() {
+      const t = tamanhoAtual();
+      const base = t ? t.preco * pedido.quantidade : 0;
+      const extras = EXTRAS.reduce((s, e) => s + (pedido.extras[e.id] || 0) * e.preco, 0);
+      const taxa = tipoEntrega() === 'entrega' ? M.taxaEntrega : 0;
+      return { base, extras, subtotal: base + extras, taxa, total: base + extras + taxa };
+    }
+    const atualizarTotal = () => { $('#total-parcial').textContent = brl(calcular().total); };
+
+    // "Quinta (hoje)" ou "Segunda, 16/11"
+    function rotuloDia(dia) {
+      const agora = new Date();
+      const diff = (dia - agora.getDay() + 7) % 7;
+      if (diff === 0) return CONFIG.diasNomes[dia] + '-feira (hoje)';
+      const data = new Date(agora.getFullYear(), agora.getMonth(), agora.getDate() + diff);
+      return CONFIG.diasNomes[dia] + '-feira, ' + String(data.getDate()).padStart(2, '0') + '/' + String(data.getMonth() + 1).padStart(2, '0');
+    }
+
+    /* ---------- Desenho de cada passo ---------- */
+    function cartaoOpcao(tipo, nome, valor, marcado, opts = {}) {
+      return '<label class="opcao' + (opts.desabilitado ? ' desabilitada' : '') + '">' +
+        '<input type="' + tipo + '" name="' + nome + '" value="' + esc(valor) + '"' +
+        (marcado ? ' checked' : '') + (opts.desabilitado ? ' disabled' : '') + '>' +
+        '<span class="opcao-corpo"><span class="marcador' + (tipo === 'checkbox' ? ' quadrado' : '') + '" aria-hidden="true"></span>' +
+        '<span class="opcao-texto"><strong>' + esc(opts.titulo || valor) + '</strong>' +
+        (opts.sub ? '<small>' + esc(opts.sub) + '</small>' : '') +
+        (opts.tag ? '<span class="tag">' + esc(opts.tag) + '</span>' : '') + '</span>' +
+        (opts.preco != null ? '<span class="preco">' + brl(opts.preco) + '</span>' : '') +
+        '</span></label>';
+    }
+
+    function renderTamanhos() {
+      $('#op-tamanhos').innerHTML = M.tamanhos.map((t) =>
+        cartaoOpcao('radio', 'tamanho', t.id, pedido.tamanho === t.id, { titulo: t.nome, sub: t.descricao, preco: t.preco })
+      ).join('');
+      $('#qtd-valor').textContent = pedido.quantidade;
+      atualizarRotuloQtd();
+    }
+    function atualizarRotuloQtd() {
+      const t = tamanhoAtual();
+      $('#qtd-rotulo').textContent = t && t.local ? 'Quantos pratos?' : 'Quantas marmitas?';
+    }
+
+    function renderDias() {
+      $('#op-dias').innerHTML = DIAS_UTEIS.map((d) =>
+        '<label class="chip"><input type="radio" name="dia" value="' + d + '"' + (pedido.dia === d ? ' checked' : '') + '>' +
+        '<span>' + CONFIG.diasNomes[d] + (d === HOJE ? ' <em>Hoje</em>' : '') + '</span></label>'
+      ).join('');
+    }
+
+    function renderMisturas() {
+      const dia = pedido.dia;
+      $('#nome-dia-mistura').textContent = CONFIG.diasNomes[dia].toLowerCase();
+      $('#dica-misturas').textContent = 'Você pode escolher até ' + M.maxMisturas + (M.maxMisturas > 1 ? ' misturas.' : ' mistura.');
+      $('#nota-dia').textContent = DIAS_UTEIS.includes(HOJE)
+        ? 'Seu pedido é para ' + rotuloDia(dia) + '.'
+        : 'Hoje não abrimos. Seu pedido é para ' + rotuloDia(dia) + '.';
+      $('#op-misturas').innerHTML = CONFIG.cardapio[dia].map((nome) =>
+        cartaoOpcao('checkbox', 'mistura', nome, pedido.misturas.includes(nome))
+      ).join('');
+      estadoMisturas();
+    }
+    // Ao atingir o limite, desativa as outras misturas
+    function estadoMisturas() {
+      const cheio = pedido.misturas.length >= M.maxMisturas;
+      $$('input[name="mistura"]').forEach((inp) => {
+        const bloquear = cheio && !inp.checked;
+        inp.disabled = bloquear;
+        inp.closest('.opcao').classList.toggle('desabilitada', bloquear);
+      });
+      const c = $('#contador-misturas');
+      c.textContent = pedido.misturas.length + ' de ' + M.maxMisturas + ' escolhida(s)' +
+        (cheio ? ' – limite atingido. Desmarque uma para trocar.' : '');
+      c.classList.toggle('cheio', cheio);
+    }
+
+    function renderAcompanhamentos() {
+      const montar = (lista) => lista.map((item) => {
+        const ok = disponivel(item, pedido.dia);
+        return cartaoOpcao('checkbox', 'acomp', item.nome, ok && pedido.acompanhamentos.includes(item.nome), {
+          desabilitado: !ok,
+          tag: item.dias ? (ok ? 'Tem hoje!' : 'Só ' + nomesDosDias(item.dias).toLowerCase()) : ''
+        });
+      }).join('');
+      // Primeiro os grupos de escolha única (ex.: Feijão), depois o resto
+      const grupos = M.gruposEscolhaUnica || {};
+      let html = '';
+      Object.keys(grupos).forEach((g) => {
+        html += '<span class="grupo-titulo">' + esc(grupos[g]) + ' – escolha 1</span>' +
+          '<div class="opcoes" role="group" aria-label="' + esc(grupos[g]) + ', escolha 1">' +
+          montar(CONFIG.acompanhamentos.filter((a) => a.grupo === g)) + '</div>';
+      });
+      const resto = CONFIG.acompanhamentos.filter((a) => !grupos[a.grupo]);
+      if (resto.length) {
+        html += '<span class="grupo-titulo">' + (html ? 'Outros acompanhamentos' : 'Acompanhamentos') + '</span>' +
+          '<div class="opcoes">' + montar(resto) + '</div>';
+      }
+      $('#op-acomp').innerHTML = html;
+      $('#op-especiais').innerHTML = montar(CONFIG.especiais);
+      // "Tem hoje!" só faz sentido se o pedido for para hoje
+      if (pedido.dia !== HOJE) $$('#op-acomp .tag, #op-especiais .tag').forEach((t) => {
+        if (t.textContent === 'Tem hoje!') t.textContent = 'Tem ' + CONFIG.diasNomes[pedido.dia].toLowerCase() + '!';
+      });
+    }
+
+    // Escolha única: ao marcar um feijão, desmarca os outros feijões
+    function desmarcarMesmoGrupo(nome) {
+      const item = CONFIG.acompanhamentos.find((a) => a.nome === nome);
+      if (!item || !(M.gruposEscolhaUnica || {})[item.grupo]) return;
+      CONFIG.acompanhamentos
+        .filter((a) => a.grupo === item.grupo && a.nome !== nome)
+        .forEach((a) => {
+          alternar(pedido.acompanhamentos, a.nome, false);
+          const inp = $$('input[name="acomp"]').find((i) => i.value === a.nome);
+          if (inp) inp.checked = false;
+        });
+    }
+
+    function renderVerduras() {
+      $('#op-verduras').innerHTML = CONFIG.verduras.map((v) =>
+        cartaoOpcao('checkbox', 'verdura', v, pedido.verduras.includes(v))
+      ).join('');
+      textoBotaoVerduras();
+    }
+    function textoBotaoVerduras() {
+      const todas = pedido.verduras.length === CONFIG.verduras.length;
+      const b = $('#btn-todas-verduras');
+      b.textContent = todas ? 'Desmarcar todas' : 'Todas as verduras';
+      b.setAttribute('aria-pressed', String(todas));
+    }
+
+    function stepperExtra(e) {
+      const q = pedido.extras[e.id] || 0;
+      return '<div class="stepper" role="group" aria-label="Quantidade de ' + esc(e.nome) + '">' +
+        '<button type="button" data-extra="' + e.id + '" data-delta="-1" aria-label="Tirar um ' + esc(e.nome) + '">−</button>' +
+        '<output id="qtd-' + e.id + '">' + q + '</output>' +
+        '<button type="button" data-extra="' + e.id + '" data-delta="1" aria-label="Adicionar um ' + esc(e.nome) + '">+</button>' +
+        '</div>';
+    }
+    // Item simples (refrigerante, água…)
+    function linhaExtra(e) {
+      const q = pedido.extras[e.id] || 0;
+      return '<div class="extra' + (q ? ' ativo' : '') + '" data-linha="' + e.id + '">' +
+        '<div class="extra-info"><strong>' + esc(e.curto) + '</strong>' +
+        (e.medida ? '<small class="extra-medida">' + esc(e.medida) + '</small>' : '') +
+        '<span class="preco">' + brl(e.preco) + '</span></div>' +
+        stepperExtra(e) + '</div>';
+    }
+    // Extras normais (refrigerante, água…) e o bloco de suco natural
+    function renderExtras() {
+      let html = '<div id="op-suco"></div><span class="grupo-titulo">Bebidas e extras</span>';
+      EXTRAS.filter((e) => !e.sabor).forEach((e) => { html += linhaExtra(e); });
+      $('#op-extras').innerHTML = html;
+      renderSuco();
+    }
+
+    // Suco natural: botão "+ Adicionar suco" -> escolhe o sabor -> copo ou jarra
+    function renderSuco() {
+      const variantes = EXTRAS.filter((x) => x.sabor);
+      const sabores = [...new Set(variantes.map((x) => x.sabor))];
+      const escolhidos = variantes.filter((x) => pedido.extras[x.id] > 0);
+      $('#op-suco').innerHTML =
+        '<span class="grupo-titulo">Suco natural</span>' +
+        '<div class="suco-add">' +
+          '<button type="button" class="btn btn-primario btn-pequeno" id="btn-add-suco" aria-expanded="false" aria-controls="picker-suco">+ Adicionar suco</button>' +
+          '<div class="picker" id="picker-suco" hidden>' +
+            '<p class="picker-titulo">1. Qual sabor?</p>' +
+            '<div class="chips">' + sabores.map((s) =>
+              '<button type="button" class="chip-btn" data-sabor="' + esc(s) + '">' + esc(s) + '</button>').join('') + '</div>' +
+            '<div id="picker-tamanho" hidden></div>' +
+            '<button type="button" class="btn btn-secundario btn-pequeno" id="btn-cancelar-suco">Cancelar</button>' +
+          '</div>' +
+        '</div>' +
+        '<div class="suco-lista">' +
+          (escolhidos.length ? escolhidos.map((v) => linhaExtra(v)).join('') : '<p class="nota">Nenhum suco escolhido ainda.</p>') +
+        '</div>';
+    }
+
+    function renderEtapas() {
+      $('#etapas').innerHTML = PASSOS.map((nome, i) =>
+        '<li><button type="button" data-ir="' + (i + 1) + '" aria-label="Passo ' + (i + 1) + ': ' + nome + '">' + (i + 1) + '</button>' +
+        '<small class="etapa-nome" aria-hidden="true">' + nome + '</small></li>'
+      ).join('');
+    }
+
+    /* ---------- Troca de dia: remove o que não existe no novo dia ---------- */
+    function mudarDia(dia) {
+      pedido.dia = dia;
+      pedido.misturas = pedido.misturas.filter((m) => CONFIG.cardapio[dia].includes(m));
+      const todosAcomp = CONFIG.acompanhamentos.concat(CONFIG.especiais);
+      pedido.acompanhamentos = pedido.acompanhamentos.filter((n) => {
+        const item = todosAcomp.find((a) => a.nome === n);
+        return item && disponivel(item, dia);
+      });
+      $$('input[name="dia"]').forEach((r) => { r.checked = Number(r.value) === dia; });
+      renderMisturas();
+      renderAcompanhamentos();
+    }
+
+    /* ---------- Passo 7: campos que aparecem/somem ---------- */
+    // 00000-000
+    function mascaraCep(valor) {
+      const d = valor.replace(/\D/g, '').slice(0, 8);
+      return d.length > 5 ? d.slice(0, 5) + '-' + d.slice(5) : d;
+    }
+
+    // Preenche rua e bairro pelo CEP (ViaCEP). O número continua sendo digitado.
+    let ultimoCep = '';
+    async function buscarCep(valor) {
+      const cep = valor.replace(/\D/g, '');
+      if (cep === ultimoCep) return;
+      ultimoCep = cep;
+      const txt = $('#txt-cep');
+      txt.textContent = 'Buscando endereço…';
+      try {
+        const resposta = await fetch('https://viacep.com.br/ws/' + cep + '/json/');
+        if (!resposta.ok) throw new Error('HTTP ' + resposta.status);
+        const dados = await resposta.json();
+        if (dados.erro) { txt.textContent = 'CEP não encontrado. Preencha o endereço abaixo.'; return; }
+        const temRua = Boolean(dados.logradouro && dados.bairro);
+        cliente.rua = dados.logradouro || '';
+        cliente.bairro = dados.bairro || '';
+        $('#c-rua').value = cliente.rua;
+        $('#c-bairro').value = cliente.bairro;
+        $('#c-rua').removeAttribute('aria-invalid');
+        $('#c-bairro').removeAttribute('aria-invalid');
+        const aviso = dados.localidade && dados.localidade !== 'Recife'
+          ? ' Atenção: este CEP é de ' + dados.localidade + '. Confira.' : '';
+        if (temRua) {
+          txt.textContent = 'Endereço preenchido. Confira e informe o número.' + aviso;
+          $('#c-numero').focus();
+        } else {
+          // Alguns CEPs não têm rua cadastrada: o cliente precisa digitar
+          txt.textContent = 'Este CEP não tem rua cadastrada. Digite a rua e o bairro.' + aviso;
+          $(cliente.rua ? '#c-bairro' : '#c-rua').focus();
+        }
+        atualizarCondicionais();
+      } catch (e) {
+        ultimoCep = '';
+        txt.textContent = 'Não consegui buscar o CEP agora. Preencha o endereço manualmente.';
+      }
+    }
+
+    function atualizarCondicionais() {
+      const tipo = tipoEntrega();
+      $('#bloco-local').hidden = tipo !== 'local';
+      $('#bloco-tipo-entrega').hidden = tipo === 'local';
+      $('#bloco-endereco').hidden = tipo !== 'entrega';
+      // Empresa vale para retirada e entrega (não para prato no local)
+      const temEmpresa = tipo === 'retirada' || tipo === 'entrega';
+      $('[name="empresa"]').closest('fieldset').hidden = !temEmpresa;
+      $('#bloco-empresa').hidden = !(temEmpresa && cliente.empresa === 'sim');
+      // Link do Waze com o endereço preenchido até agora
+      const endereco = enderecoCompleto();
+      $('#link-waze').hidden = !endereco;
+      $('#link-waze').href = linkWaze(endereco);
+      $('#bloco-troco').hidden = cliente.pagamento !== 'dinheiro';
+      $('#txt-taxa').textContent = M.taxaEntrega > 0 ? 'Taxa de ' + brl(M.taxaEntrega) : 'Grátis';
+    }
+
+    function preencherCliente() {
+      $$('[data-cliente]').forEach((el) => {
+        const v = cliente[el.name];
+        if (el.type === 'radio') el.checked = el.value === v;
+        else el.value = v || '';
+      });
+    }
+
+    /* ---------- Validação ---------- */
+    function validar(n) {
+      if (n === 1 && !pedido.tamanho) return { msg: 'Escolha o tamanho da marmita ou o prato no local.' };
+      if (n === 2 && pedido.misturas.length === 0) return { msg: 'Escolha pelo menos uma mistura.' };
+      if (n === 7) {
+        const c = cliente;
+        const tipo = tipoEntrega();
+        const vazio = (k) => !c[k] || !String(c[k]).trim();
+        if (vazio('nome') || c.nome.trim().split(/\s+/).length < 2) return { msg: 'Digite seu nome completo (nome e sobrenome).', campo: 'nome' };
+        if ((c.telefone || '').replace(/\D/g, '').length < 10) return { msg: 'Digite um telefone válido, com DDD.', campo: 'telefone' };
+        if (tipo === '') return { msg: 'Escolha se é retirada ou entrega.', campo: 'entrega' };
+        if (tipo !== 'local' && c.empresa === 'sim' && vazio('empresaNome')) return { msg: 'Informe o nome da empresa.', campo: 'empresaNome' };
+        if (tipo !== 'local' && c.empresa === 'sim' && vazio('setor') && vazio('andar')) return { msg: 'Informe o setor ou o andar.', campo: 'setor' };
+        if (tipo === 'entrega') {
+          if (vazio('rua')) return { msg: 'Informe a rua para a entrega.', campo: 'rua' };
+          if (vazio('numero')) return { msg: 'Informe o número.', campo: 'numero' };
+          if (vazio('bairro')) return { msg: 'Informe o bairro.', campo: 'bairro' };
+        }
+        if (!c.pagamento) return { msg: 'Escolha a forma de pagamento.', campo: 'pagamento' };
+        if (c.pagamento === 'dinheiro' && c.troco && String(c.troco).trim()) {
+          const v = paraNumero(c.troco);
+          if (isNaN(v)) return { msg: 'Digite o valor do troco só com números. Ex.: 50', campo: 'troco' };
+          if (v < calcular().total) return { msg: 'O troco precisa ser para um valor maior que o total (' + brl(calcular().total) + ').', campo: 'troco' };
+        }
+      }
+      return null;
+    }
+    function mostrarErro(erro) {
+      $('#erro-passo').textContent = erro.msg;
+      if (erro.campo) {
+        const el = $('[name="' + erro.campo + '"]');
+        if (el) {
+          if (el.type !== 'radio') el.setAttribute('aria-invalid', 'true');
+          el.focus();
+        }
+      }
+    }
+    const limparErro = () => { $('#erro-passo').textContent = ''; };
+
+    /* ---------- Navegação entre passos ---------- */
+    function irPara(n, rolar = true) {
+      pedido.passo = n;
+      pedido.maxPasso = Math.max(pedido.maxPasso, n);
+      $$('.passo').forEach((p) => { p.hidden = Number(p.dataset.passo) !== n; });
+      if (n === 7) atualizarCondicionais();
+      if (n === 8) renderRevisao();
+
+      // Topo: rótulo, barra e bolinhas
+      $('#passo-rotulo').textContent = 'Passo ' + n + ' de ' + PASSOS.length;
+      $('#passo-nome').textContent = PASSOS[n - 1];
+      $('#progresso-barra').style.width = (n / PASSOS.length * 100) + '%';
+      $('#progresso').setAttribute('aria-valuenow', n);
+      $$('#etapas button').forEach((b) => {
+        const i = Number(b.dataset.ir);
+        b.classList.toggle('atual', i === n);
+        b.classList.toggle('feito', i < n || i <= pedido.maxPasso);
+        b.disabled = i > pedido.maxPasso;
+        if (i === n) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current');
+      });
+
+      // Botões de baixo
+      $('#btn-voltar').style.visibility = n === 1 ? 'hidden' : 'visible';
+      $('#btn-avancar').hidden = n === PASSOS.length;
+      $('#btn-enviar').hidden = n !== PASSOS.length;
+      $('#btn-avancar').textContent = pedido.editando ? 'Salvar e revisar' : (n === 7 ? 'Revisar pedido' : 'Continuar');
+
+      limparErro();
+      atualizarTotal();
+      if (rolar) {
+        $('#montador-app').scrollIntoView({ behavior: reduzMovimento ? 'auto' : 'smooth', block: 'start' });
+        $('.passo[data-passo="' + n + '"] .passo-titulo').focus({ preventScroll: true });
+      }
+    }
+    function avancar() {
+      const erro = validar(pedido.passo);
+      if (erro) { mostrarErro(erro); return; }
+      if (pedido.editando) { pedido.editando = false; irPara(PASSOS.length); return; }
+      irPara(Math.min(pedido.passo + 1, PASSOS.length));
+    }
+
+    /* ---------- Revisão (passo 8) ---------- */
+    function linhasCliente() {
+      const c = cliente;
+      const tipo = tipoEntrega();
+      const L = [['Cliente', c.nome], ['Telefone', c.telefone]];
+      if (tipo === 'local') L.push(['Consumo', 'No restaurante']);
+      if (tipo === 'retirada') L.push(['Entrega', 'Retirada no restaurante']);
+      if (tipo !== 'local' && c.empresa === 'sim') {
+        L.push(['Empresa', c.empresaNome]);
+        [['setor', 'Setor'], ['andar', 'Andar'], ['sala', 'Sala'], ['recebedor', 'Recebedor'], ['portaria', 'Portaria/recepção']]
+          .forEach(([k, r]) => { if (c[k]) L.push([r, c[k]]); });
+      }
+      if (tipo === 'entrega') {
+        L.push(['Entrega', 'Entregar no endereço']);
+        L.push(['Endereço', c.rua + ', ' + c.numero + ' – ' + c.bairro]);
+        if (c.complemento) L.push(['Complemento', c.complemento]);
+        if (c.referencia) L.push(['Referência', c.referencia]);
+        L.push(['Waze', linkWaze(enderecoCompleto())]);
+      }
+      L.push(['Pagamento', textoPagamento()]);
+      return L;
+    }
+    function textoPagamento() {
+      const p = cliente.pagamento;
+      if (p === 'pix') return 'Pix';
+      if (p === 'cartao') return 'Cartão';
+      if (p === 'dinheiro') {
+        const v = paraNumero(cliente.troco || '');
+        return isNaN(v) ? 'Dinheiro (sem troco)' : 'Dinheiro – troco para ' + brl(v);
+      }
+      return '';
+    }
+    const textoVerduras = () => pedido.verduras.length === CONFIG.verduras.length
+      ? 'Todas as verduras'
+      : naOrdem(CONFIG.verduras, pedido.verduras).join(', ');
+    const listaAcomp = () => naOrdem(CONFIG.acompanhamentos.concat(CONFIG.especiais).map((a) => a.nome), pedido.acompanhamentos);
+    const extrasEscolhidos = () => EXTRAS.filter((e) => pedido.extras[e.id] > 0);
+
+    function renderRevisao() {
+      const t = tamanhoAtual();
+      const c = calcular();
+      const bloco = (passo, titulo, conteudo) =>
+        '<div class="revisao-bloco"><div><h4>' + titulo + '</h4>' + conteudo + '</div>' +
+        '<button type="button" class="btn-editar" data-editar="' + passo + '" aria-label="Editar ' + titulo + '">Editar</button></div>';
+      const p = (txt) => '<p>' + txt + '</p>';
+      const extras = extrasEscolhidos();
+
+      $('#revisao').innerHTML =
+        bloco(1, 'Tamanho', p('<strong>' + pedido.quantidade + 'x ' + esc(t.nome) + '</strong> – ' + brl(t.preco) + ' cada')) +
+        bloco(2, 'Mistura', p(esc(naOrdem(CONFIG.cardapio[pedido.dia], pedido.misturas).join(', '))) + p('Para ' + esc(rotuloDia(pedido.dia)))) +
+        bloco(3, 'Acompanhamentos', p(esc(listaAcomp().join(', ')) || 'Nenhum')) +
+        bloco(4, 'Verduras', p(esc(textoVerduras()) || 'Sem verduras')) +
+        bloco(5, 'Extras', extras.length
+          ? '<ul>' + extras.map((e) => '<li>' + pedido.extras[e.id] + 'x ' + esc(e.nome) + ' – ' + brl(pedido.extras[e.id] * e.preco) + '</li>').join('') + '</ul>'
+          : p('Nenhum')) +
+        bloco(6, 'Observações', p(esc(pedido.obs) || 'Nenhuma')) +
+        bloco(7, 'Seus dados', linhasCliente().map(([r, v]) => p('<strong>' + r + ':</strong> ' + esc(v))).join('')) +
+        '<div class="totais">' +
+          '<div><span>Subtotal</span><span>' + brl(c.subtotal) + '</span></div>' +
+          (tipoEntrega() === 'entrega' ? '<div><span>Taxa de entrega</span><span>' + brl(c.taxa) + '</span></div>' : '') +
+          '<div class="total"><span>Total</span><span>' + brl(c.total) + '</span></div>' +
+        '</div>';
+      $('#pedido-enviado').hidden = !pedido.enviado;
+    }
+
+    /* ---------- Mensagem do WhatsApp ---------- */
+    function montarMensagem() {
+      const t = tamanhoAtual();
+      const c = calcular();
+      const L = [];
+      L.push('*NOVO PEDIDO – Restaurante Pinheiro*');
+      L.push('');
+      L.push('*Pedido para:* ' + rotuloDia(pedido.dia));
+      L.push('*' + pedido.quantidade + 'x ' + t.nome + '* (' + brl(t.preco) + ' cada)');
+      L.push('*Mistura:* ' + naOrdem(CONFIG.cardapio[pedido.dia], pedido.misturas).join(', '));
+      if (pedido.acompanhamentos.length) L.push('*Acompanhamentos:* ' + listaAcomp().join(', '));
+      if (pedido.verduras.length) L.push('*Verduras:* ' + textoVerduras());
+      const extras = extrasEscolhidos();
+      if (extras.length) {
+        L.push('*Extras:*');
+        extras.forEach((e) => L.push('• ' + pedido.extras[e.id] + 'x ' + e.nome + ' – ' + brl(pedido.extras[e.id] * e.preco)));
+      }
+      if (pedido.obs.trim()) L.push('*Observações:* ' + pedido.obs.trim());
+      L.push('');
+      L.push('------------------------------');
+      linhasCliente().forEach(([r, v]) => L.push('*' + r + ':* ' + v));
+      L.push('------------------------------');
+      L.push('Subtotal: ' + brl(c.subtotal));
+      if (c.taxa) L.push('Taxa de entrega: ' + brl(c.taxa));
+      L.push('*TOTAL: ' + brl(c.total) + '*');
+      return L.join('\n');
+    }
+
+    // Copia um texto para a área de transferência (com plano B para navegadores antigos)
+    function copiarTexto(texto) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        return navigator.clipboard.writeText(texto).then(() => true, () => copiarFallback(texto));
+      }
+      return Promise.resolve(copiarFallback(texto));
+    }
+    function copiarFallback(texto) {
+      const area = document.createElement('textarea');
+      area.value = texto;
+      area.setAttribute('readonly', '');
+      area.style.position = 'fixed';
+      area.style.opacity = '0';
+      document.body.appendChild(area);
+      area.select();
+      let ok = false;
+      try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+      area.remove();
+      return ok;
+    }
+    let ultimaMensagem = '';
+
+    function enviarPedido() {
+      // Confere de novo os passos obrigatórios
+      for (const n of [1, 2, 7]) {
+        const erro = validar(n);
+        if (erro) { irPara(n); mostrarErro(erro); return; }
+      }
+      salvarCliente();
+      const mensagem = montarMensagem();
+      ultimaMensagem = mensagem;
+      const url = linkWhatsApp(mensagem);
+      $('#txt-pedido').value = mensagem; // o texto fica visível na tela, para copiar se precisar
+      $('#link-whatsapp').href = url;
+      copiarTexto(mensagem); // plano B: se a conversa abrir sem o texto, é só colar
+      // Link criado no clique do próprio cliente: navegadores não bloqueiam como pop-up
+      const link = document.createElement('a');
+      link.href = url;
+      link.target = '_blank';
+      link.rel = 'noopener';
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      pedido.enviado = true;
+      $('#txt-sucesso').textContent = 'Pedido pronto! Toque em “Abrir no WhatsApp” para enviar. Se a conversa não abrir, copie o texto abaixo e cole no WhatsApp.';
+      $('#pedido-enviado').hidden = false;
+    }
+
+    function recomecar() {
+      pedido = novoPedido();
+      pedido.obs = carregarObs(); // as observações salvas voltam no novo pedido
+      $('#obs').value = pedido.obs;
+      $$('input[name="dia"]').forEach((r) => { r.checked = Number(r.value) === pedido.dia; });
+      renderTamanhos(); renderMisturas(); renderAcompanhamentos(); renderVerduras(); renderExtras();
+      cliente.troco = '';
+      preencherCliente();
+      irPara(1);
+    }
+
+    /* ---------- Eventos do montador ---------- */
+    function configurarMontador() {
+      const app = $('#montador-app');
+      const form = $('#form-pedido');
+
+      // "É para empresa?" e os dados da empresa saem do bloco de endereço e ficam para retirada e entrega
+      const endereco = $('#bloco-endereco');
+      endereco.after($('[name="empresa"]').closest('fieldset'), $('#bloco-empresa'));
+      // Botão "Ver endereço no Waze" (aparece quando há endereço preenchido)
+      const linkW = document.createElement('a');
+      linkW.id = 'link-waze';
+      linkW.className = 'btn btn-secundario btn-pequeno';
+      linkW.target = '_blank';
+      linkW.rel = 'noopener';
+      linkW.textContent = 'Ver endereço no Waze';
+      const wrapW = document.createElement('div');
+      wrapW.className = 'waze-linha';
+      wrapW.appendChild(linkW);
+      endereco.appendChild(wrapW);
+
+      form.addEventListener('submit', (e) => { e.preventDefault(); if (pedido.passo < PASSOS.length) avancar(); });
+
+      // Mudanças em rádios, checkboxes e campos
+      const aoMudar = (e) => {
+        const el = e.target;
+        if (el.hasAttribute('data-cliente')) {
+          if (el.name === 'telefone') el.value = mascaraTelefone(el.value);
+          if (el.name === 'cep') {
+            el.value = mascaraCep(el.value);
+            if (el.value.replace(/\D/g, '').length === 8) buscarCep(el.value);
+          }
+          if (el.type !== 'radio' || el.checked) cliente[el.name] = el.value;
+          el.removeAttribute('aria-invalid');
+          atualizarCondicionais();
+        } else if (el.id === 'obs') {
+          pedido.obs = el.value;
+          salvarObs();
+        } else if (e.type === 'change') {
+          if (el.name === 'tamanho') { pedido.tamanho = el.value; atualizarRotuloQtd(); }
+          if (el.name === 'dia') mudarDia(Number(el.value));
+          if (el.name === 'mistura') { alternar(pedido.misturas, el.value, el.checked); estadoMisturas(); }
+          if (el.name === 'acomp') {
+            alternar(pedido.acompanhamentos, el.value, el.checked);
+            if (el.checked) desmarcarMesmoGrupo(el.value);
+          }
+          if (el.name === 'verdura') { alternar(pedido.verduras, el.value, el.checked); textoBotaoVerduras(); }
+        }
+        limparErro();
+        atualizarTotal();
+      };
+      form.addEventListener('change', aoMudar);
+      form.addEventListener('input', aoMudar);
+
+      // Cliques em botões
+      app.addEventListener('click', (e) => {
+        const b = e.target.closest('button');
+        if (!b) return;
+
+        if (b.dataset.qtd) {
+          pedido.quantidade = Math.min(30, Math.max(1, pedido.quantidade + Number(b.dataset.qtd)));
+          $('#qtd-valor').textContent = pedido.quantidade;
+        } else if (b.dataset.extra) {
+          const id = b.dataset.extra;
+          const q = Math.min(30, Math.max(0, (pedido.extras[id] || 0) + Number(b.dataset.delta)));
+          pedido.extras[id] = q;
+          $('#qtd-' + id).textContent = q;
+          if (EXTRAS.some((x) => x.id === id && x.sabor)) renderSuco();
+          else $('[data-linha="' + id + '"]').closest('.extra').classList.toggle('ativo', q > 0);
+        } else if (b.dataset.sugestao) {
+          const campo = $('#obs');
+          campo.value = campo.value.trim() ? campo.value.trim().replace(/[.,;]$/, '') + ', ' + b.dataset.sugestao.toLowerCase() : b.dataset.sugestao;
+          pedido.obs = campo.value;
+          salvarObs();
+        } else if (b.id === 'btn-add-suco') {
+          const picker = $('#picker-suco');
+          picker.hidden = !picker.hidden;
+          b.setAttribute('aria-expanded', String(!picker.hidden));
+          $('#picker-tamanho').hidden = true;
+        } else if (b.id === 'btn-cancelar-suco') {
+          $('#picker-suco').hidden = true;
+          $('#btn-add-suco').setAttribute('aria-expanded', 'false');
+        } else if (b.dataset.sabor) {
+          const tam = $('#picker-tamanho');
+          tam.innerHTML = '<p class="picker-titulo">2. Copo ou jarra?</p><div class="chips">' +
+            EXTRAS.filter((x) => x.sabor === b.dataset.sabor).map((v) =>
+              '<button type="button" class="chip-btn" data-variant="' + v.id + '">' + esc(v.medida) + ' – ' + brl(v.preco) + '</button>'
+            ).join('') + '</div>';
+          tam.hidden = false;
+        } else if (b.dataset.variant) {
+          // Adiciona um suco desse sabor e tamanho; o picker fecha sozinho
+          pedido.extras[b.dataset.variant] = (pedido.extras[b.dataset.variant] || 0) + 1;
+          renderSuco();
+        } else if (b.id === 'btn-copiar') {
+          copiarTexto(ultimaMensagem).then((ok) => {
+            $('#txt-sucesso').textContent = ok
+              ? 'Pedido copiado. Cole na conversa do WhatsApp e envie.'
+              : 'Não consegui copiar. Toque e segure no texto do pedido para selecionar e copiar.';
+          });
+        } else if (b.id === 'btn-todas-verduras') {
+          const todas = pedido.verduras.length === CONFIG.verduras.length;
+          pedido.verduras = todas ? [] : CONFIG.verduras.slice();
+          renderVerduras();
+        } else if (b.dataset.editar) {
+          pedido.editando = true;
+          irPara(Number(b.dataset.editar));
+        } else if (b.dataset.ir) {
+          pedido.editando = false;
+          irPara(Number(b.dataset.ir));
+        } else if (b.id === 'btn-voltar') {
+          irPara(Math.max(1, pedido.passo - 1));
+        } else if (b.id === 'btn-avancar') {
+          avancar();
+        } else if (b.id === 'btn-enviar') {
+          enviarPedido();
+        } else if (b.id === 'btn-novo') {
+          recomecar();
+        }
+        atualizarTotal();
+      });
+
+      $('#lembrar').addEventListener('change', () => { salvarCliente(); salvarObs(); });
+
+      renderTamanhos();
+      renderDias();
+      renderMisturas();
+      renderAcompanhamentos();
+      renderVerduras();
+      renderExtras();
+      renderEtapas();
+      preencherCliente();
+      pedido.obs = carregarObs();
+      $('#obs').value = pedido.obs;
+      irPara(1, false);
+    }
+
+    /* ==========================================================
+       LINKS, TEXTOS E IMAGEM VINDOS DO CONFIG
+       ========================================================== */
+    function preencherDados() {
+      $$('[data-wa-padrao]').forEach((a) => { a.href = linkWhatsApp(CONFIG.contato.mensagemPadrao); });
+      $('#wa-flutuante').href = linkWhatsApp(CONFIG.contato.mensagemPadrao);
+      $$('[data-instagram]').forEach((a) => { a.href = CONFIG.contato.instagramUrl; });
+      $$('[data-instagram-user]').forEach((el) => { el.textContent = CONFIG.contato.instagramUsuario; });
+      $$('[data-horario]').forEach((el) => { el.textContent = CONFIG.horario.texto; });
+      $$('[data-maps]').forEach((a) => { a.href = CONFIG.endereco.mapsLink; });
+      $$('[data-waze]').forEach((a) => { a.href = CONFIG.endereco.wazeLink; });
+      $('#mapa').src = CONFIG.endereco.mapsEmbed;
+      $('#ano').textContent = new Date().getFullYear();
+
+      const figura = $('#hero-figura');
+      const img = $('#hero-img');
+      if (CONFIG.imagens.hero) {
+        img.addEventListener('error', () => figura.classList.add('sem-imagem'));
+        img.src = CONFIG.imagens.hero;
+      } else {
+        figura.classList.add('sem-imagem');
+      }
+    }
+
+    /* ==========================================================
+       MENU HAMBÚRGUER, HEADER E ANIMAÇÕES
+       ========================================================== */
+    function configurarMenu() {
+      const botao = $('.menu-toggle');
+      const menu = $('#menu');
+      const definir = (aberto) => {
+        menu.classList.toggle('aberto', aberto);
+        botao.classList.toggle('ativo', aberto);
+        botao.setAttribute('aria-expanded', String(aberto));
+        botao.setAttribute('aria-label', aberto ? 'Fechar menu' : 'Abrir menu');
+      };
+      botao.addEventListener('click', () => definir(!menu.classList.contains('aberto')));
+      menu.addEventListener('click', (e) => { if (e.target.closest('a')) definir(false); });
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') definir(false); });
+
+      const header = $('#header');
+      const aoRolar = () => header.classList.toggle('rolado', window.scrollY > 10);
+      window.addEventListener('scroll', aoRolar, { passive: true });
+      aoRolar();
+    }
+
+    function configurarAnimacoes() {
+      const elementos = $$('.reveal');
+      if (!('IntersectionObserver' in window)) {
+        elementos.forEach((el) => el.classList.add('visivel'));
+        return;
+      }
+      const obs = new IntersectionObserver((entradas) => {
+        entradas.forEach((en) => {
+          if (en.isIntersecting) { en.target.classList.add('visivel'); obs.unobserve(en.target); }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+      elementos.forEach((el) => obs.observe(el));
+
+      // Esconde o botão flutuante enquanto o montador está na tela
+      new IntersectionObserver(([en]) => {
+        $('#wa-flutuante').classList.toggle('oculto', en.isIntersecting);
+      }, { threshold: 0.15 }).observe($('#montador-app'));
+    }
+
+    /* ==========================================================
+       INICIALIZAÇÃO
+       ========================================================== */
+    preencherDados();
+    configurarMontador();
+    montarCardapio(HOJE);
+    configurarMenu();
+    configurarAnimacoes();
+    atualizarStatus();
+    setInterval(atualizarStatus, 60 * 1000);
+  })();
+  </script>
+</body>
+</html>
