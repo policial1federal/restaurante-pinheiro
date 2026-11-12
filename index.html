@@ -892,8 +892,7 @@
                 <p id="txt-sucesso"><strong>Prontinho!</strong> Seu pedido foi aberto no WhatsApp. É só tocar em <strong>enviar</strong> lá.</p>
                 <div class="mont-nav" style="justify-content:center;margin-top:14px">
                   <a class="btn btn-wa btn-pequeno" id="link-whatsapp" href="#" target="_blank" rel="noopener">Abrir no WhatsApp</a>
-                  <button type="button" class="btn btn-secundario btn-pequeno" id="btn-copiar">Copiar pedido</button>
-                </div>
+                  </div>
                 <button type="button" class="btn btn-secundario btn-pequeno" id="btn-novo">Fazer outro pedido</button>
               </div>
             </div>
@@ -1782,28 +1781,6 @@
       return L.join('\n');
     }
 
-    // Copia um texto para a área de transferência (com plano B para navegadores antigos)
-    function copiarTexto(texto) {
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        return navigator.clipboard.writeText(texto).then(() => true, () => copiarFallback(texto));
-      }
-      return Promise.resolve(copiarFallback(texto));
-    }
-    function copiarFallback(texto) {
-      const area = document.createElement('textarea');
-      area.value = texto;
-      area.setAttribute('readonly', '');
-      area.style.position = 'fixed';
-      area.style.opacity = '0';
-      document.body.appendChild(area);
-      area.select();
-      let ok = false;
-      try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
-      area.remove();
-      return ok;
-    }
-    let ultimaMensagem = '';
-
     function enviarPedido() {
       // Confere de novo os passos obrigatórios
       for (const n of [1, 2, 7]) {
@@ -1812,10 +1789,8 @@
       }
       salvarCliente();
       const mensagem = montarMensagem();
-      ultimaMensagem = mensagem;
       const url = linkWhatsApp(mensagem);
       $('#link-whatsapp').href = url;
-      copiarTexto(mensagem); // plano B: se a conversa abrir sem o texto, é só colar
       // Link criado no clique do próprio cliente: navegadores não bloqueiam como pop-up
       const link = document.createElement('a');
       link.href = url;
@@ -1825,7 +1800,7 @@
       link.click();
       link.remove();
       pedido.enviado = true;
-      $('#txt-sucesso').textContent = 'Pedido pronto! Toque em “Abrir no WhatsApp” para enviar. Se a conversa não abrir, toque em “Copiar pedido” e cole no WhatsApp.';
+      $('#txt-sucesso').textContent = 'Pedido pronto! Toque em “Abrir no WhatsApp” para enviar.';
       $('#pedido-enviado').hidden = false;
     }
 
@@ -1932,12 +1907,6 @@
           // Adiciona um suco desse sabor e tamanho; o picker fecha sozinho
           pedido.extras[b.dataset.variant] = (pedido.extras[b.dataset.variant] || 0) + 1;
           renderSuco();
-        } else if (b.id === 'btn-copiar') {
-          copiarTexto(ultimaMensagem).then((ok) => {
-            $('#txt-sucesso').textContent = ok
-              ? 'Pedido copiado. Cole na conversa do WhatsApp e envie.'
-              : 'Não consegui copiar. Toque e segure no texto do pedido para selecionar e copiar.';
-          });
         } else if (b.id === 'btn-todas-verduras') {
           const todas = pedido.verduras.length === CONFIG.verduras.length;
           pedido.verduras = todas ? [] : CONFIG.verduras.slice();
