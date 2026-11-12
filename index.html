@@ -1759,10 +1759,10 @@
       const t = tamanhoAtual();
       const c = calcular();
       const L = [];
-      // Dados do cliente sempre na primeira linha da mensagem
-      linhasCliente().forEach(([r, v]) => L.push('*' + r + ':* ' + v));
+      // Título com a data de hoje, depois os dados do cliente
+      L.push('*NOVO PEDIDO – ' + new Date().toLocaleDateString('pt-BR') + ' – Restaurante Pinheiro*');
       L.push('');
-      L.push('*NOVO PEDIDO – Restaurante Pinheiro*');
+      linhasCliente().forEach(([r, v]) => L.push('*' + r + ':* ' + v));
       L.push('');
       L.push('*Pedido para:* ' + rotuloDia(pedido.dia));
       L.push('*' + pedido.quantidade + 'x ' + t.nome + '* (' + brl(t.preco) + ' cada)');
