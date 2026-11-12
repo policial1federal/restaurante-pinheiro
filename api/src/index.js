@@ -1,10 +1,11 @@
 // API do Restaurante Pinheiro (Cloudflare Worker + D1)
 //
 // GET  /config     -> configuração do site (público: o site lê ao abrir)
-// GET  /verificar  -> confere a senha do admin (Authorization: Bearer <senha>)
-// PUT  /config     -> grava a configuração (só com a senha do admin)
+// GET  /verificar  -> confere usuário e senha do admin (Authorization: Basic ...)
+// PUT  /config     -> grava a configuração (só com usuário e senha do admin)
 //
-// A senha fica no segredo ADMIN_SENHA da Cloudflare, nunca no código:
+// Usuário e senha ficam em segredos da Cloudflare, nunca no código:
+//   npx wrangler secret put ADMIN_USUARIO
 //   npx wrangler secret put ADMIN_SENHA
 
 const CORS = {
@@ -24,22 +25,37 @@ const json = (dados, status = 200) =>
     headers: { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store', ...CORS },
   });
 
-// Compara a senha enviada com a guardada sem revelar nada pelo tempo de resposta
-async function senhaCorreta(request, env) {
-  const auth = request.headers.get('Authorization') || '';
-  const enviada = auth.startsWith('Bearer ') ? auth.slice(7) : '';
-  if (!enviada || !env.ADMIN_SENHA) return false;
+// Compara dois textos sem revelar nada pelo tempo de resposta
+async function iguais(x, y) {
   const enc = new TextEncoder();
   const [a, b] = await Promise.all([
-    crypto.subtle.digest('SHA-256', enc.encode(enviada)),
-    crypto.subtle.digest('SHA-256', enc.encode(env.ADMIN_SENHA)),
+    crypto.subtle.digest('SHA-256', enc.encode(x)),
+    crypto.subtle.digest('SHA-256', enc.encode(y)),
   ]);
   return crypto.subtle.timingSafeEqual(a, b);
 }
 
+// Lê "Authorization: Basic base64(usuario:senha)" e confere com os segredos
+async function credenciaisCorretas(request, env) {
+  const auth = request.headers.get('Authorization') || '';
+  if (!auth.startsWith('Basic ')) return false;
+  let texto;
+  try {
+    const bytes = Uint8Array.from(atob(auth.slice(6)), (c) => c.charCodeAt(0));
+    texto = new TextDecoder().decode(bytes);
+  } catch { return false; }
+  const i = texto.indexOf(':');
+  if (i < 1) return false;
+  const [usuarioOk, senhaOk] = await Promise.all([
+    iguais(texto.slice(0, i), env.ADMIN_USUARIO),
+    iguais(texto.slice(i + 1), env.ADMIN_SENHA),
+  ]);
+  return usuarioOk && senhaOk;
+}
+
 async function exigirAdmin(request, env) {
-  if (!env.ADMIN_SENHA) return json({ erro: 'A senha do admin ainda não foi configurada.' }, 503);
-  if (!(await senhaCorreta(request, env))) return json({ erro: 'Senha incorreta.' }, 401);
+  if (!env.ADMIN_USUARIO || !env.ADMIN_SENHA) return json({ erro: 'O usuário e a senha do admin ainda não foram configurados.' }, 503);
+  if (!(await credenciaisCorretas(request, env))) return json({ erro: 'Usuário ou senha incorretos.' }, 401);
   return null;
 }
 

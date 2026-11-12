@@ -2076,7 +2076,7 @@
        A senha é conferida pela API e fica só na memória: some ao recarregar a página.
        ========================================================== */
     const NOMES_SEMANA = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
-    let senhaAdmin = '';
+    let senhaAdmin = ''; // credencial "Basic ..." do admin, só na memória
     let rascunho = null; // cópia do CONFIG que o admin está editando
 
     const copia = (obj) => JSON.parse(JSON.stringify(obj));
@@ -2261,11 +2261,13 @@
       if (!senhaAdmin) {
         $('#admin-caixa').innerHTML = topo +
           '<form id="admin-login" class="admin-login">' +
-          '<div class="campo"><label for="admin-senha">Senha do admin</label>' +
+          '<div class="campo"><label for="admin-usuario">Usuário</label>' +
+          '<input id="admin-usuario" type="text" autocomplete="username" autocapitalize="none" spellcheck="false" required></div>' +
+          '<div class="campo"><label for="admin-senha">Senha</label>' +
           '<input id="admin-senha" type="password" autocomplete="current-password" required></div>' +
           '<button type="submit" class="btn btn-primario">Entrar</button>' +
           '<p class="erro" id="admin-msg" role="alert"></p></form>';
-        $('#admin-senha').focus();
+        $('#admin-usuario').focus();
         return;
       }
       $('#admin-caixa').innerHTML = topo +
@@ -2282,12 +2284,14 @@
       $$('#admin-editor details').forEach((d, i) => { d.open = !!abertas[i]; });
     }
 
-    async function entrarAdmin(senha) {
-      msgAdmin('Conferindo a senha…');
+    async function entrarAdmin(usuario, senha) {
+      msgAdmin('Conferindo usuário e senha…');
       try {
-        const resposta = await fetch(API_URL + '/verificar', { headers: { Authorization: 'Bearer ' + senha } });
+        // "Basic" + usuário:senha em base64 (com suporte a acentos)
+        const credencial = 'Basic ' + btoa(unescape(encodeURIComponent(usuario + ':' + senha)));
+        const resposta = await fetch(API_URL + '/verificar', { headers: { Authorization: credencial } });
         if (resposta.ok) {
-          senhaAdmin = senha;
+          senhaAdmin = credencial;
           rascunho = copia(CONFIG);
           renderAdmin();
           return;
@@ -2308,13 +2312,13 @@
       try {
         const resposta = await fetch(API_URL + '/config', {
           method: 'PUT',
-          headers: { Authorization: 'Bearer ' + senhaAdmin, 'Content-Type': 'application/json' },
+          headers: { Authorization: senhaAdmin, 'Content-Type': 'application/json' },
           body: JSON.stringify(rascunho)
         });
         if (resposta.status === 401) {
           senhaAdmin = '';
           renderAdmin();
-          msgAdmin('A senha mudou ou expirou. Entre de novo; suas alterações continuam aqui.');
+          msgAdmin('Usuário ou senha não conferem mais. Entre de novo; suas alterações continuam aqui.');
           return;
         }
         if (!resposta.ok) {
@@ -2354,7 +2358,7 @@
 
       painel.addEventListener('submit', (e) => {
         e.preventDefault();
-        if (e.target.id === 'admin-login') entrarAdmin($('#admin-senha').value);
+        if (e.target.id === 'admin-login') entrarAdmin($('#admin-usuario').value.trim(), $('#admin-senha').value);
       });
       painel.addEventListener('click', (e) => {
         const b = e.target.closest('[data-admin]');
