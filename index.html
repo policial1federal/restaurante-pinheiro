@@ -890,8 +890,7 @@
               <div id="revisao"></div>
               <div class="sucesso" id="pedido-enviado" hidden role="status">
                 <p id="txt-sucesso"><strong>Prontinho!</strong> Seu pedido foi aberto no WhatsApp. É só tocar em <strong>enviar</strong> lá.</p>
-                <textarea id="txt-pedido" readonly rows="9" aria-label="Texto do pedido" style="width:100%;margin:12px 0;padding:12px;border-radius:12px;background:#151515;border:2px solid #3d3d3d;color:#fff;font:inherit;font-size:.9rem;text-align:left"></textarea>
-                <div class="mont-nav" style="justify-content:center">
+                <div class="mont-nav" style="justify-content:center;margin-top:14px">
                   <a class="btn btn-wa btn-pequeno" id="link-whatsapp" href="#" target="_blank" rel="noopener">Abrir no WhatsApp</a>
                   <button type="button" class="btn btn-secundario btn-pequeno" id="btn-copiar">Copiar pedido</button>
                 </div>
@@ -1815,7 +1814,6 @@
       const mensagem = montarMensagem();
       ultimaMensagem = mensagem;
       const url = linkWhatsApp(mensagem);
-      $('#txt-pedido').value = mensagem; // o texto fica visível na tela, para copiar se precisar
       $('#link-whatsapp').href = url;
       copiarTexto(mensagem); // plano B: se a conversa abrir sem o texto, é só colar
       // Link criado no clique do próprio cliente: navegadores não bloqueiam como pop-up
@@ -1827,7 +1825,7 @@
       link.click();
       link.remove();
       pedido.enviado = true;
-      $('#txt-sucesso').textContent = 'Pedido pronto! Toque em “Abrir no WhatsApp” para enviar. Se a conversa não abrir, copie o texto abaixo e cole no WhatsApp.';
+      $('#txt-sucesso').textContent = 'Pedido pronto! Toque em “Abrir no WhatsApp” para enviar. Se a conversa não abrir, toque em “Copiar pedido” e cole no WhatsApp.';
       $('#pedido-enviado').hidden = false;
     }
 
