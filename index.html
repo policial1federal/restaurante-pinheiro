@@ -1972,6 +1972,17 @@
        MENU HAMBÚRGUER, HEADER E ANIMAÇÕES
        ========================================================== */
     function configurarMenu() {
+      // Links internos (menu, botões e rodapé) rolam até a seção certa
+      document.addEventListener('click', (e) => {
+        const a = e.target.closest('a[href^="#"]');
+        if (!a) return;
+        const alvo = document.getElementById(a.getAttribute('href').slice(1));
+        if (!alvo) return;
+        e.preventDefault();
+        alvo.scrollIntoView({ behavior: reduzMovimento ? 'auto' : 'smooth', block: 'start' });
+        history.replaceState(null, '', a.getAttribute('href'));
+      });
+
       const botao = $('.menu-toggle');
       const menu = $('#menu');
       const definir = (aberto) => {
