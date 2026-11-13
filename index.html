@@ -187,10 +187,19 @@
     .logo { display: flex; align-items: center; gap: 8px; color: var(--texto); text-decoration: none; flex: none; }
     .logo svg { width: 38px; height: 38px; color: var(--ouro); flex: none; }
     .logo-nome { font-family: var(--fonte-script); font-size: 1.35rem; line-height: 1; }
-    .logo-nome small { display: block; font-family: 'Poppins', sans-serif; font-size: .58rem; letter-spacing: .2em; text-transform: uppercase; color: var(--ouro); margin-bottom: 3px; }
+    .logo-nome small { display: block; font-family: 'Poppins', sans-serif; font-size: .7rem; letter-spacing: .16em; text-transform: uppercase; color: var(--ouro); margin-bottom: 3px; }
 
     .header-acoes { display: flex; align-items: center; gap: 4px; }
     .btn-header { min-height: 40px; padding: 7px 14px; font-size: .8rem; white-space: nowrap; }
+    /* Celulares estreitos: logo e botão do topo mais compactos para o menu (☰) caber */
+    @media (max-width: 400px) {
+      .cabecalho { gap: 6px; }
+      .logo svg { width: 32px; height: 32px; }
+      .logo-nome { font-size: 1.2rem; }
+      .btn-header { padding: 6px 10px; font-size: .74rem; }
+    }
+    /* Muito estreito (abaixo de 340 px): o botão do topo sai; o mesmo botão aparece logo abaixo, na abertura */
+    @media (max-width: 339px) { .btn-header { display: none; } }
 
     /* Menu no celular */
     .nav {
@@ -288,7 +297,7 @@
     .aba[aria-selected="true"] { background: var(--ouro); color: #111; border-color: var(--ouro); }
     .selo-hoje {
       position: absolute; top: -11px; right: -6px; background: #e5484d; color: #fff;
-      font-size: .62rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+      font-size: .7rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
       padding: 2px 8px; border-radius: 999px; box-shadow: 0 4px 10px rgba(0, 0, 0, .4);
     }
     .painel { margin-top: 22px; padding: 26px 20px; background: var(--card); border: 1px solid var(--borda); border-radius: var(--raio); }
@@ -325,7 +334,9 @@
 
     .mont-topo { display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; margin-bottom: 12px; }
     .mont-info span { display: block; font-size: .8rem; color: var(--texto-suave); }
-    .mont-info strong { font-size: 1.15rem; }
+    .mont-info { min-width: 0; }
+    .mont-info strong { font-size: 1.15rem; overflow-wrap: anywhere; }
+    @media (max-width: 400px) { .mont-info strong { font-size: 1rem; } .mont-total strong { font-size: 1.15rem; } }
     .mont-total { text-align: right; font-size: .8rem; color: var(--texto-suave); white-space: nowrap; }
     .mont-total strong { display: block; color: var(--ouro); font-size: 1.3rem; line-height: 1.2; }
 
@@ -337,7 +348,7 @@
     .etapas { display: flex; justify-content: space-between; gap: 2px; margin: 14px 0 22px; }
     .etapas li { display: flex; flex-direction: column; align-items: center; flex: 1; min-width: 0; }
     .etapas button {
-      width: 32px; height: 32px; border-radius: 50%; border: 2px solid #3d3d3d;
+      width: 36px; height: 36px; border-radius: 50%; border: 2px solid #3d3d3d;
       background: transparent; color: var(--texto-suave); font-size: .8rem; font-weight: 600; cursor: pointer;
       transition: background .2s, border-color .2s, color .2s;
     }
@@ -346,7 +357,7 @@
     .etapas button:disabled { cursor: not-allowed; opacity: .45; }
     .etapa-nome { display: none; }
     @media (min-width: 760px) {
-      .etapa-nome { display: block; font-size: .68rem; color: var(--texto-suave); margin-top: 5px; text-align: center; }
+      .etapa-nome { display: block; font-size: .75rem; color: var(--texto-suave); margin-top: 5px; text-align: center; white-space: nowrap; }
     }
 
     .aviso-mini {
@@ -402,7 +413,7 @@
       border-radius: 999px; border: 1px solid #3d3d3d; background: var(--card-2);
       font-weight: 600; font-size: .88rem; transition: background .2s, color .2s;
     }
-    .chip span em { font-style: normal; font-size: .65rem; text-transform: uppercase; background: #e5484d; color: #fff; padding: 1px 6px; border-radius: 999px; }
+    .chip span em { font-style: normal; font-size: .7rem; text-transform: uppercase; background: #e5484d; color: #fff; padding: 1px 6px; border-radius: 999px; }
     .chip input:checked + span { background: var(--ouro); color: #111; border-color: var(--ouro); }
     .chip input:focus-visible + span { outline: 3px solid #fff; outline-offset: 2px; }
 
@@ -491,7 +502,8 @@
     /* Revisão */
     .revisao-bloco { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; padding: 14px 0; border-bottom: 1px solid #2f2f2f; }
     .revisao-bloco h4 { font-size: .76rem; text-transform: uppercase; letter-spacing: .12em; color: var(--ouro); margin-bottom: 4px; }
-    .revisao-bloco p, .revisao-bloco li { color: var(--texto-suave); font-size: .93rem; }
+    .revisao-bloco p, .revisao-bloco li { color: var(--texto-suave); font-size: .93rem; overflow-wrap: anywhere; }
+    .revisao-bloco > div { flex: 1; min-width: 0; } /* textos longos quebram linha em vez de alargar a página */
     .revisao-bloco strong { color: var(--texto); font-weight: 600; }
     .btn-editar {
       flex: none; min-height: 36px; padding: 5px 14px; border-radius: 999px;
@@ -531,7 +543,8 @@
     .rodape h3 { color: var(--ouro); font-size: .9rem; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 12px; }
     .rodape p { color: var(--texto-suave); margin-bottom: 8px; }
     .rodape .frase-script { font-family: var(--fonte-script); color: var(--ouro); font-size: 1.2rem; margin-top: 12px; }
-    .link-social { display: inline-flex; align-items: center; gap: 8px; color: var(--texto); text-decoration: none; font-weight: 500; margin-top: 14px; }
+    .link-social { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; color: var(--texto); text-decoration: none; font-weight: 500; margin-top: 6px; }
+    .revisao-bloco a { display: inline-block; padding: 10px 0; font-weight: 600; }
     .link-social:hover { color: var(--ouro); }
     .link-social svg { width: 22px; height: 22px; color: var(--ouro); }
     .copy { text-align: center; margin-top: 44px; padding-top: 22px; border-top: 1px solid #222; color: #a8a8a8; font-size: .85rem; }
@@ -1326,6 +1339,8 @@
        MONTADOR DE ALMOÇO
        ========================================================== */
     const PASSOS = ['Tamanho', 'Mistura', 'Acompanhamentos', 'Verduras', 'Extras', 'Observações', 'Seus dados', 'Revisão'];
+    // Nomes curtos embaixo das bolinhas (cabem no tablet sem encavalar)
+    const PASSOS_CURTOS = ['Tamanho', 'Mistura', 'Acomp.', 'Verduras', 'Extras', 'Obs.', 'Dados', 'Revisão'];
     const HOJE = new Date().getDay();
     const DIA_PADRAO = DIAS_UTEIS.includes(HOJE) ? HOJE : 1; // fim de semana -> segunda
 
@@ -1600,7 +1615,7 @@
     function renderEtapas() {
       $('#etapas').innerHTML = PASSOS.map((nome, i) =>
         '<li><button type="button" data-ir="' + (i + 1) + '" aria-label="Passo ' + (i + 1) + ': ' + nome + '">' + (i + 1) + '</button>' +
-        '<small class="etapa-nome" aria-hidden="true">' + nome + '</small></li>'
+        '<small class="etapa-nome" aria-hidden="true">' + PASSOS_CURTOS[i] + '</small></li>'
       ).join('');
     }
 
@@ -1823,7 +1838,9 @@
           ? '<ul>' + extras.map((e) => '<li>' + pedido.extras[e.id] + 'x ' + esc(e.nome) + ' – ' + brl(pedido.extras[e.id] * e.preco) + '</li>').join('') + '</ul>'
           : p('Nenhum')) +
         bloco(6, 'Observações', p(esc(pedido.obs) || 'Nenhuma')) +
-        bloco(7, 'Seus dados', linhasCliente().map(([r, v]) => p('<strong>' + r + ':</strong> ' + esc(v))).join('')) +
+        bloco(7, 'Seus dados', linhasCliente().map(([r, v]) => r === 'Waze'
+          ? p('<a href="' + esc(v) + '" target="_blank" rel="noopener">Ver endereço no Waze</a>')
+          : p('<strong>' + r + ':</strong> ' + esc(v))).join('')) +
         '<div class="totais">' +
           '<div><span>Subtotal</span><span>' + brl(c.subtotal) + '</span></div>' +
           (tipoEntrega() === 'entrega' ? '<div><span>Taxa de entrega</span><span>' + brl(c.taxa) + '</span></div>' : '') +
