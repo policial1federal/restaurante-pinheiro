@@ -1093,7 +1093,7 @@
         { nome: 'Farofa de cuscuz' }
       ],
       especiais: [
-        { nome: 'Pirão', dias: [2, 4] },
+        { nome: 'Pirão', dias: [2, 4], naoCombinaCom: 'feijao' }, // fica bloqueado se o cliente escolher feijão
         { nome: 'Purê' },
         { nome: 'Legumes', dias: [2, 4] }
       ],
@@ -1465,16 +1465,29 @@
       c.classList.toggle('cheio', cheio);
     }
 
+    // Algo do grupo (ex.: algum feijão) já foi escolhido?
+    const grupoEscolhido = (g) => CONFIG.acompanhamentos.some((a) => a.grupo === g && pedido.acompanhamentos.includes(a.nome));
+    // Item que "não combina" com um grupo escolhido fica bloqueado (ex.: pirão quando há feijão)
+    const bloqueado = (item) => Boolean(item.naoCombinaCom && grupoEscolhido(item.naoCombinaCom));
+
     function renderAcompanhamentos() {
+      const grupos = M.gruposEscolhaUnica || {};
+      // Tira do pedido o que ficou bloqueado
+      const todos = CONFIG.acompanhamentos.concat(CONFIG.especiais);
+      pedido.acompanhamentos = pedido.acompanhamentos.filter((n) => {
+        const item = todos.find((a) => a.nome === n);
+        return !item || !bloqueado(item);
+      });
       const montar = (lista) => lista.map((item) => {
         const ok = disponivel(item, pedido.dia);
-        return cartaoOpcao('checkbox', 'acomp', item.nome, ok && pedido.acompanhamentos.includes(item.nome), {
-          desabilitado: !ok,
-          tag: item.dias ? (ok ? 'Tem hoje!' : 'Só ' + nomesDosDias(item.dias).toLowerCase()) : ''
+        const bloq = bloqueado(item);
+        const tagDia = item.dias ? (ok ? 'Tem hoje!' : 'Só ' + nomesDosDias(item.dias).toLowerCase()) : '';
+        return cartaoOpcao('checkbox', 'acomp', item.nome, ok && !bloq && pedido.acompanhamentos.includes(item.nome), {
+          desabilitado: !ok || bloq,
+          tag: bloq ? 'Não vai com ' + String(grupos[item.naoCombinaCom] || item.naoCombinaCom).toLowerCase() : tagDia
         });
       }).join('');
       // Primeiro os grupos de escolha única (ex.: Feijão), depois o resto
-      const grupos = M.gruposEscolhaUnica || {};
       let html = '';
       Object.keys(grupos).forEach((g) => {
         html += '<span class="grupo-titulo">' + esc(grupos[g]) + ' – escolha 1</span>' +
@@ -1909,6 +1922,11 @@
           if (el.name === 'acomp') {
             alternar(pedido.acompanhamentos, el.value, el.checked);
             if (el.checked) desmarcarMesmoGrupo(el.value);
+            // Redesenha para aplicar bloqueios (ex.: pirão x feijão) e devolve o foco ao item
+            const valor = el.value;
+            renderAcompanhamentos();
+            const mesmo = $$('input[name="acomp"]').find((i) => i.value === valor);
+            if (mesmo) mesmo.focus();
           }
           if (el.name === 'verdura') { alternar(pedido.verduras, el.value, el.checked); textoBotaoVerduras(); }
         }
@@ -2186,6 +2204,7 @@
           '<small class="nota">Só em alguns dias? Marque os dias. Sem marcar = todo dia.</small>' +
           diasAdmin(base + '.dias', a.dias, DIAS_UTEIS, true) +
           (comFeijao ? checkAdmin('É feijão (o cliente escolhe só 1)', base + '.grupo', a.grupo === 'feijao', 'feijao') : '') +
+          (a.grupo !== 'feijao' ? checkAdmin('Não pode junto com feijão', base + '.naoCombinaCom', a.naoCombinaCom === 'feijao', 'feijao') : '') +
           botaoAdmin('Remover', 'remover', chave, i) + '</div>';
       }).join('') + botaoAdmin('+ Adicionar', 'adicionar', chave);
       const acomp = '<span class="grupo-titulo">Acompanhamentos</span>' + listaAcomp('acompanhamentos', true) +
