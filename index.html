@@ -1148,16 +1148,26 @@
        Ao abrir, o site busca a configuração salva pelo admin.
        Se a internet falhar, usa os valores escritos acima como reserva. */
     const API_URL = 'https://restaurante-pinheiro-api.marcony-123456.workers.dev';
+    // Guarda neste aparelho a última configuração recebida, para usar se a internet demorar
+    const CHAVE_CONFIG = 'pinheiro-config-v1';
     async function carregarConfigRemota() {
+      let copia = null;
+      try { copia = JSON.parse(localStorage.getItem(CHAVE_CONFIG)); } catch (e) { copia = null; }
+      // Com cópia guardada, espera pouco pela internet; na primeira visita, espera mais
+      const limite = copia ? 3000 : 10000;
+      let remoto = null;
       try {
         const controle = new AbortController();
-        const espera = setTimeout(() => controle.abort(), 4000);
+        const espera = setTimeout(() => controle.abort(), limite);
         const resposta = await fetch(API_URL + '/config', { signal: controle.signal, cache: 'no-store' });
         clearTimeout(espera);
-        if (!resposta.ok) return;
-        const remoto = await resposta.json();
-        Object.keys(remoto).forEach((chave) => { CONFIG[chave] = remoto[chave]; });
-      } catch (e) { /* sem conexão: segue com os valores daqui */ }
+        if (resposta.ok) remoto = await resposta.json();
+      } catch (e) { /* sem conexão ou demorou demais */ }
+      if (remoto) {
+        try { localStorage.setItem(CHAVE_CONFIG, JSON.stringify(remoto)); } catch (e) { /* sem armazenamento */ }
+      }
+      const dados = remoto || copia; // sem nada: segue com os valores escritos acima
+      if (dados) Object.keys(dados).forEach((chave) => { CONFIG[chave] = dados[chave]; });
     }
     await carregarConfigRemota();
 
@@ -2161,19 +2171,31 @@
         '<small class="nota" id="admin-foto-msg" aria-live="polite">JPG, PNG ou WEBP. A foto é reduzida automaticamente antes do envio.</small></div>';
     }
 
-    // Reduz a foto para no máximo 1600 px e converte para JPG (arquivo bem menor)
-    function reduzirFoto(arquivo, maximo = 1600, qualidade = 0.82) {
+    // Prepara a foto para envio:
+    // - já pequena e leve: envia o arquivo original (recomprimir piora a nitidez)
+    // - grande: reduz para no máximo 1600 px e salva em JPG de boa qualidade
+    const TIPOS_FOTO = ['image/jpeg', 'image/png', 'image/webp'];
+    function prepararFoto(arquivo, maximo = 1600, qualidade = 0.9) {
       return new Promise((resolve, reject) => {
         const img = new Image();
         const endereco = URL.createObjectURL(arquivo);
         img.onload = () => {
-          const escala = Math.min(1, maximo / Math.max(img.naturalWidth, img.naturalHeight));
+          const largura = img.naturalWidth;
+          const altura = img.naturalHeight;
+          if (Math.max(largura, altura) <= maximo && arquivo.size <= 1.4 * 1024 * 1024 && TIPOS_FOTO.includes(arquivo.type)) {
+            URL.revokeObjectURL(endereco);
+            resolve({ foto: arquivo, largura });
+            return;
+          }
+          const escala = Math.min(1, maximo / Math.max(largura, altura));
           const tela = document.createElement('canvas');
-          tela.width = Math.round(img.naturalWidth * escala);
-          tela.height = Math.round(img.naturalHeight * escala);
-          tela.getContext('2d').drawImage(img, 0, 0, tela.width, tela.height);
+          tela.width = Math.round(largura * escala);
+          tela.height = Math.round(altura * escala);
+          const ctx = tela.getContext('2d');
+          ctx.imageSmoothingQuality = 'high';
+          ctx.drawImage(img, 0, 0, tela.width, tela.height);
           URL.revokeObjectURL(endereco);
-          tela.toBlob((b) => (b ? resolve(b) : reject(new Error('falha ao converter'))), 'image/jpeg', qualidade);
+          tela.toBlob((b) => (b ? resolve({ foto: b, largura: tela.width }) : reject(new Error('falha ao converter'))), 'image/jpeg', qualidade);
         };
         img.onerror = () => { URL.revokeObjectURL(endereco); reject(new Error('imagem inválida')); };
         img.src = endereco;
@@ -2186,7 +2208,7 @@
       if (!/^image\//.test(arquivo.type)) { aviso('Escolha um arquivo de imagem (JPG, PNG ou WEBP).'); return; }
       aviso('Preparando a foto…');
       try {
-        const foto = await reduzirFoto(arquivo);
+        const { foto, largura } = await prepararFoto(arquivo);
         aviso('Enviando…');
         const id = 'hero-' + Date.now().toString(36); // id novo a cada envio
         const resposta = await fetch(API_URL + '/imagem/' + id, {
@@ -2203,6 +2225,11 @@
         definir(rascunho, 'imagens.hero', API_URL + '/imagem/' + id);
         redesenharEditor();
         msgAdmin('Foto enviada! Toque em "Salvar alterações" para ela aparecer no site.', true);
+        // Foto pequena fica borrada quando aumentada no destaque do site
+        if (largura < 1200) {
+          aviso('Atenção: esta foto é pequena (' + largura + ' px de largura) e pode ficar sem nitidez no site. ' +
+            'Se puder, use a foto original da câmera, com 1200 px ou mais. Fotos baixadas do WhatsApp ou do Instagram costumam vir pequenas.');
+        }
       } catch (e) {
         aviso('Não foi possível preparar ou enviar essa foto. Tente outra.');
       }
