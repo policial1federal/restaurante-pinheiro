@@ -593,6 +593,13 @@
     .admin input[type="time"] { color-scheme: dark; }
     .admin-acoes { position: sticky; bottom: -40px; margin-top: 18px; padding: 12px 0; background: var(--card); }
     .erro.admin-ok { color: #6ff0a6; }
+    .campo-rotulo { font-size: .88rem; font-weight: 500; }
+    .admin-foto { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
+    .admin-foto img, .admin-foto-vazia { width: 180px; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 12px; border: 2px solid var(--ouro); }
+    .admin-foto-vazia { display: grid; place-items: center; padding: 10px; text-align: center; font-size: .8rem; color: var(--texto-suave); border-style: dashed; }
+    .admin-foto-acoes { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+    .admin-foto-acoes label { position: relative; }
+    .admin-foto-acoes label:focus-within { outline: 3px solid #fff; outline-offset: 3px; }
   </style>
 </head>
 
@@ -2139,6 +2146,68 @@
     const secaoAdmin = (titulo, corpo, aberta) =>
       '<details class="admin-secao"' + (aberta ? ' open' : '') + '><summary>' + titulo + '</summary><div class="admin-corpo">' + corpo + '</div></details>';
 
+    /* ---------- Foto principal: envio de arquivo ---------- */
+    function fotoAdmin(url) {
+      return '<div class="campo inteiro"><span class="campo-rotulo">Foto principal</span>' +
+        '<div class="admin-foto">' +
+        (url
+          ? '<img src="' + esc(url) + '" alt="Foto principal atual do site">'
+          : '<div class="admin-foto-vazia">Sem foto: o site mostra o bloco decorativo.</div>') +
+        '<div class="admin-foto-acoes">' +
+        '<label class="btn btn-secundario btn-pequeno">' + (url ? 'Trocar foto' : 'Enviar foto') +
+        '<input type="file" accept="image/jpeg,image/png,image/webp" id="admin-foto-arquivo" class="sr-only"></label>' +
+        (url ? '<button type="button" class="btn-editar" data-admin="remover-foto">Remover foto</button>' : '') +
+        '</div></div>' +
+        '<small class="nota" id="admin-foto-msg" aria-live="polite">JPG, PNG ou WEBP. A foto é reduzida automaticamente antes do envio.</small></div>';
+    }
+
+    // Reduz a foto para no máximo 1600 px e converte para JPG (arquivo bem menor)
+    function reduzirFoto(arquivo, maximo = 1600, qualidade = 0.82) {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        const endereco = URL.createObjectURL(arquivo);
+        img.onload = () => {
+          const escala = Math.min(1, maximo / Math.max(img.naturalWidth, img.naturalHeight));
+          const tela = document.createElement('canvas');
+          tela.width = Math.round(img.naturalWidth * escala);
+          tela.height = Math.round(img.naturalHeight * escala);
+          tela.getContext('2d').drawImage(img, 0, 0, tela.width, tela.height);
+          URL.revokeObjectURL(endereco);
+          tela.toBlob((b) => (b ? resolve(b) : reject(new Error('falha ao converter'))), 'image/jpeg', qualidade);
+        };
+        img.onerror = () => { URL.revokeObjectURL(endereco); reject(new Error('imagem inválida')); };
+        img.src = endereco;
+      });
+    }
+
+    async function enviarFotoAdmin(arquivo) {
+      const aviso = (t) => { const el = $('#admin-foto-msg'); if (el) el.textContent = t; };
+      if (!arquivo) return;
+      if (!/^image\//.test(arquivo.type)) { aviso('Escolha um arquivo de imagem (JPG, PNG ou WEBP).'); return; }
+      aviso('Preparando a foto…');
+      try {
+        const foto = await reduzirFoto(arquivo);
+        aviso('Enviando…');
+        const id = 'hero-' + Date.now().toString(36); // id novo a cada envio
+        const resposta = await fetch(API_URL + '/imagem/' + id, {
+          method: 'PUT',
+          headers: { Authorization: senhaAdmin, 'Content-Type': foto.type },
+          body: foto
+        });
+        if (!resposta.ok) {
+          const dados = await resposta.json().catch(() => ({}));
+          aviso('Não foi possível enviar: ' + (dados.erro || 'erro ' + resposta.status));
+          return;
+        }
+        lerFormulario();
+        definir(rascunho, 'imagens.hero', API_URL + '/imagem/' + id);
+        redesenharEditor();
+        msgAdmin('Foto enviada! Toque em "Salvar alterações" para ela aparecer no site.', true);
+      } catch (e) {
+        aviso('Não foi possível preparar ou enviar essa foto. Tente outra.');
+      }
+    }
+
     /* ---------- Formulário completo ---------- */
     function editorAdmin() {
       const r = rascunho;
@@ -2149,7 +2218,7 @@
         campoAdmin('Instagram (@)', 'contato.instagramUsuario', r.contato.instagramUsuario) +
         campoAdmin('Link do Instagram', 'contato.instagramUrl', r.contato.instagramUrl, { inteiro: true }) +
         campoAdmin('Mensagem do botão verde do WhatsApp', 'contato.mensagemPadrao', r.contato.mensagemPadrao, { inteiro: true }) +
-        campoAdmin('Foto principal (link da imagem)', 'imagens.hero', (r.imagens || {}).hero, { inteiro: true, dica: 'Deixe vazio para mostrar o bloco decorativo.' }) +
+        fotoAdmin((r.imagens || {}).hero) +
         '</div>';
 
       const horario = '<span class="grupo-titulo">Dias abertos</span>' + diasAdmin('horario.dias', r.horario.dias, [0, 1, 2, 3, 4, 5, 6], false) +
@@ -2375,6 +2444,9 @@
       });
       if (window.location.hash === '#admin') abrir();
 
+      painel.addEventListener('change', (e) => {
+        if (e.target.id === 'admin-foto-arquivo') enviarFotoAdmin(e.target.files[0]);
+      });
       painel.addEventListener('submit', (e) => {
         e.preventDefault();
         if (e.target.id === 'admin-login') entrarAdmin($('#admin-usuario').value.trim(), $('#admin-senha').value);
@@ -2386,6 +2458,12 @@
         if (acao === 'fechar') fechar();
         else if (acao === 'sair') { senhaAdmin = ''; rascunho = null; fechar(); }
         else if (acao === 'salvar') salvarAdmin(b);
+        else if (acao === 'remover-foto') {
+          lerFormulario();
+          definir(rascunho, 'imagens.hero', '');
+          redesenharEditor();
+          msgAdmin('Foto removida. Toque em "Salvar alterações" para confirmar.', true);
+        }
         else if (acao === 'adicionar' || acao === 'remover') {
           lerFormulario();
           const lista = obter(rascunho, b.dataset.lista);

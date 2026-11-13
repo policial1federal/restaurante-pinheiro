@@ -3,6 +3,8 @@
 // GET  /config     -> configuração do site (público: o site lê ao abrir)
 // GET  /verificar  -> confere usuário e senha do admin (Authorization: Basic ...)
 // PUT  /config     -> grava a configuração (só com usuário e senha do admin)
+// GET  /imagem/<id> -> foto enviada pelo painel (pública)
+// PUT  /imagem/<id> -> envia uma foto (só com usuário e senha do admin)
 //
 // Usuário e senha ficam em segredos da Cloudflare, nunca no código:
 //   npx wrangler secret put ADMIN_USUARIO
@@ -18,6 +20,8 @@ const CORS = {
 // Partes que a configuração precisa ter para o site funcionar
 const CHAVES_OBRIGATORIAS = ['contato', 'horario', 'cardapio', 'acompanhamentos', 'especiais', 'verduras', 'montador'];
 const TAMANHO_MAXIMO = 200 * 1024; // 200 KB
+const TAMANHO_MAXIMO_FOTO = 1536 * 1024; // 1,5 MB (o painel já reduz a foto antes de enviar)
+const TIPOS_FOTO = ['image/jpeg', 'image/png', 'image/webp'];
 
 const json = (dados, status = 200) =>
   new Response(JSON.stringify(dados), {
@@ -94,6 +98,32 @@ export default {
         "INSERT INTO configuracao (id, dados, atualizado_em) VALUES ('site', ?, datetime('now')) " +
         'ON CONFLICT(id) DO UPDATE SET dados = excluded.dados, atualizado_em = excluded.atualizado_em'
       ).bind(JSON.stringify(dados)).run();
+      // Apaga fotos que a configuração não usa mais
+      await env.DB.prepare("DELETE FROM imagens WHERE instr(?, '/imagem/' || id) = 0").bind(JSON.stringify(dados)).run();
+      return json({ ok: true });
+    }
+
+    // Fotos: GET /imagem/<id> (público) e PUT /imagem/<id> (só admin)
+    const foto = pathname.match(/^\/imagem\/([a-z0-9-]{1,60})$/);
+    if (foto && request.method === 'GET') {
+      const linha = await env.DB.prepare('SELECT tipo, dados FROM imagens WHERE id = ?').bind(foto[1]).first();
+      if (!linha) return json({ erro: 'Foto não encontrada.' }, 404);
+      return new Response(new Uint8Array(linha.dados), {
+        headers: { 'Content-Type': linha.tipo, 'Cache-Control': 'public, max-age=31536000, immutable', ...CORS },
+      });
+    }
+    if (foto && request.method === 'PUT') {
+      const bloqueio = await exigirAdmin(request, env);
+      if (bloqueio) return bloqueio;
+      const tipo = (request.headers.get('Content-Type') || '').split(';')[0].trim();
+      if (!TIPOS_FOTO.includes(tipo)) return json({ erro: 'Envie uma foto JPG, PNG ou WEBP.' }, 415);
+      const bytes = await request.arrayBuffer();
+      if (!bytes.byteLength) return json({ erro: 'A foto chegou vazia.' }, 400);
+      if (bytes.byteLength > TAMANHO_MAXIMO_FOTO) return json({ erro: 'Foto grande demais (máximo 1,5 MB).' }, 413);
+      await env.DB.prepare(
+        "INSERT INTO imagens (id, tipo, dados, criado_em) VALUES (?, ?, ?, datetime('now')) " +
+        'ON CONFLICT(id) DO UPDATE SET tipo = excluded.tipo, dados = excluded.dados, criado_em = excluded.criado_em'
+      ).bind(foto[1], tipo, bytes).run();
       return json({ ok: true });
     }
 
