@@ -556,6 +556,18 @@
     .link-social:hover { color: var(--ouro); }
     .link-social svg { width: 22px; height: 22px; color: var(--ouro); }
     .copy { text-align: center; margin-top: 44px; padding-top: 22px; border-top: 1px solid #222; color: #a8a8a8; font-size: .85rem; }
+    /* Crédito de quem desenvolveu o site */
+    .creditos { text-align: center; margin-top: 6px; color: #8f8f8f; font-size: .78rem; line-height: 2; }
+    .creditos strong { color: #bdbdbd; font-weight: 600; }
+    .creditos a { color: #bdbdbd; text-decoration: none; display: inline-block; padding: 4px 2px; }
+    .creditos a:hover { color: var(--ouro); text-decoration: underline; }
+    .creditos .sep { margin: 0 6px; color: #555; }
+    @media (max-width: 600px) {
+      .creditos .dev { display: block; }  /* celular: nome numa linha, telefone e e-mail na outra */
+      .creditos .sep-1 { display: none; }
+    }
+    /* Espaço no fim da página para o botão amarelo e o do WhatsApp não cobrirem o rodapé */
+    .rodape { padding-bottom: 96px; }
 
     /* =========================================================
        BOTÃO FLUTUANTE DO WHATSAPP
@@ -1139,6 +1151,13 @@
       </div>
     </div>
     <p class="copy">© <span id="ano">2026</span> Restaurante Pinheiro. Todos os direitos reservados.</p>
+    <p class="creditos">
+      <span class="dev">Desenvolvido por <strong>Atlas Corporation</strong></span>
+      <span class="sep sep-1" aria-hidden="true">·</span>
+      <a href="tel:+5581991661951">(81) 99166-1951</a>
+      <span class="sep" aria-hidden="true">·</span>
+      <a href="mailto:atlascorporation@tsatlas.org">atlascorporation@tsatlas.org</a>
+    </p>
   </footer>
 
   <!-- ===================== PAINEL DO ADMIN (5 toques no logo) ===================== -->
