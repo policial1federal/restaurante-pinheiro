@@ -13,7 +13,7 @@ tour-1.mp3
 Oi! Eu sou a Pinheira, a sua atendente aqui no Restaurante Pinheiro, e vou te mostrar como pedir o seu almoço. Para começar, é só tocar aqui, em Monte seu almoço.
 
 tour-2.mp3
-Aqui fica o cardápio da semana, com as misturas de cada dia. O dia de hoje já vem marcado.
+Aqui fica o cardápio da semana, com os acompanhamentos de cada dia. O dia de hoje já vem marcado.
 
 tour-3.mp3
 Este é o montador de almoço. Primeiro, escolha o tamanho. Vou escolher a marmita M.
@@ -22,10 +22,10 @@ tour-4.mp3
 Depois, toque em Continuar para ir ao próximo passo.
 
 tour-5.mp3
-Agora, a mistura. Você pode escolher até duas. Vou pegar duas para você ver.
+Agora, o acompanhamento. Você pode escolher até dois. Vou pegar dois para você ver.
 
 tour-6.mp3
-Escolha um tipo de feijão e os acompanhamentos que quiser. O que não tem no dia fica apagadinho.
+Agora, o feijão e o arroz. Escolha um tipo de feijão e o que mais quiser. O que não tem no dia fica apagadinho.
 
 tour-7.mp3
 Na salada, marque as verduras que quiser, ou toque em Todas as verduras.

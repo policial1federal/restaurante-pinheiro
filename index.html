@@ -6,7 +6,7 @@
 
   <!-- ===================== SEO BÁSICO ===================== -->
   <title>Restaurante Pinheiro | Monte seu almoço – Comida caseira no Ipsep, Recife</title>
-  <meta name="description" content="Restaurante Pinheiro no Ipsep, Recife – PE. Comida caseira todo dia. Monte sua marmita escolhendo mistura, acompanhamentos e verduras e peça pelo WhatsApp. Retirada ou entrega.">
+  <meta name="description" content="Restaurante Pinheiro no Ipsep, Recife – PE. Comida caseira todo dia. Monte sua marmita escolhendo acompanhamento, feijão, arroz e verduras e peça pelo WhatsApp. Retirada ou entrega.">
   <meta name="theme-color" content="#111111">
 
   <!-- Open Graph (aparência do link ao compartilhar no WhatsApp/Facebook) -->
@@ -618,7 +618,9 @@
     .ve-principal:hover { background: var(--ouro-claro); color: #111; }
     .ve-contador { font-size: .85rem; color: #fff; font-weight: 700; text-shadow: 0 0 3px #000, 0 0 6px #000, 1px 1px 0 #000, -1px -1px 0 #000; }
     @media (max-width: 400px) { .ve-balao { font-size: .95rem; } }
-    #ve-max, .ve-fechar { display: none; }
+    #ve-max, .ve-fechar, #ve-play { display: none; }
+    .video-explica.em-tour .ve-fechar { display: grid; }
+    .tour-chef.pausada .chef * { animation-play-state: paused !important; }
 
     /* Botão fixo "Como fazer meu pedido?" com brilho amarelo pulsante */
     .btn-como-pedir {
@@ -800,7 +802,7 @@
         <header class="secao-cab reveal">
           <span class="eyebrow">Almoço semanal</span><br>
           <h2 class="titulo-script" id="titulo-cardapio">Cardápio da Semana</h2>
-          <p class="sub">As misturas de cada dia. O dia de hoje já vem selecionado.</p>
+          <p class="sub">Os acompanhamentos de cada dia. O dia de hoje já vem selecionado.</p>
         </header>
 
         <div class="aviso-fds reveal" id="aviso-fds" hidden>
@@ -858,20 +860,20 @@
 
             <!-- PASSO 2 – MISTURA -->
             <div class="passo" data-passo="2" hidden>
-              <h3 class="passo-titulo" tabindex="-1">Escolha a mistura</h3>
+              <h3 class="passo-titulo" tabindex="-1">Escolha o acompanhamento</h3>
               <p class="passo-dica" id="dica-misturas"></p>
               <span class="grupo-titulo" id="rotulo-dias">Pedido para</span>
               <div class="chips" id="op-dias" role="radiogroup" aria-labelledby="rotulo-dias"></div>
               <p class="nota" id="nota-dia"></p>
-              <span class="grupo-titulo">Misturas de <span id="nome-dia-mistura"></span></span>
+              <span class="grupo-titulo">Acompanhamentos de <span id="nome-dia-mistura"></span></span>
               <p class="contador" id="contador-misturas" aria-live="polite"></p>
               <div class="opcoes" id="op-misturas"></div>
             </div>
 
             <!-- PASSO 3 – ACOMPANHAMENTOS -->
             <div class="passo" data-passo="3" hidden>
-              <h3 class="passo-titulo" tabindex="-1">Acompanhamentos</h3>
-              <p class="passo-dica">Escolha 1 tipo de feijão e marque os outros acompanhamentos que quiser. O que não tem no dia aparece desativado.</p>
+              <h3 class="passo-titulo" tabindex="-1">Feijão e arroz</h3>
+              <p class="passo-dica">Escolha 1 tipo de feijão e marque o arroz e o que mais quiser. O que não tem no dia aparece desativado.</p>
               <div id="op-acomp"></div>
               <span class="grupo-titulo">Opções especiais</span>
               <div class="opcoes" id="op-especiais"></div>
@@ -1237,7 +1239,7 @@
       <button type="button" class="ve-btn ve-principal" id="ve-play" aria-label="Tocar o vídeo">▶</button>
       <span class="ve-contador" id="ve-passo"></span>
       <button type="button" class="ve-btn" id="ve-max" aria-label="Maximizar vídeo">⤢</button>
-      <button type="button" class="ve-btn ve-fechar" id="ve-fechar" aria-label="Fechar vídeo">✕</button>
+      <button type="button" class="ve-btn ve-fechar" id="ve-fechar" aria-label="Sair da explicação" title="Sair">✕</button>
     </div>
   </div>
   <button type="button" class="btn-como-pedir" id="btn-como-pedir"><span class="icone" aria-hidden="true">▶</span> Como fazer meu pedido?</button>
@@ -1549,9 +1551,9 @@
     /* ==========================================================
        MONTADOR DE ALMOÇO
        ========================================================== */
-    const PASSOS = ['Tamanho', 'Mistura', 'Acompanhamentos', 'Verduras', 'Extras', 'Observações', 'Seus dados', 'Revisão'];
+    const PASSOS = ['Tamanho', 'Acompanhamento', 'Feijão e arroz', 'Verduras', 'Extras', 'Observações', 'Seus dados', 'Revisão'];
     // Nomes curtos embaixo das bolinhas (cabem no tablet sem encavalar)
-    const PASSOS_CURTOS = ['Tamanho', 'Mistura', 'Acomp.', 'Verduras', 'Extras', 'Obs.', 'Dados', 'Revisão'];
+    const PASSOS_CURTOS = ['Tamanho', 'Acomp.', 'Feijão', 'Verduras', 'Extras', 'Obs.', 'Dados', 'Revisão'];
     const HOJE = new Date().getDay();
     const DIA_PADRAO = DIAS_UTEIS.includes(HOJE) ? HOJE : 1; // fim de semana -> segunda
 
@@ -1685,7 +1687,7 @@
     function renderMisturas() {
       const dia = pedido.dia;
       $('#nome-dia-mistura').textContent = CONFIG.diasNomes[dia].toLowerCase();
-      $('#dica-misturas').textContent = 'Você pode escolher até ' + M.maxMisturas + (M.maxMisturas > 1 ? ' misturas.' : ' mistura.');
+      $('#dica-misturas').textContent = 'Você pode escolher até ' + M.maxMisturas + (M.maxMisturas > 1 ? ' acompanhamentos.' : ' acompanhamento.');
       $('#nota-dia').textContent = DIAS_UTEIS.includes(HOJE)
         ? 'Seu pedido é para ' + rotuloDia(dia) + '.'
         : 'Hoje não abrimos. Seu pedido é para ' + rotuloDia(dia) + '.';
@@ -1703,7 +1705,7 @@
         inp.closest('.opcao').classList.toggle('desabilitada', bloquear);
       });
       const c = $('#contador-misturas');
-      c.textContent = pedido.misturas.length + ' de ' + M.maxMisturas + ' escolhida(s)' +
+      c.textContent = pedido.misturas.length + ' de ' + M.maxMisturas + ' escolhido(s)' +
         (cheio ? ' – limite atingido. Desmarque uma para trocar.' : '');
       c.classList.toggle('cheio', cheio);
     }
@@ -1739,7 +1741,7 @@
       });
       const resto = CONFIG.acompanhamentos.filter((a) => !grupos[a.grupo]);
       if (resto.length) {
-        html += '<span class="grupo-titulo">' + (html ? 'Outros acompanhamentos' : 'Acompanhamentos') + '</span>' +
+        html += '<span class="grupo-titulo">' + (html ? 'Arroz e outros' : 'Feijão e arroz') + '</span>' +
           '<div class="opcoes">' + montar(resto) + '</div>';
       }
       $('#op-acomp').innerHTML = html;
@@ -1916,7 +1918,7 @@
     /* ---------- Validação ---------- */
     function validar(n) {
       if (n === 1 && !pedido.tamanho) return { msg: 'Escolha o tamanho da marmita ou o prato no local.' };
-      if (n === 2 && pedido.misturas.length === 0) return { msg: 'Escolha pelo menos uma mistura.' };
+      if (n === 2 && pedido.misturas.length === 0) return { msg: 'Escolha pelo menos um acompanhamento.' };
       if (n === 7) {
         const c = cliente;
         const tipo = tipoEntrega();
@@ -2042,8 +2044,8 @@
 
       $('#revisao').innerHTML =
         bloco(1, 'Tamanho', p('<strong>' + pedido.quantidade + 'x ' + esc(t.nome) + '</strong> – ' + brl(t.preco) + ' cada')) +
-        bloco(2, 'Mistura', p(esc(naOrdem(CONFIG.cardapio[pedido.dia], pedido.misturas).join(', '))) + p('Para ' + esc(rotuloDia(pedido.dia)))) +
-        bloco(3, 'Acompanhamentos', p(esc(listaAcomp().join(', ')) || 'Nenhum')) +
+        bloco(2, 'Acompanhamento', p(esc(naOrdem(CONFIG.cardapio[pedido.dia], pedido.misturas).join(', '))) + p('Para ' + esc(rotuloDia(pedido.dia)))) +
+        bloco(3, 'Feijão e arroz', p(esc(listaAcomp().join(', ')) || 'Nenhum')) +
         bloco(4, 'Verduras', p(esc(textoVerduras()) || 'Sem verduras')) +
         bloco(5, 'Extras', extras.length
           ? '<ul>' + extras.map((e) => '<li>' + pedido.extras[e.id] + 'x ' + esc(e.nome) + ' – ' + brl(pedido.extras[e.id] * e.preco) + '</li>').join('') + '</ul>'
@@ -2072,8 +2074,8 @@
       L.push('');
       L.push('*Pedido para:* ' + rotuloDia(pedido.dia));
       L.push('*' + pedido.quantidade + 'x ' + t.nome + '* (' + brl(t.preco) + ' cada)');
-      L.push('*Mistura:* ' + naOrdem(CONFIG.cardapio[pedido.dia], pedido.misturas).join(', '));
-      if (pedido.acompanhamentos.length) L.push('*Acompanhamentos:* ' + listaAcomp().join(', '));
+      L.push('*Acompanhamento:* ' + naOrdem(CONFIG.cardapio[pedido.dia], pedido.misturas).join(', '));
+      if (pedido.acompanhamentos.length) L.push('*Feijão e arroz:* ' + listaAcomp().join(', '));
       if (pedido.verduras.length) L.push('*Verduras:* ' + textoVerduras());
       const extras = extrasEscolhidos();
       if (extras.length) {
@@ -2485,7 +2487,7 @@
 
       const precos = '<div class="campos duas">' +
         campoAdmin('Taxa de entrega (R$)', 'montador.taxaEntrega', m.taxaEntrega, { tipo: 'numero', modo: 'decimal' }) +
-        campoAdmin('Máximo de misturas por marmita', 'montador.maxMisturas', m.maxMisturas, { tipo: 'numero', modo: 'numeric' }) +
+        campoAdmin('Máximo de acompanhamentos por marmita', 'montador.maxMisturas', m.maxMisturas, { tipo: 'numero', modo: 'numeric' }) +
         '</div><span class="grupo-titulo">Tamanhos e preços</span>' +
         m.tamanhos.map((t, i) => {
           const base = 'montador.tamanhos.' + i;
@@ -2519,7 +2521,7 @@
       }).join('') + botaoAdmin('+ Adicionar item', 'adicionar', 'montador.extras');
 
       const cardapio = '<div class="campos duas">' + DIAS_UTEIS.map((d) =>
-        campoAdmin(CONFIG.diasNomes[d] + ' (uma mistura por linha)', 'cardapio.' + d, r.cardapio[d], { tipo: 'linhas', linhas: 11 })
+        campoAdmin(CONFIG.diasNomes[d] + ' (um acompanhamento por linha)', 'cardapio.' + d, r.cardapio[d], { tipo: 'linhas', linhas: 11 })
       ).join('') + '</div>';
 
       const listaAcomp = (chave, comFeijao) => r[chave].map((a, i) => {
@@ -2531,7 +2533,7 @@
           (a.grupo !== 'feijao' ? checkAdmin('Não pode junto com feijão', base + '.naoCombinaCom', a.naoCombinaCom === 'feijao', 'feijao') : '') +
           botaoAdmin('Remover', 'remover', chave, i) + '</div>';
       }).join('') + botaoAdmin('+ Adicionar', 'adicionar', chave);
-      const acomp = '<span class="grupo-titulo">Acompanhamentos</span>' + listaAcomp('acompanhamentos', true) +
+      const acomp = '<span class="grupo-titulo">Feijão, arroz e outros</span>' + listaAcomp('acompanhamentos', true) +
         '<span class="grupo-titulo">Opções especiais</span>' + listaAcomp('especiais', false) +
         '<div class="campos" style="margin-top:18px">' +
         campoAdmin('Verduras e legumes (uma por linha)', 'verduras', r.verduras, { tipo: 'linhas', linhas: 9 }) + '</div>';
@@ -2541,7 +2543,7 @@
         secaoAdmin('Preços das marmitas e entrega', precos) +
         secaoAdmin('Bebidas e extras', extras) +
         secaoAdmin('Cardápio da semana', cardapio) +
-        secaoAdmin('Acompanhamentos e verduras', acomp);
+        secaoAdmin('Feijão, arroz e verduras', acomp);
     }
 
     // Lê tudo o que está no formulário para o rascunho
@@ -2576,10 +2578,10 @@
       r.contato.whatsapp = zap;
       if (!/^\d{2}:\d{2}$/.test(r.horario.abertura) || !/^\d{2}:\d{2}$/.test(r.horario.fechamento)) return 'Informe os horários de abertura e fechamento.';
       r.montador.maxMisturas = Math.round(r.montador.maxMisturas);
-      if (r.montador.maxMisturas < 1) return 'O máximo de misturas precisa ser 1 ou mais.';
+      if (r.montador.maxMisturas < 1) return 'O máximo de acompanhamentos precisa ser 1 ou mais.';
       if (!r.montador.tamanhos.length) return 'Cadastre pelo menos um tamanho de marmita.';
       if (r.montador.tamanhos.some((t) => !t.nome)) return 'Todo tamanho de marmita precisa de um nome.';
-      if (DIAS_UTEIS.some((d) => !(r.cardapio[d] || []).length)) return 'Cada dia do cardápio precisa de pelo menos uma mistura.';
+      if (DIAS_UTEIS.some((d) => !(r.cardapio[d] || []).length)) return 'Cada dia do cardápio precisa de pelo menos um acompanhamento.';
       return '';
     }
 
@@ -2758,10 +2760,22 @@
       const btnMax = $('#ve-max');
       const btnComoPedir = $('#btn-como-pedir');
       const TEXTO_INICIAL = 'Oi, eu sou a Pinheira, a sua atendente! Toque no ▶ e eu te mostro como pedir o seu almoço.';
-      const espera = (ms) => new Promise((ok) => setTimeout(ok, ms));
+      // Espera que respeita a pausa: o tempo só corre com a explicação andando
+      const espera = async (ms) => {
+        let resta = ms;
+        while (resta > 0) {
+          if (!ativo) return;
+          await new Promise((ok) => setTimeout(ok, 50));
+          if (!pausado) resta -= 50;
+        }
+      };
       const pegar = (alvo) => (typeof alvo === 'function' ? alvo() : $(alvo));
       let ativo = false;
       let rodada = 0;
+      let pausado = false;    // ❚❚ pausa sem sair; ▶ continua de onde parou
+      let narrando = false;   // a Pinheira está no meio de uma fala
+      let audioAtual = null;  // áudio da fala atual (para pausar/continuar)
+      let passoTexto = '';    // "3 / 14"
 
       const clicar = (alvo) => {
         if (!ativo) return;
@@ -2787,7 +2801,7 @@
         { alvo: () => [$('.btn-header'), $('.hero-acoes .btn-primario')].find((b) => b && b.getClientRects().length),
           fala: 'Oi! Eu sou a Pinheira, a sua atendente aqui no Restaurante Pinheiro, e vou te mostrar como pedir o seu almoço. Para começar, é só tocar aqui, em Monte seu almoço.' },
         { alvo: '#abas',
-          fala: 'Aqui fica o cardápio da semana, com as misturas de cada dia. O dia de hoje já vem marcado.' },
+          fala: 'Aqui fica o cardápio da semana, com os acompanhamentos de cada dia. O dia de hoje já vem marcado.' },
         { alvo: '#op-tamanhos',
           fala: 'Este é o montador de almoço. Primeiro, escolha o tamanho. Vou escolher a marmita M.',
           durante: async () => { await espera(2600); clicar('input[name="tamanho"][value="m"]'); } },
@@ -2795,14 +2809,14 @@
           fala: 'Depois, toque em Continuar para ir ao próximo passo.',
           depois: () => clicar('#btn-avancar') },
         { alvo: '#op-misturas',
-          fala: 'Agora, a mistura. Você pode escolher até duas. Vou pegar duas para você ver.',
+          fala: 'Agora, o acompanhamento. Você pode escolher até dois. Vou pegar dois para você ver.',
           durante: async () => {
             await espera(2200); clicar(() => $$('input[name="mistura"]:not(:disabled)')[0]);
             await espera(900); clicar(() => $$('input[name="mistura"]:not(:checked):not(:disabled)')[0]);
           },
           depois: () => clicar('#btn-avancar') },
         { alvo: '#op-acomp',
-          fala: 'Escolha um tipo de feijão e os acompanhamentos que quiser. O que não tem no dia fica apagadinho.',
+          fala: 'Agora, o feijão e o arroz. Escolha um tipo de feijão e o que mais quiser. O que não tem no dia fica apagadinho.',
           durante: async () => {
             await espera(2000); clicar(() => $$('#op-acomp input:not(:disabled)')[0]);
             await espera(900); clicar(() => $$('#op-acomp input:not(:disabled)').find((i) => /arroz branco/i.test(i.value)));
@@ -2924,14 +2938,17 @@
           const terminar = () => {
             if (acabou) return;
             acabou = true;
+            narrando = false;
+            audioAtual = null;
             boca(false);
             pararFala = null;
             fim();
           };
+          narrando = true;
           const soTexto = () => {
-            boca(true);
-            const t = setTimeout(terminar, Math.max(2800, fala.length * 62));
-            pararFala = () => { clearTimeout(t); terminar(); };
+            if (!pausado) boca(true);
+            espera(Math.max(2800, fala.length * 62)).then(terminar); // o tempo para quando pausa
+            pararFala = terminar;
           };
           const vozNavegador = () => {
             const u = new SpeechSynthesisUtterance(fala);
@@ -2951,11 +2968,14 @@
           };
           if (AUDIO_GRAVADO) {
             const a = new Audio('audio/tour-' + (i + 1) + '.mp3');
+            audioAtual = a;
             a.onplaying = () => boca(true);
+            a.onpause = () => boca(false);
             a.onended = terminar;
             a.onerror = reserva; // arquivo faltando: segue sem voz
             pararFala = () => { a.pause(); terminar(); };
-            a.play().catch(reserva);
+            // "AbortError" = foi pausado antes de começar a tocar; não é erro do arquivo
+            if (!pausado) a.play().catch((e) => { if (!e || e.name !== 'AbortError') reserva(); });
           } else {
             reserva();
           }
@@ -2975,14 +2995,22 @@
       }
 
       function atualizarBotao() {
-        btnPlay.textContent = ativo ? '■' : '▶';
-        btnPlay.setAttribute('aria-label', ativo ? 'Parar o vídeo' : 'Tocar o vídeo');
+        btnPlay.textContent = pausado ? '▶' : '❚❚';
+        btnPlay.setAttribute('aria-label', pausado ? 'Continuar a explicação' : 'Pausar a explicação');
+        // O botão amarelo muda: Como fazer meu pedido? → Pausar → Continuar
+        const [icone, rotulo] = !ativo ? ['▶', 'Como fazer meu pedido?']
+          : pausado ? ['▶', 'Continuar explicação'] : ['❚❚', 'Pausar explicação'];
+        btnComoPedir.innerHTML = '<span class="icone" aria-hidden="true">' + icone + '</span> ' + rotulo;
+        btnComoPedir.classList.toggle('em-explicacao', ativo);
+        contador.textContent = passoTexto + (pausado ? ' · pausado' : '');
+        mini.classList.toggle('pausada', pausado);
       }
 
       async function iniciar() {
         const minhaVez = ++rodada;
         const vivo = () => ativo && minhaVez === rodada;
         ativo = true;
+        pausado = false;
         atualizarBotao();
         if (box.classList.contains('maximizado')) alternarMax(); // maximizado cobriria o que ela mostra
         box.classList.add('em-tour');
@@ -3003,7 +3031,8 @@
           alvoAtual = p.alvo;
           // O balão troca junto com o destaque, enquanto ela anda até lá
           texto.textContent = p.fala;
-          contador.textContent = (i + 1) + ' / ' + TOUR.length;
+          passoTexto = (i + 1) + ' / ' + TOUR.length;
+          atualizarBotao();
           const e = pegar(p.alvo);
           if (e) {
             e.scrollIntoView({
@@ -3043,25 +3072,47 @@
           salvarObs();
         }
         texto.textContent = TEXTO_INICIAL;
-        contador.textContent = '';
+        pausado = false;
+        narrando = false;
+        audioAtual = null;
+        passoTexto = '';
         atualizarBotao();
       }
 
-      // ■ na legenda: para a explicação
-      btnPlay.addEventListener('click', () => { if (ativo) encerrar(); });
+      // ❚❚ / ▶ na legenda: pausa e continua de onde parou (não sai da explicação)
+      function pausar() {
+        if (!ativo || pausado) return;
+        pausado = true;
+        if (audioAtual) audioAtual.pause();
+        if (temVoz && speechSynthesis.speaking) speechSynthesis.pause();
+        boca(false);
+        atualizarBotao();
+      }
+      function continuar() {
+        if (!ativo || !pausado) return;
+        pausado = false;
+        if (audioAtual) audioAtual.play().catch(() => {});
+        if (temVoz && speechSynthesis.paused) speechSynthesis.resume();
+        if (narrando && !audioAtual) boca(true);
+        atualizarBotao();
+      }
+      btnPlay.addEventListener('click', () => { if (pausado) continuar(); else pausar(); });
+      // ✕ na legenda: sai da explicação
+      $('#ve-fechar').addEventListener('click', () => { if (ativo) encerrar(); });
 
       // A janela não maximiza mais (a legenda some sozinha no fim)
       function alternarMax() { box.classList.remove('maximizado'); }
 
-      // Botão fixo "Como fazer meu pedido?": cada toque começa a explicação do início, uma vez.
-      // Tocar de novo (mesmo no meio) recomeça do começo. Toque duplo não começa duas vezes.
+      // Botão fixo amarelo: começa a explicação; durante ela, pausa e continua no mesmo lugar.
+      // Toque duplo sem querer não faz duas ações seguidas.
       let ultimoToque = 0;
       btnComoPedir.addEventListener('click', () => {
         const agora = Date.now();
-        if (agora - ultimoToque < 800) return;
+        if (agora - ultimoToque < 500) return;
         ultimoToque = agora;
-        if (ativo) encerrar(); // devolve o pedido verdadeiro antes de recomeçar
-        iniciar();
+        if (!ativo) iniciar();
+        else if (pausado) continuar();
+        else pausar();
       });
 
       document.addEventListener('keydown', (e) => {
