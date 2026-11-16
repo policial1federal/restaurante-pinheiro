@@ -589,21 +589,24 @@
       display: flex; flex-direction: column;
       position: fixed; z-index: 120; left: 50%; bottom: 84px; transform: translateX(-50%);
       width: min(600px, calc(100% - 24px));
-      background: #161616; border: 2px solid var(--ouro); border-radius: 18px;
-      box-shadow: 0 16px 40px rgba(0, 0, 0, .6); overflow: hidden;
+      background: transparent; border: 0; box-shadow: none;
+      pointer-events: none; /* a legenda não atrapalha o tour: os toques passam por ela */
     }
     .video-explica .chef { display: none; } /* o desenho fica guardado só como modelo da Pinheira que anda */
-    .ve-palco { position: relative; padding: 8px 8px 0; background: #1b1b1b; }
+    .ve-palco { position: relative; padding: 0; background: transparent; }
     .chef { height: 100%; width: auto; }
+    /* Legenda sem fundo: texto branco com contorno escuro, legível sobre qualquer parte do site */
     .ve-balao {
-      padding: 8px 12px; background: #fff; color: #111; border-radius: 14px;
-      font-size: .92rem; line-height: 1.4; box-shadow: 0 6px 16px rgba(0, 0, 0, .4);
+      padding: 0 4px; background: transparent; color: #fff; text-align: center;
+      font-size: 1.05rem; font-weight: 600; line-height: 1.45;
+      text-shadow: 0 0 3px #000, 0 0 6px #000, 0 2px 8px rgba(0, 0, 0, .9), 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
     }
-    .ve-balao strong { color: #8a6500; font-weight: 700; }
+    .ve-balao strong { color: #FFC400; font-weight: 700; }
     .ve-controles {
-      display: flex; align-items: center; gap: 6px; padding: 6px 8px;
-      background: #101010; border-top: 1px solid #2c2c2c;
+      display: flex; align-items: center; justify-content: center; gap: 10px; padding: 6px 0 0;
+      background: transparent; border: 0;
     }
+    .ve-controles .ve-btn { pointer-events: auto; } /* só o ■ (parar) recebe toque */
     .ve-btn {
       width: 34px; height: 34px; flex: none; border-radius: 50%;
       border: 1px solid #3d3d3d; background: #242424; color: #fff;
@@ -613,7 +616,8 @@
     .ve-btn:hover { border-color: var(--ouro); color: var(--ouro); }
     .ve-principal { background: var(--ouro); color: #111; border-color: var(--ouro); }
     .ve-principal:hover { background: var(--ouro-claro); color: #111; }
-    .ve-contador { margin: 0 auto; font-size: .78rem; color: var(--texto-suave); font-weight: 600; }
+    .ve-contador { font-size: .85rem; color: #fff; font-weight: 700; text-shadow: 0 0 3px #000, 0 0 6px #000, 1px 1px 0 #000, -1px -1px 0 #000; }
+    @media (max-width: 400px) { .ve-balao { font-size: .95rem; } }
     #ve-max, .ve-fechar { display: none; }
 
     /* Botão fixo "Como fazer meu pedido?" com brilho amarelo pulsante */
