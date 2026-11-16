@@ -53,7 +53,7 @@
       "addressRegion": "PE",
       "addressCountry": "BR"
     },
-    "telephone": "[NÚMERO COM DDI+DDD]",
+    "telephone": "+55 81 98638-9374",
     "openingHoursSpecification": [{
       "@type": "OpeningHoursSpecification",
       "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
@@ -579,6 +579,123 @@
     /* =========================================================
        ANIMAÇÕES AO ROLAR
        ========================================================= */
+    /* =========================================================
+       VÍDEO EXPLICATIVO (fixo no canto superior esquerdo)
+       ========================================================= */
+    .video-explica {
+      position: fixed; top: 35px; left: 12px; z-index: 120;
+      width: 343px; height: 265px;
+      display: flex; flex-direction: column;
+      background: #161616; border: 2px solid var(--ouro); border-radius: 18px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, .6); overflow: hidden;
+    }
+    .ve-palco {
+      position: relative; flex: 1; min-height: 0;
+      background: radial-gradient(circle at 50% 40%, rgba(245, 184, 0, .2), transparent 70%), #1b1b1b;
+    }
+    .chef {
+      position: absolute; top: 6px; left: 50%; transform: translateX(-50%);
+      height: calc(100% - 68px); width: auto; max-width: 100%;
+    }
+    .ve-balao {
+      position: absolute; left: 8px; right: 8px; bottom: 8px; min-height: 52px;
+      padding: 8px 12px; background: #fff; color: #111; border-radius: 14px;
+      font-size: .78rem; line-height: 1.35; box-shadow: 0 6px 16px rgba(0, 0, 0, .4);
+    }
+    .ve-balao strong { color: #8a6500; font-weight: 700; }
+    .ve-controles {
+      display: flex; align-items: center; gap: 6px; padding: 6px 8px;
+      background: #101010; border-top: 1px solid #2c2c2c;
+    }
+    .ve-btn {
+      width: 34px; height: 34px; flex: none; border-radius: 50%;
+      border: 1px solid #3d3d3d; background: #242424; color: #fff;
+      font-size: 1rem; font-weight: 700; cursor: pointer; display: grid; place-items: center;
+      transition: border-color .2s, color .2s;
+    }
+    .ve-btn:hover { border-color: var(--ouro); color: var(--ouro); }
+    .ve-principal { background: var(--ouro); color: #111; border-color: var(--ouro); }
+    .ve-principal:hover { background: var(--ouro-claro); color: #111; }
+    .ve-contador { margin: 0 auto; font-size: .78rem; color: var(--texto-suave); font-weight: 600; }
+    .ve-fechar { display: none; }
+    .ve-abrir {
+      display: none; position: fixed; left: 14px; bottom: 14px; z-index: 95;
+      align-items: center; gap: 6px; min-height: 46px; padding: 10px 18px;
+      border-radius: 999px; background: var(--ouro); color: #111; border: 0;
+      font-weight: 700; cursor: pointer; box-shadow: 0 10px 24px rgba(0, 0, 0, .5);
+    }
+    /* Maximizado: ocupa boa parte da tela */
+    .video-explica.maximizado {
+      top: 50%; left: 50%; transform: translate(-50%, -50%);
+      width: min(92vw, 760px); height: min(84vh, 600px);
+    }
+    .maximizado .chef { height: calc(100% - 100px); }
+    .maximizado .ve-balao { font-size: 1.05rem; min-height: 72px; }
+    .maximizado .ve-btn { width: 42px; height: 42px; font-size: 1.15rem; }
+
+    /* Boneca: animações */
+    .chef .figura { animation: pulo 1.2s ease-in-out infinite; }
+    .chef .cabeca { transform-origin: 100px 142px; animation: balanco 3s ease-in-out infinite; }
+    .chef .perna { animation: andar 1.2s ease-in-out infinite alternate; }
+    .chef .perna-e { transform-origin: 88px 216px; }
+    .chef .perna-d { transform-origin: 112px 216px; animation-delay: -.6s; }
+    .chef .braco-d { transform-origin: 136px 158px; animation: quadril 2.4s ease-in-out infinite; }
+    .chef .braco-cloche { transform-origin: 66px 158px; animation: oferecer 2.4s ease-in-out infinite; }
+    .chef .cloche { transform-origin: 40px 190px; animation: bater 1.6s ease-in-out infinite; }
+    .chef.falando .braco-cloche { animation-duration: 1s; }
+    @keyframes quadril { 0%, 100% { transform: rotate(-2deg); } 50% { transform: rotate(3deg); } }
+    @keyframes oferecer { 0%, 100% { transform: rotate(-5deg); } 50% { transform: rotate(5deg); } }
+    .chef .olho { transform-box: fill-box; transform-origin: center; animation: piscar 4s infinite; }
+    .chef .boca-aberta { display: none; transform-box: fill-box; transform-origin: center; }
+    .chef.falando .boca-fechada { display: none; }
+    .chef.falando .boca-aberta { display: block; animation: boca .22s ease-in-out infinite alternate; }
+    .chef.falando .cabeca { animation-duration: .9s; }
+    .chef.falando .braco-d { animation-duration: .9s; }
+    .chef.falando .perna { animation-duration: .5s; }
+    .chef.falando .figura { animation-duration: .6s; }
+    @keyframes pulo { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+    @keyframes balanco { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
+    @keyframes andar { from { transform: rotate(-7deg); } to { transform: rotate(7deg); } }
+    @keyframes gesto { 0%, 100% { transform: rotate(-6deg); } 50% { transform: rotate(14deg); } }
+    @keyframes bater { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+    @keyframes piscar { 0%, 44%, 50%, 100% { transform: scaleY(1); } 47% { transform: scaleY(.1); } }
+    @keyframes boca { from { transform: scaleY(.4); } to { transform: scaleY(1.2); } }
+
+    /* Tour guiado: destaque amarelo no que ela mostra + cozinheira pequena andando */
+    .tour-foco {
+      position: fixed; z-index: 110; pointer-events: none;
+      border: 3px solid var(--ouro); border-radius: 16px;
+      box-shadow: 0 0 0 9999px rgba(0, 0, 0, .55), 0 0 26px rgba(245, 184, 0, .65);
+      animation: foco-pulsa 1.4s ease-in-out infinite;
+    }
+    @keyframes foco-pulsa { 0%, 100% { border-color: var(--ouro); } 50% { border-color: #fff3c4; } }
+    .tour-chef {
+      position: fixed; z-index: 115; width: 96px; height: 125px; pointer-events: none;
+      transition: left .9s ease-in-out, top .9s ease-in-out;
+      filter: drop-shadow(0 8px 14px rgba(0, 0, 0, .6));
+    }
+    .tour-chef .chef { position: static; transform: none; width: 100%; height: 100%; max-width: none; }
+    .tour-chef.virada .chef { transform: scaleX(-1); }
+    .tour-chef.andando .chef .perna { animation-duration: .28s; }
+    .tour-chef.andando .chef .figura { animation-duration: .35s; }
+
+    @media (max-width: 919px) {
+      .tour-chef { width: 72px; height: 94px; }
+      .video-explica.mostrar.em-tour {
+        top: auto; bottom: 10px; left: 10px; right: 10px; transform: none;
+        width: auto; height: 150px;
+      }
+      .video-explica.em-tour .chef { display: none; }
+      .video-explica { display: none; }
+      .video-explica.mostrar {
+        display: flex; top: 50%; left: 50%; transform: translate(-50%, -50%);
+        width: min(92vw, 380px); height: min(76vh, 500px);
+      }
+      .video-explica.mostrar #ve-max { display: none; }
+      .video-explica.mostrar .ve-fechar { display: grid; }
+      .ve-abrir { display: inline-flex; }
+    }
+
     .js .reveal { opacity: 0; transform: translateY(26px); transition: opacity .7s ease, transform .7s ease; }
     .js .reveal.visivel { opacity: 1; transform: none; }
     @media (prefers-reduced-motion: reduce) {
@@ -1039,6 +1156,99 @@
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.66 15l-1.3 4.76a.5.5 0 0 0 .61.61L7.4 21.1A10 10 0 1 0 12 2Zm5.2 13.9c-.22.62-1.27 1.19-1.76 1.23-.47.05-.91.22-3.07-.64-2.6-1.03-4.24-3.7-4.37-3.87-.13-.17-1.04-1.39-1.04-2.65s.66-1.88.9-2.14c.23-.26.5-.32.67-.32h.48c.16 0 .37-.06.58.44.22.52.74 1.79.8 1.92.07.13.11.28.02.45-.09.17-.13.28-.26.43l-.39.45c-.13.13-.26.27-.11.53.15.26.67 1.1 1.43 1.78.98.88 1.81 1.15 2.07 1.28.26.13.41.11.56-.07.15-.17.65-.75.82-1.01.17-.26.35-.22.58-.13.24.09 1.5.71 1.76.84.26.13.43.19.5.3.06.11.06.63-.16 1.25Z"/></svg>
   </a>
 
+  <!-- ===================== VÍDEO EXPLICATIVO: a Pinheira, sua atendente, narra cada passo ===================== -->
+  <div class="video-explica" id="video-explica" role="region" aria-label="Vídeo da Pinheira: como montar o seu almoço">
+    <div class="ve-palco">
+      <svg class="chef" id="chef" viewBox="0 0 200 260" aria-hidden="true">
+        <circle cx="100" cy="130" r="96" fill="#F5B800" opacity=".12"/>
+        <g class="figura" stroke-linejoin="round" stroke-linecap="round">
+          <!-- Pernas: calça branca e sapato preto -->
+          <g class="perna perna-e">
+            <rect x="80" y="214" width="17" height="32" rx="4" fill="#f4f4f4" stroke="#2b2b2b" stroke-width="2.5"/>
+            <ellipse cx="86" cy="249" rx="12" ry="5.5" fill="#1a1a1a"/>
+          </g>
+          <g class="perna perna-d">
+            <rect x="103" y="214" width="17" height="32" rx="4" fill="#f4f4f4" stroke="#2b2b2b" stroke-width="2.5"/>
+            <ellipse cx="114" cy="249" rx="12" ry="5.5" fill="#1a1a1a"/>
+          </g>
+
+          <!-- Braço na cintura (atrás do jaleco) -->
+          <g class="braco-d">
+            <path d="M136 158 L160 184 L141 206" fill="none" stroke="#2b2b2b" stroke-width="17"/>
+            <path d="M136 158 L160 184 L141 206" fill="none" stroke="#fff" stroke-width="11"/>
+            <circle cx="140" cy="206" r="6.5" fill="#f6d0b1" stroke="#2b2b2b" stroke-width="2.5"/>
+          </g>
+
+          <!-- Jaleco branco, botões em duas fileiras -->
+          <path d="M62 150 Q100 138 138 150 L146 222 Q100 230 54 222 Z" fill="#fff" stroke="#2b2b2b" stroke-width="3"/>
+          <path d="M84 146 L100 164 L116 146" fill="none" stroke="#2b2b2b" stroke-width="2.5"/>
+          <path d="M100 164 L100 224" fill="none" stroke="#d9d9d9" stroke-width="2"/>
+          <circle cx="91" cy="176" r="2.6" fill="#2b2b2b"/>
+          <circle cx="91" cy="192" r="2.6" fill="#2b2b2b"/>
+          <circle cx="91" cy="208" r="2.6" fill="#2b2b2b"/>
+          <circle cx="109" cy="176" r="2.6" fill="#2b2b2b"/>
+          <circle cx="109" cy="192" r="2.6" fill="#2b2b2b"/>
+          <circle cx="109" cy="208" r="2.6" fill="#2b2b2b"/>
+
+          <!-- Braço estendido segurando a cloche verde -->
+          <g class="braco-cloche">
+            <path d="M66 158 Q46 178 42 194" fill="none" stroke="#2b2b2b" stroke-width="17"/>
+            <path d="M66 158 Q46 178 42 194" fill="none" stroke="#fff" stroke-width="11"/>
+            <g class="cloche">
+              <path d="M18 190 Q40 150 62 190 Z" fill="#2fa597" stroke="#1d6b62" stroke-width="2.5"/>
+              <path d="M28 182 Q34 170 42 166" fill="none" stroke="#bff0e9" stroke-width="2.5" opacity=".8"/>
+              <circle cx="40" cy="167" r="4" fill="#1d6b62"/>
+              <rect x="10" y="188" width="60" height="7" rx="3.5" fill="#2fa597" stroke="#1d6b62" stroke-width="2.5"/>
+              <circle cx="42" cy="199" r="6.5" fill="#f6d0b1" stroke="#2b2b2b" stroke-width="2.5"/>
+            </g>
+          </g>
+
+          <!-- Cabeça -->
+          <g class="cabeca">
+            <!-- Cabelo de trás (castanho) -->
+            <path d="M60 100 Q58 66 100 64 Q142 66 140 100 L142 128 Q134 120 132 108 L68 108 Q66 120 58 128 Z" fill="#7a4a24" stroke="#2b2b2b" stroke-width="2.5"/>
+            <!-- Orelhas -->
+            <ellipse cx="64" cy="110" rx="6" ry="8" fill="#f6d0b1" stroke="#2b2b2b" stroke-width="2.5"/>
+            <ellipse cx="136" cy="110" rx="6" ry="8" fill="#f6d0b1" stroke="#2b2b2b" stroke-width="2.5"/>
+            <!-- Rosto -->
+            <ellipse cx="100" cy="106" rx="35" ry="37" fill="#f6d0b1" stroke="#2b2b2b" stroke-width="3"/>
+            <!-- Franja -->
+            <path d="M66 96 Q72 74 102 74 Q130 74 135 94 Q122 86 112 90 Q104 80 92 90 Q80 84 66 96 Z" fill="#7a4a24" stroke="#2b2b2b" stroke-width="2.5"/>
+            <!-- Olhinhos sorridentes (piscam) -->
+            <path class="olho" d="M80 108 Q86 101 92 108" fill="none" stroke="#2b2b2b" stroke-width="3"/>
+            <path class="olho" d="M108 108 Q114 101 120 108" fill="none" stroke="#2b2b2b" stroke-width="3"/>
+            <path d="M79 104 l-3 -2 M121 104 l3 -2" fill="none" stroke="#2b2b2b" stroke-width="2"/>
+            <!-- Bochechas rosadas -->
+            <ellipse cx="78" cy="120" rx="7.5" ry="5" fill="#f19a9a" opacity=".85"/>
+            <ellipse cx="122" cy="120" rx="7.5" ry="5" fill="#f19a9a" opacity=".85"/>
+            <!-- Nariz -->
+            <path d="M100 111 q-2 5 1.5 6" fill="none" stroke="#c08a6a" stroke-width="2"/>
+            <!-- Boca -->
+            <path class="boca-fechada" d="M90 124 Q100 134 110 124" fill="none" stroke="#8a2f22" stroke-width="3"/>
+            <g class="boca-aberta">
+              <path d="M89 123 Q100 140 111 123 Z" fill="#8a2f22" stroke="#2b2b2b" stroke-width="1.5"/>
+              <ellipse cx="100" cy="131" rx="5" ry="2.5" fill="#e86b74"/>
+            </g>
+            <!-- Chapéu de chef alto e fofo, levemente inclinado -->
+            <g transform="rotate(-6 100 70)">
+              <path d="M60 66 C40 62 38 34 56 28 C54 8 80 0 94 12 C104 -2 132 2 136 20 C156 16 168 40 152 54 C160 64 150 74 140 70 Z" fill="#fff" stroke="#2b2b2b" stroke-width="3"/>
+              <path d="M80 60 Q78 40 86 26 M104 60 Q104 38 110 22 M124 62 Q128 46 138 36" fill="none" stroke="#cfcfcf" stroke-width="2"/>
+              <rect x="62" y="62" width="78" height="14" rx="4" fill="#fff" stroke="#2b2b2b" stroke-width="3"/>
+            </g>
+          </g>
+        </g>
+      </svg>
+      <div class="ve-balao" id="ve-texto" aria-live="polite"></div>
+    </div>
+    <div class="ve-controles">
+      <button type="button" class="ve-btn ve-principal" id="ve-play" aria-label="Tocar o vídeo">▶</button>
+      <span class="ve-contador" id="ve-passo"></span>
+      <button type="button" class="ve-btn" id="ve-max" aria-label="Maximizar vídeo">⤢</button>
+      <button type="button" class="ve-btn ve-fechar" id="ve-fechar" aria-label="Fechar vídeo">✕</button>
+    </div>
+  </div>
+  <button type="button" class="ve-abrir" id="ve-abrir">▶ Como pedir?</button>
+
   <script>
   (async function () {
     'use strict';
@@ -1051,7 +1261,7 @@
     const CONFIG = {
       contato: {
         // WhatsApp: só números, com 55 (Brasil) + DDD + número. Ex.: '5581999999999'
-        whatsapp: '5581993405406', // número de teste (troque pelo número do restaurante ao publicar)
+        whatsapp: '5581986389374', // WhatsApp do restaurante: (81) 98638-9374
         mensagemPadrao: 'Olá! Gostaria de saber o cardápio de hoje.',
         instagramUsuario: '@COLOCAR_INSTAGRAM',                     // [@]
         instagramUrl: 'https://www.instagram.com/COLOCAR_INSTAGRAM/' // [@] no link
@@ -2531,7 +2741,353 @@
     /* ==========================================================
        INICIALIZAÇÃO
        ========================================================== */
+    /* ==========================================================
+       VÍDEO EXPLICATIVO = TOUR GUIADO PELO SITE
+       A Pinheira (a atendente) percorre o site de verdade: rola a página, destaca cada
+       parte e monta um pedido de exemplo até o botão do WhatsApp.
+       No final, o site volta exatamente como estava (nada é enviado).
+
+       VOZ HUMANA: grave uma pessoa lendo cada "fala" do TOUR (abaixo), na
+       mesma ordem, e salve como audio/tour-1.mp3, audio/tour-2.mp3 … tour-14.mp3.
+       Depois mude AUDIO_GRAVADO para true.
+       Sem gravação, ela "fala" só com o texto no balão e a boca mexendo
+       (a voz automática do navegador é robótica, por isso fica desligada).
+       ========================================================== */
+    // Voz da Pinheira: audio/tour-1.mp3 … tour-14.mp3, voz neural feminina pt-BR (Thalita)
+    const AUDIO_GRAVADO = true;
+    const USAR_VOZ_DO_NAVEGADOR = false;
+
+    function configurarVideo() {
+      const box = $('#video-explica');
+      const texto = $('#ve-texto');
+      const contador = $('#ve-passo');
+      const btnPlay = $('#ve-play');
+      const btnMax = $('#ve-max');
+      const abrirMobile = $('#ve-abrir');
+      const TEXTO_INICIAL = 'Oi, eu sou a Pinheira, a sua atendente! Toque no ▶ e eu te mostro como pedir o seu almoço.';
+      const espera = (ms) => new Promise((ok) => setTimeout(ok, ms));
+      const pegar = (alvo) => (typeof alvo === 'function' ? alvo() : $(alvo));
+      let ativo = false;
+      let rodada = 0;
+
+      const clicar = (alvo) => {
+        if (!ativo) return;
+        const e = pegar(alvo);
+        if (e && !e.disabled) e.click();
+      };
+      // Digita letra por letra, como uma pessoa
+      async function digitar(alvo, valor) {
+        const campo = pegar(alvo);
+        if (!campo) return;
+        campo.value = '';
+        for (const letra of valor) {
+          if (!ativo) return;
+          campo.value += letra;
+          campo.dispatchEvent(new Event('input', { bubbles: true }));
+          await espera(70);
+        }
+      }
+
+      /* ---------- Roteiro: o que ela mostra, fala e faz ---------- */
+      const TOUR = [
+        { alvo: '.btn-header',
+          fala: 'Oi! Eu sou a Pinheira, a sua atendente aqui no Restaurante Pinheiro, e vou te mostrar como pedir o seu almoço. Para começar, é só tocar aqui, em Monte seu almoço.' },
+        { alvo: '#abas',
+          fala: 'Aqui fica o cardápio da semana, com as misturas de cada dia. O dia de hoje já vem marcado.' },
+        { alvo: '#op-tamanhos',
+          fala: 'Este é o montador de almoço. Primeiro, escolha o tamanho. Vou escolher a marmita M.',
+          durante: async () => { await espera(2600); clicar('input[name="tamanho"][value="m"]'); } },
+        { alvo: '#btn-avancar',
+          fala: 'Depois, toque em Continuar para ir ao próximo passo.',
+          depois: () => clicar('#btn-avancar') },
+        { alvo: '#op-misturas',
+          fala: 'Agora, a mistura. Você pode escolher até duas. Vou pegar duas para você ver.',
+          durante: async () => {
+            await espera(2200); clicar(() => $$('input[name="mistura"]:not(:disabled)')[0]);
+            await espera(900); clicar(() => $$('input[name="mistura"]:not(:checked):not(:disabled)')[0]);
+          },
+          depois: () => clicar('#btn-avancar') },
+        { alvo: '#op-acomp',
+          fala: 'Escolha um tipo de feijão e os acompanhamentos que quiser. O que não tem no dia fica apagadinho.',
+          durante: async () => {
+            await espera(2000); clicar(() => $$('#op-acomp input:not(:disabled)')[0]);
+            await espera(900); clicar(() => $$('#op-acomp input:not(:disabled)').find((i) => /arroz branco/i.test(i.value)));
+          },
+          depois: () => clicar('#btn-avancar') },
+        { alvo: '#op-verduras',
+          fala: 'Na salada, marque as verduras que quiser, ou toque em Todas as verduras.',
+          durante: async () => { await espera(2600); clicar('#btn-todas-verduras'); },
+          depois: () => clicar('#btn-avancar') },
+        { alvo: '#op-suco',
+          fala: 'Quer um suco? Toque em Adicionar suco, escolha o sabor e depois copo ou jarra.',
+          durante: async () => {
+            await espera(1800); clicar('#btn-add-suco');
+            await espera(1300); clicar('[data-sabor]');
+            await espera(1300); clicar('[data-variant]');
+          },
+          depois: () => clicar('#btn-avancar') },
+        { alvo: '#obs',
+          fala: 'Se quiser algo diferente, escreva nas observações. Por exemplo: sem cebola.',
+          durante: async () => { await espera(2600); clicar('[data-sugestao]'); },
+          depois: () => clicar('#btn-avancar') },
+        { alvo: '#c-nome',
+          fala: 'Agora, coloque o seu nome e o telefone.',
+          durante: async () => { await espera(700); await digitar('#c-nome', 'Maria da Silva'); await digitar('#c-telefone', '81999998888'); } },
+        { alvo: '#bloco-tipo-entrega',
+          fala: 'Escolha se vai buscar aqui no restaurante ou se quer entrega. Na entrega, é só colocar o endereço.',
+          durante: async () => { await espera(3000); clicar('input[name="entrega"][value="retirada"]'); } },
+        { alvo: () => { const r = $('input[name="pagamento"]'); return r && r.closest('fieldset'); },
+          fala: 'Depois, escolha a forma de pagamento: Pix, cartão ou dinheiro.',
+          durante: async () => { await espera(2400); clicar('input[name="pagamento"][value="pix"]'); },
+          depois: () => clicar('#btn-avancar') },
+        { alvo: '#revisao',
+          fala: 'Pronto! Aqui está o resumo do pedido, com o total. Se precisar mudar alguma coisa, toque em Editar.' },
+        { alvo: '#btn-enviar',
+          fala: 'Por fim, toque em Enviar pedido pelo WhatsApp, e o pedido chega prontinho para a gente. Bom apetite!' }
+      ];
+
+      /* ---------- Destaque amarelo + cozinheira pequena andando pelo site ---------- */
+      const foco = document.createElement('div');
+      foco.className = 'tour-foco';
+      foco.hidden = true;
+      document.body.appendChild(foco);
+
+      const mini = document.createElement('div');
+      mini.className = 'tour-chef';
+      mini.hidden = true;
+      const svgMini = $('#chef').cloneNode(true);
+      svgMini.removeAttribute('id');
+      mini.appendChild(svgMini);
+      document.body.appendChild(mini);
+
+      const boca = (ligar) => [$('#chef'), svgMini].forEach((c) => c.classList.toggle('falando', ligar));
+
+      let alvoAtual = null;
+      let raf = 0;
+      let ultimaPos = '';
+      let timerAndar = null;
+
+      function posicionarChef(r) {
+        const W = mini.offsetWidth || 96;
+        const H = mini.offsetHeight || 125;
+        const vw = document.documentElement.clientWidth;
+        const vh = window.innerHeight;
+        let x;
+        let virada;
+        if (r.right + 14 + W <= vw - 8) { x = r.right + 14; virada = false; }          // à direita: a cloche aponta para o alvo
+        else if (r.left - 14 - W >= 8) { x = r.left - 14 - W; virada = true; }        // à esquerda: vira de lado
+        else { x = Math.min(vw - W - 8, Math.max(8, r.right - W)); virada = false; }
+        let y = Math.min(vh - H - 8, Math.max(80, r.top + r.height / 2 - H / 2));
+        // Não fica por baixo da janelinha do vídeo
+        const c = box.getBoundingClientRect();
+        if (c.width && x < c.right && x + W > c.left && y < c.bottom && y + H > c.top) {
+          y = c.top > vh / 2 ? c.top - H - 10 : c.bottom + 10;
+        }
+        const pos = Math.round(x) + ',' + Math.round(y);
+        if (pos === ultimaPos) return;
+        if (ultimaPos) {
+          mini.classList.add('andando');
+          clearTimeout(timerAndar);
+          timerAndar = setTimeout(() => mini.classList.remove('andando'), 900);
+        }
+        ultimaPos = pos;
+        mini.style.left = x + 'px';
+        mini.style.top = y + 'px';
+        mini.classList.toggle('virada', virada);
+      }
+
+      function acompanhar() {
+        if (!ativo) return;
+        const e = alvoAtual && pegar(alvoAtual);
+        if (e && e.getClientRects().length) {
+          const r = e.getBoundingClientRect();
+          const m = 8;
+          foco.style.left = (r.left - m) + 'px';
+          foco.style.top = (r.top - m) + 'px';
+          foco.style.width = (r.width + m * 2) + 'px';
+          foco.style.height = (r.height + m * 2) + 'px';
+          foco.hidden = false;
+          posicionarChef(r);
+        }
+        raf = requestAnimationFrame(acompanhar);
+      }
+
+      /* ---------- Fala: gravação humana > (opcional) voz do navegador > só texto ---------- */
+      const temVoz = 'speechSynthesis' in window && 'SpeechSynthesisUtterance' in window;
+      let pararFala = null;
+
+      function vozFeminina() {
+        const vozes = speechSynthesis.getVoices().filter((v) => /^pt[-_]BR/i.test(v.lang) &&
+          !/daniel|ant[oô]nio|donato|f[aá]bio|humberto|j[uú]lio|nicolau|val[eé]rio|male\b/i.test(v.name));
+        return vozes.find((v) => /natural|online|neural/i.test(v.name)) || vozes.find((v) => /google/i.test(v.name)) || vozes[0] || null;
+      }
+
+      function narrar(i) {
+        const fala = TOUR[i].fala;
+        return new Promise((fim) => {
+          let acabou = false;
+          let usouReserva = false;
+          const terminar = () => {
+            if (acabou) return;
+            acabou = true;
+            boca(false);
+            pararFala = null;
+            fim();
+          };
+          const soTexto = () => {
+            boca(true);
+            const t = setTimeout(terminar, Math.max(2800, fala.length * 62));
+            pararFala = () => { clearTimeout(t); terminar(); };
+          };
+          const vozNavegador = () => {
+            const u = new SpeechSynthesisUtterance(fala);
+            u.lang = 'pt-BR';
+            const v = vozFeminina();
+            if (v) u.voice = v;
+            u.onstart = () => boca(true);
+            u.onend = terminar;
+            u.onerror = terminar;
+            pararFala = () => { speechSynthesis.cancel(); terminar(); };
+            speechSynthesis.speak(u);
+          };
+          const reserva = () => {
+            if (usouReserva || acabou) return;
+            usouReserva = true;
+            if (USAR_VOZ_DO_NAVEGADOR && temVoz) vozNavegador(); else soTexto();
+          };
+          if (AUDIO_GRAVADO) {
+            const a = new Audio('audio/tour-' + (i + 1) + '.mp3');
+            a.onplaying = () => boca(true);
+            a.onended = terminar;
+            a.onerror = reserva; // arquivo faltando: segue sem voz
+            pararFala = () => { a.pause(); terminar(); };
+            a.play().catch(reserva);
+          } else {
+            reserva();
+          }
+        });
+      }
+
+      /* ---------- Guarda e devolve o pedido verdadeiro do cliente ---------- */
+      let guardado = null;
+      function redesenharMontador() {
+        $('#obs').value = pedido.obs || '';
+        $$('input[name="dia"]').forEach((r) => { r.checked = Number(r.value) === pedido.dia; });
+        renderTamanhos(); renderMisturas(); renderAcompanhamentos(); renderVerduras(); renderExtras();
+        preencherCliente();
+        atualizarCondicionais();
+        $('#pedido-enviado').hidden = !pedido.enviado;
+        irPara(pedido.passo || 1, false);
+      }
+
+      function atualizarBotao() {
+        btnPlay.textContent = ativo ? '■' : '▶';
+        btnPlay.setAttribute('aria-label', ativo ? 'Parar o vídeo' : 'Tocar o vídeo');
+      }
+
+      async function iniciar() {
+        const minhaVez = ++rodada;
+        const vivo = () => ativo && minhaVez === rodada;
+        ativo = true;
+        atualizarBotao();
+        if (box.classList.contains('maximizado')) alternarMax(); // maximizado cobriria o que ela mostra
+        box.classList.add('em-tour');
+
+        // Pedido de exemplo, começando do zero
+        guardado = { pedido: JSON.parse(JSON.stringify(pedido)), cliente: JSON.parse(JSON.stringify(cliente)) };
+        pedido = novoPedido();
+        pedido.obs = '';
+        cliente = { empresa: 'nao' };
+        redesenharMontador();
+
+        mini.hidden = false;
+        ultimaPos = '';
+        raf = requestAnimationFrame(acompanhar);
+
+        for (let i = 0; i < TOUR.length && vivo(); i++) {
+          const p = TOUR[i];
+          alvoAtual = p.alvo;
+          // O balão troca junto com o destaque, enquanto ela anda até lá
+          texto.textContent = p.fala;
+          contador.textContent = (i + 1) + ' / ' + TOUR.length;
+          const e = pegar(p.alvo);
+          if (e) {
+            e.scrollIntoView({
+              behavior: reduzMovimento ? 'auto' : 'smooth',
+              block: e.offsetHeight > window.innerHeight * 0.6 ? 'start' : 'center'
+            });
+          }
+          await espera(850);
+          if (!vivo()) break;
+          const falando = narrar(i);
+          if (p.durante) await p.durante();
+          await falando;
+          if (!vivo()) break;
+          if (p.depois) { await espera(300); p.depois(); }
+          await espera(650);
+        }
+        if (vivo()) await espera(1500);
+        if (minhaVez === rodada) encerrar();
+      }
+
+      function encerrar() {
+        if (!ativo && !guardado) return;
+        ativo = false;
+        rodada++;
+        if (pararFala) pararFala();
+        boca(false);
+        cancelAnimationFrame(raf);
+        foco.hidden = true;
+        mini.hidden = true;
+        alvoAtual = null;
+        box.classList.remove('em-tour');
+        if (guardado) {
+          pedido = guardado.pedido;
+          cliente = guardado.cliente;
+          guardado = null;
+          redesenharMontador();
+          salvarObs();
+        }
+        texto.textContent = TEXTO_INICIAL;
+        contador.textContent = '';
+        atualizarBotao();
+      }
+
+      btnPlay.addEventListener('click', () => { if (ativo) encerrar(); else iniciar(); });
+
+      // Maximizar / restaurar
+      function alternarMax() {
+        const maxi = box.classList.toggle('maximizado');
+        btnMax.textContent = maxi ? '⤡' : '⤢';
+        btnMax.setAttribute('aria-label', maxi ? 'Restaurar tamanho' : 'Maximizar vídeo');
+      }
+      btnMax.addEventListener('click', alternarMax);
+
+      // Celular: abre como janela e fecha com ✕
+      const fechar = () => {
+        encerrar();
+        box.classList.remove('mostrar', 'maximizado');
+        btnMax.textContent = '⤢';
+        btnMax.setAttribute('aria-label', 'Maximizar vídeo');
+        abrirMobile.hidden = false;
+      };
+      abrirMobile.addEventListener('click', () => { box.classList.add('mostrar'); abrirMobile.hidden = true; });
+      $('#ve-fechar').addEventListener('click', fechar);
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key !== 'Escape') return;
+        if (ativo) encerrar();
+        else if (box.classList.contains('maximizado')) alternarMax();
+        else if (box.classList.contains('mostrar')) fechar();
+      });
+
+      texto.textContent = TEXTO_INICIAL;
+      contador.textContent = '';
+      atualizarBotao();
+    }
+
     preencherDados();
+    configurarVideo();
     configurarMontador();
     montarCardapio(HOJE);
     configurarMenu();

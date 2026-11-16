@@ -1,0 +1,52 @@
+ROTEIRO DA VOZ DA PINHEIRA, A SUA ATENDENTE (vídeo "Monte seu almoço")
+Os arquivos da pasta "audio" já foram gerados com voz neural feminina (pt-BR, Thalita).
+Se quiser trocar por uma gravação de verdade, grave as falas abaixo com os mesmos nomes.
+=====================================================================
+
+Como gravar:
+- Grave cada fala separada, num lugar silencioso, com o celular perto da boca.
+- Fale com calma e sorrindo (dá para ouvir o sorriso na voz).
+- Salve cada fala com o nome indicado, em MP3, dentro da pasta "audio".
+- Depois, no index.html, mude AUDIO_GRAVADO para true.
+
+tour-1.mp3
+Oi! Eu sou a Pinheira, a sua atendente aqui no Restaurante Pinheiro, e vou te mostrar como pedir o seu almoço. Para começar, é só tocar aqui, em Monte seu almoço.
+
+tour-2.mp3
+Aqui fica o cardápio da semana, com as misturas de cada dia. O dia de hoje já vem marcado.
+
+tour-3.mp3
+Este é o montador de almoço. Primeiro, escolha o tamanho. Vou escolher a marmita M.
+
+tour-4.mp3
+Depois, toque em Continuar para ir ao próximo passo.
+
+tour-5.mp3
+Agora, a mistura. Você pode escolher até duas. Vou pegar duas para você ver.
+
+tour-6.mp3
+Escolha um tipo de feijão e os acompanhamentos que quiser. O que não tem no dia fica apagadinho.
+
+tour-7.mp3
+Na salada, marque as verduras que quiser, ou toque em Todas as verduras.
+
+tour-8.mp3
+Quer um suco? Toque em Adicionar suco, escolha o sabor e depois copo ou jarra.
+
+tour-9.mp3
+Se quiser algo diferente, escreva nas observações. Por exemplo: sem cebola.
+
+tour-10.mp3
+Agora, coloque o seu nome e o telefone.
+
+tour-11.mp3
+Escolha se vai buscar aqui no restaurante ou se quer entrega. Na entrega, é só colocar o endereço.
+
+tour-12.mp3
+Depois, escolha a forma de pagamento: Pix, cartão ou dinheiro.
+
+tour-13.mp3
+Pronto! Aqui está o resumo do pedido, com o total. Se precisar mudar alguma coisa, toque em Editar.
+
+tour-14.mp3
+Por fim, toque em Enviar pedido pelo WhatsApp, e o pedido chega prontinho para a gente. Bom apetite!

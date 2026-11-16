@@ -6,4 +6,6 @@ if exist "%PASTA%" rmdir /s /q "%PASTA%"
 mkdir "%PASTA%\img"
 copy /y "%~dp0index.html" "%PASTA%\" >nul
 copy /y "%~dp0img\*" "%PASTA%\img\" >nul
+rem Voz gravada do video explicativo (audio\passo-1.mp3 ... passo-8.mp3), se existir
+if exist "%~dp0audio" xcopy /y /i /q "%~dp0audio" "%PASTA%\audio" >nul
 npx.cmd --yes wrangler pages deploy "%PASTA%" --project-name restaurante-pinheiro --branch master --commit-dirty=true
